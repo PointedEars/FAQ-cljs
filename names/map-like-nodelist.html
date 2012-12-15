@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<title>Map-like NodeList Example</title>
+</head>
+<body>
+<h1>Map-like NodeList Example</h1>
+<div id="item"></div>
+<div id="length"></div>
+<pre>
+<script type="text/javascript">
+var divs = document.getElementsByTagName('div');
+document.writeln("divs.item.tagName = " + divs.item.tagName);
+document.writeln("divs.length.tagName = " + divs.length.tagName);
+</script>
+</pre>
+<hr>
+<h2>Opera, IE</h2>
+<pre>
+DIV DIV
+</pre>
+
+<h2>Safari 3</h2>
+<pre>
+DIV undefined
+</pre>
+
+<h2>Firefox</h2>
+<pre>
+undefined undefined
+</pre>
+
+</body>
+</html>

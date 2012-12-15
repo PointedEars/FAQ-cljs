@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+  <head>
+    <title>Augmented Scope Chain in Event Handlers</title>
+<script type="text/javascript">
+
+function setExpandos(){
+    setExs(window,0, 'global');
+    setExs(document,1, 'document');
+    setExOn(document.body,2, 'body');
+}
+
+function setExOn(obj, depth, data){
+    if(obj.nodeType == 1){
+        setExs(obj,depth, data);
+        var o = obj.children||obj.childNodes;
+        for(var c = 0;c < o.length;c++){
+            setExOn(o[c], (depth+1), (depth+1));
+        }
+    }
+}
+
+function setExs(obj,start, data){
+    for(var c = start;c < 10;c++){
+        obj['ex'+c] = data+((obj.nodeName)?(' '+obj.nodeName):'');
+    }
+}
+
+var res = [
+'chain results > ',
+'\nex0 = ','', //2
+'\nex1 = ','', //4
+'\nex2 = ','', //6
+'\nex3 = ','', //8
+'\nex4 = ','', //10
+'\nex5 = ','', //12
+'\nex6 = ','', //14
+'\nex7 = ','', //16
+'\nex8 = ','', //18
+'\nex9 = ',''  //20
+];
+
+</script>
+</head>
+<body onload="setExpandos();">
+<div>
+<form action="">
+    <div>
+        <p>
+            <input type="button" value="Form Button"
+            onclick="var a = res;a[2] = ex0;a[4] = ex1;
+                     a[6] = ex2;a[8] = ex3;a[10] = ex4;
+                   a[12] = ex5;a[14] = ex6;a[16] = ex7;
+                   a[18] = ex8;a[20] = ex9;
+                   alert(a.join(''));return false;">
+        </p>
+    </div>
+</form>
+<table>
+    <thead>
+        <tr><th><a href="#"
+        onclick="var a = res;a[2] = ex0;a[4] = ex1;
+                 a[6] = ex2;a[8] = ex3;a[10] = ex4;
+               a[12] = ex5;a[14] = ex6;a[16] = ex7;
+               a[18] = ex8;a[20] = ex9;
+               alert(a.join(''));return false;">
+        thead</a></th></tr>
+    </thead>
+    <tbody>
+        <tr><td><span>
+           <a href="#"
+           onclick="var a = res;a[2] = ex0;a[4] = ex1;
+                    a[6] = ex2;a[8] = ex3;a[10] = ex4;
+                  a[12] = ex5;a[14] = ex6;a[16] = ex7;
+                  a[18] = ex8;a[20] = ex9;
+                  alert(a.join(''));return false;">
+           tbody</a></span></td></tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html> 

@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+    <title>Unsafe Names for HTML Form Controls - Extra Properties: Form Elements</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	<meta name="author" content="Garrett Smith">
+	<link rel="Start" href="./">
+	<link rel="stylesheet" href="../faq.css" type="text/css" media="all" charset="iso-8859-1">
+	<link rel="stylesheet" href="names.css" type="text/css" media="all" charset="iso-8859-1">
+</head>
+<body>
+    
+    <h1>Unsafe Names for HTML Form Controls</h1>
+    <h2>Extra Properties: <code>FORM</code> Elements</h2>
+
+    <h3>Named Properties</h3>
+    <p>
+        A browser may add a property to the either the <code>FORM</code> or 
+        <code>elements</code> collection for each named (or <code>id</code>'d) element. 
+        Alternatively, the same 
+        browser may implement a specialized <code>[[Get]]</code> method to find the property. 
+    </p>
+    <p>The way to tell if an object has a property is to use the <code>in</code> operator.</p>
+
+    <form action="">
+        <button name='test' onclick="this.nextSibling.firstChild.data = eval(this.firstChild.data);return false"
+        >'test' in this.form</button
+        ><span>&nbsp;</span>
+        <button name='test' onclick="this.nextSibling.firstChild.data = eval(this.firstChild.data);return false"
+        >'test' in this.form.elements</button
+        ><span>&nbsp;</span>
+    </form>
+
+    <p>
+        Behavior varies between browsers, 
+        and between <code>FORM</code> and <code>elements</code>. When named properties 
+        exist, they usually appear to have the attributes <code>ReadOnly</code>, <code>DontDelete</code>.
+    </p>
+
+    <h3>Indexed Properties</h3>
+    <p>
+        Browsers also either add indexed properties to the collection or form or implement 
+        a specialized <code>[[Get]]</code> method to find the property. As with named properties, most browsers 
+        will actually add the property to the collection.
+    </p>
+
+    <form action="">
+        <button name='test' onclick="this.nextSibling.firstChild.data = eval(this.firstChild.data);return false"
+        >'0' in this.form</button
+        ><span>&nbsp;</span>
+        <button name='test' onclick="this.nextSibling.firstChild.data = eval(this.firstChild.data);return false"
+        >'0' in this.form.elements</button
+        ><span>&nbsp;</span>
+    </form>
+
+    <p>
+        Mozilla seems to be the only browser that implements a specialized [[Get]].
+    </p>
+
+    <h3 id="StandardWrong">Standard</h3>
+	<p>
+		The <code>elements</code> collection is an <code>HTMLCollection</code> that provides a 
+		standard way to access form controls.
+	</p>
+	
+    <p>
+        Web IDL [<a href="conclusion.html#controls-normref">WebIDL</a>] lumps these behaviors into 
+        the terms: <code>[[NameGetter]]</code> and <code>[[IndexGetter]]</code>.
+        Not all browsers have a specialized <code>[[Get]]</code> to retrieve named elements; 
+        the ones that do (Mozilla) don't always use it for every collection, so the term is a bit 
+        of a misnomer.
+    </p>
+    <p>
+        We can see the influence Java programmers had in the DOM 2 ECMAScript bindings 
+        [<a href="conclusion.html#controls-normref">DOM2</a>], 
+        which falsely states:
+    </p>
+    
+    <blockquote cite="http://www.w3.org/TR/DOM-Level-2-HTML/ECMA-script-binding.html">
+        <strong>Objects that implement the <code>HTMLCollection</code> interface:</strong>
+        ...
+        <p>
+            <strong>Note:</strong> This object can also be dereferenced using square
+            bracket notation (e.g. <code>obj[1]</code>). Dereferencing with an integer
+            <strong>index</strong> is equivalent to invoking the <strong><code>item</code></strong> function
+            with that index.
+        </p>
+        ...
+        <p>
+            <strong>Note:</strong> This object can also be dereferenced using square
+            bracket notation (e.g. <code>obj["foo"]</code>). Dereferencing using a string
+            index is equivalent to invoking the <strong><code>namedItem</code></strong> function with
+            that index.
+        </p>
+    </blockquote>
+	
+    <h3>Property Access Operators</h3>
+    <p>
+        Contrary to what the [<a href="conclusion.html#controls-normref">DOM 1</a>] 
+        specification states, the <code>[ ]</code> property access operator does not perform 
+        a typecheck. In ECMAScript, property access
+        is performed with <code>obj[ <var>Expression</var> ]</code> or 
+        <code>obj . <var>Identifier</var></code>. 
+    </p>
+
+    <h4>Property Access on a Form</h4>
+    <p>
+        When the named or indexed property is added to the form, 
+        there is no call to <code>item</code> or <code>namedItem</code>. The specification 
+        is wrong. 
+    </p>
+
+    <p>
+        When the property access operator is used, the <code><var>Expression</var></code> is 
+        converted to a string with the internal <code>ToString</code>. 
+        The internal <code>ToString</code> method calls the object's <code>toString</code> 
+        property if it is an object or, if <code>toString</code> is not an object, the <code>valueOf</code> 
+        property is to be called (though results vary).
+    </p>
+
+    <h4>Property Access on a Form Example</h4>
+    <p>
+        The following example 
+        shows that with <code>form[ <var>Expression</var> ]</code>,
+        the <code><var>Expression</var></code>, an <code>ObjectLiteral</code>,
+        results in an Object. This object's <code>toString</code> method
+        is called by the internal [[ToString]].
+    </p>
+
+    <form action="">
+        <button name='test' onclick="this.nextSibling.data += eval(this.firstChild.data);return false"
+        >this.form["0"] === this.form[ { toString : function(){  return 0; } } ]</button
+        >&nbsp;
+    </form>
+
+    <p>
+        The property access operator results in a call to the object's <code>toString</code>
+        property and the resulting primitive value is converted to the string value <samp>"0"</samp>.
+    </p>
+    
+    <p>
+        Had the authors of the DOM specification ECMAScript bindings written some tests, 
+        they could have learned how this basic feature of property access works in ECMAScript. 
+    </p>
+
+    <p>
+        Accessing form controls from the <code>elements</code> collection reduces ambiguity 
+        in the code. Control names that may conflict with the collection's properties are limited to:
+        <code>length</code>, <code>item</code>, <code>namedItem</code>, <code>tags</code>.
+        The names <code>document</code>, and <code>window</code> are still unsafe.
+    </p>
+
+    <p>
+        Accessing form controls from the <code>elements</code> collection is safe. There 
+        are fewer conflicting names and, unlike form-as-a-collection, <code>elements</code>
+        is a live representation.
+    </p>
+
+    
+    <div id="toc">
+    	<h4>Table of Contents</h4>
+        <ul class="pagination linkList">
+            <li><a href="./index.html">Introduction</a></li>
+            <li>Extra Properties: <code>FORM</code> Elements</li>
+            <li><a href="extra_props_document.html">Extra Properties: <code>document</code></a></li>
+            <li><a href="extra_props_global.html">Extra Properties: <code>global</code></a></li>
+            <li><a href="event_handler.html">Event Handler Scope</a></li>
+            <li><a href="api_design.html">API Design?</a></li>
+            <li><a href="unsafe_names.html">Unsafe Names</a></li>
+            <li><a href="conclusion.html">Conclusion</a></li>
+        </ul>
+    </div>
+    <ul id="nextLink" class="linkList">
+      <li>
+        <span class="prev">Previous:</span> <a href="index.html">Introduction</a>
+      </li>
+      <li>
+        <span class="next">Next:</span> <a href="extra_props_document.html">Extra Properties: <code>document</code></a>
+      </li>
+    </ul>
+</body>
+</html>

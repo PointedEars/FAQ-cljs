@@ -1,0 +1,387 @@
+<job id="process">
+<!-- 
+This file generates the FAQ index.html
+-->
+<SCRIPT>
+/**
+ * Formatting - Still messy.
+ * Needed corrections:
+ *   statements terminated with semicolon.
+ *   use |var| for variables.
+ *   use whitespace.
+ *   2 spaces for indentation (not one).
+ */
+var CheckUrls=false,
+      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+      
+// moomin.utilities can be got from http://www.e-media.co.uk/earl/
+// var mu=new ActiveXObject("Moomin.Utilities")
+
+var xml = new ActiveXObject("Microsoft.XMLDOM");
+xml.async = false;
+xml.validateOnParse = false;
+xml.resolveExternals = false;
+xml.load("index.xml");
+xml.save("indexold.xml");
+
+var faqNode = xml.selectSingleNode("/FAQ"),
+    Version = faqNode.attributes.getNamedItem("VERSION").nodeValue,
+    maintainer = "Garrett Smith",
+    Updated = faqNode.attributes.getNamedItem("DATE").nodeValue;
+
+var str = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" \n'
+    + '"http://www.w3.org/TR/html4/strict.dtd">\n<html lang="en">\n'
+    + '<head>\n'
+    + '<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">\n'
+    + '<meta name="DCTERMS.language" scheme="RFC1766" content="en">\n'
+    + '<meta name="DC.title" content="comp.lang.javascript Frequently Asked Questions">\n'
+    + '<meta name="DCTERMS.subject" '
+    +   'content="Frequently asked questions in the Usenet newsgroup comp.lang.javascript">\n'
+    + '<meta name="DC.format" content="text/html">\n'
+    + '<meta name="DC.type" content="Text">\n'
+    + '<meta name="DC.creator" content="Jim Ley">\n'
+    + '<meta name="DC.publisher" content="' + maintainer + '">\n'
+    + '<META name="DC.Publisher.Address" '
+    +   'content="dhtmlkitchen&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">\n'
+    + '<meta name="DCTERMS.modified" content="' + Updated +'">\n'
+    + '<meta name="DCTERMS.audience" content="Programmers, web developers">\n'
+    + '<meta name="DC.description" content="Javascript Frequently Asked Questions">\n'
+    + '<meta name="DC.identifier" content="http://jibbering.com/faq">\n'
+    + '<meta name="DC.source" '
+    +   'content="http://www.ecma-international.org/publications/standards/Ecma-262.htm">\n'
+    + '<meta name="DC.source" content="news:comp.lang.javascript">\n'
+    + '<meta name="DC.source" content="https://developer.mozilla.org/en/JavaScript">\n'
+    + '<meta name="DC.source" content="http://msdn.microsoft.com/en-us/library/hbxc2t98%28VS.85%29.aspx">\n'
+    + '<meta name="DC.source" content="http://msdn.microsoft.com/en-us/library/ms533050%28VS.85%29.aspx">\n'
+    + '<meta name="DC.rights" content="copyright contributors, comp.lang.javascript">\n'
+    + '<link rel="StyleSheet" href="faq.css" type="text/css" media="screen">\n';
+ 
+TitleStr = xml.selectSingleNode("/FAQ/TITLE").firstChild.nodeValue;
+
+str += "<title> "+TitleStr+"</title>\n"
+    + '</head>\n <body>\n'
+    + "<h1> "+TitleStr+"</h1>\n" 
+    + "<p>Version "+Version+", Updated "+Updated +", by " + maintainer + "</p>"
+    + '<div id="nav"><a href="notes/">FAQ Notes</a></div>';
+    
+var contentstr = "";
+Contents = xml.selectSingleNode("/FAQ/CONTENTS").selectNodes("CONTENT");
+
+str += "\n<ul id='faqList'>\n";
+
+for (var i = 0; i < Contents.length; i++) {
+  CNode = Contents[i];
+  var sectionId = CNode.getAttribute("ID") || "",
+      title = CNode.getAttribute("TITLE");
+      
+  str += "<li>" + (i+1) + " <a href='#" + sectionId +"'>" +  title + "</a>\n";
+  
+  contentstr += "<div id='" + sectionId +"' class='section'>"
+             + "<h2"+getOldId(CNode)+">" 
+             + (i+1) + " " + title
+             + "</h2>\n"
+             + processContentChildren(CNode)
+             + "</div>";
+  
+  var SubContents = CNode.selectNodes("CONTENT");
+  processContentChildren(CNode);
+  if(SubContents.length > 0) {
+    str += "\n<ul>\n";
+    
+    // Build a link to a subsection.
+    // a subsection looks like:
+    // <h3 id=[FAQ5_7 | getWindowSize]><a name=FAQ5_7></a> ... </h3>
+    // This allows for items to be moved around in various 
+    // order (index should not matter).
+    
+    for (var j = 0; j < SubContents.length; j++) {
+      var SubCNode = SubContents[j],
+          subSectionId = SubCNode.getAttribute("ID"),
+          title = SubCNode.getAttribute("TITLE"),
+          entryNumber = ""+(i+1)+"."+ (j+1);
+
+      str += "<li>" + entryNumber +" <a href='#"+ subSectionId +"'>" + title + "</a></li>\n";
+      
+      contentstr += "<div id='" + subSectionId + "' class='section'>"
+        + "<h3" + getOldId(SubCNode) + ">"
+        + entryNumber + " " + title
+        + '</h3>'
+        + processContentChildren(SubCNode )
+        + '</div>' 
+        +  '\n';
+    }
+    str += "</ul>";  
+  }
+  str += "</li>";
+}
+
+/** 
+ * If the node contains a "NUMID",
+ * the content is wrapped in an anchor, e.g. "<a name='" + NUMID. 
+ * Otherwise, returns the content. 
+ */
+function getOldId(node) {
+  var faqSectionIndexString = node.getAttribute("NUMID") || "";
+      return (faqSectionIndexString ?
+        " id='FAQ" + faqSectionIndexString +"'" : "");
+}
+
+str += "</ul>"
+    + contentstr 
+    + "<!--<script src='FAQReader.js' type='text/javascript'><\/script>-->"
+    + "</body> \n</html> \n";
+str = str.replace(/<p><\/p>/gm,"").replace(/<p> <\/p>/gm,"");
+ 
+// Create the files.
+var FSO = new ActiveXObject("Scripting.FileSystemObject");
+FIL = FSO.CreateTextFile("index"+Version+".html",true);
+FIL.WriteLine(str);
+FIL.close();
+FIL=FSO.CreateTextFile("index.html",true);
+FIL.WriteLine(str);
+FIL.close();
+if (CheckUrls) {
+  xml.save("index.xml");
+  xml.save("index"+Version+".xml");
+}
+
+function processContentChildren(cNode) {
+  var allNodes = cNode.selectNodes("*"),
+      contentstr = "";;
+  for(var k = 0; k < allNodes.length; k++) {
+	var node = allNodes[k];
+	if(node.tagName == "P")
+	  contentstr += ProcessNode(node);
+
+  // List nodes, for UL, OL, DL.
+	else if(node.tagName == "LIST")
+	  contentstr += processList(allNodes[k]);
+  }
+  return contentstr;
+}
+
+function ProcessNode(nde) {
+  var str = " ", p = "", closeP = "", child;
+  if(nde.tagName == "P") {
+    str = "<p>\n  ";
+    p = "<p>";
+    closeP = "</p>";
+  }
+  for (var i = 0;i < nde.childNodes.length; i++) {
+    child = nde.childNodes[i];
+    switch (child.nodeName) {
+    case "#comment" :
+      str += "<!--" + child.data + "-->";
+      break;
+    case "#text" :
+    // If a text node is empty, do not generate an empty <p> tag.
+      if(child.nodeValue.replace(/\s+/,'') == "") return " ";
+      str += child.nodeValue;
+      break;
+    case "VER" :
+      str += Version;
+      break;
+    case "UPDATED" :
+     str += Updated;
+     break;
+    case "URL" :
+     str += makeLink(child);
+     break;
+    case "EM" :
+      var url= child.firstChild.nodeValue;
+      str+=' <em>'+url+'</em>';
+      break;
+    case "NEWSGROUP" :
+      var url= child.firstChild.nodeValue;
+      str+=' <a href="news:'+url+'">'+url+'</a>';
+      break;
+    case "MAILTO" :
+      var url= child.firstChild.nodeValue;
+      str+=' <a href="mailto:'+url+'">'+url+'</a>';
+      break;
+    case "MOREINFO" :
+      str += closeP + ProcessResource(child) + p;
+      break;
+    case "UL" :
+      str+= closeP + " \n<ul> "+ProcessUL(nde.childNodes[i])+"</ul> \n" + p;
+      break;
+    case "LI" :
+      str+="<li> "+ ProcessNode( child ) + "</li>";
+      break;
+    case "CODE" :
+      str+= closeP + "\n<pre>"+ child.firstChild.nodeValue +"</pre>\n"+p;
+      break;
+    case "ICODE" :
+      str += "<code>"+ child.firstChild.nodeValue+"</code>";
+      break;
+    case "DFN" :
+      var title = child.attributes.getNamedItem("TITLE");
+      title = title && (" title = '" + title.nodeValue +"'") || "";
+      str +="\n<dfn" + title + ">"
+        + child.firstChild.nodeValue + "</dfn>";
+      break;
+   	default:
+      str += child.nodeValue;
+      break;
+    }
+  }
+  return str+= closeP + " ";
+}
+
+function makeLink(child) {
+  var url = child.firstChild.nodeValue,
+      linkText = child.attributes.getNamedItem("LINKTEXT"),
+      addstr = checkUrl(url, child);
+  linkText = linkText && linkText.nodeValue;
+  return '<a href="'+url+'" '+addstr+'>'+(linkText||url)+'</a>';
+}
+
+/** Processing for OL, UL, DL.
+ * calls processNode.
+ */
+function processList(list) {
+  var str = "",
+      header = "",
+      title = list.getAttribute("TITLE"),
+      id = list.getAttribute("ID"),
+      idStr = (id && " id='" + id + "'") || "";
+      
+  if(title) {
+    header = "\n<h4" + idStr +">" + title + "</h4>\n";
+    idStr = ""; // Output id only once.
+  }
+  
+  var type = list.getAttribute("TYPE");
+  type = (type || "ul").toLowerCase();
+  
+  str += "\n<" + type + idStr +">";
+  
+  for (var i = 0; i < list.childNodes.length; i++) {
+    var child = list.childNodes[i],
+        tagName = child.nodeName;
+    
+    // If not a list-type element, 
+    // add it to the header (will appear first).
+    if(!/(?:LI)|(?:DT)|(?:DD)/.test(tagName)) {
+      header += ProcessNode(child);
+    }
+    else if(tagName !== "#text") {
+      tagName = tagName.toLowerCase();
+      str += "\n  <" +tagName +">" + ProcessNode(child) + "</" +tagName +">";
+    }
+  }
+  return header + str + "</" + type + ">";
+}
+
+ function ProcessUL(nde) {
+  var str=""
+  for (var i=0;i<nde.childNodes.length;i++) {
+   
+   var child = nde.childNodes[i];
+   
+   switch (nde.childNodes[i].nodeName) {
+    case "#text" :
+     str+=nde.childNodes[i].nodeValue;
+     break;
+    case "VER" :
+     str+=Version
+     break;
+    case "URL" :
+     str += makeLink(child);
+     break;
+    case "NEWSGROUP" :
+     var url = child.firstChild.nodeValue
+     str+=' <a href="news:'+url+'">'+url+'</a> \n'
+     break;
+    case "MAILTO" :
+     var url= child.firstChild.nodeValue;
+     str+=' <a href="mailto:'+url+'">'+url+'</a> \n'
+     break;
+    case "UL" :
+     str+="<ul>\n" + ProcessNode(child) + "\n</ul>\n"
+     break;
+    case "LI" :
+     str+="<li> " + ProcessNode(child) + "</li> \n"
+     break;
+    case "CODE" :
+     str+="</p>\n<pre>"+nde.childNodes[i].firstChild.nodeValue.replace('\r',"<BR> ")+"</pre> \n<p> \n"
+     break;
+    case "ICODE" :
+     str+="<code>"+nde.childNodes[i].firstChild.nodeValue+"</code>\n"
+     break;
+   	default:
+     document.write(nde.childNodes[i].nodeName+'<br> \n')
+     str+=nde.childNodes[i].nodeValue;
+     break;
+   }
+  }
+  return str += "";
+ }
+
+
+function ProcessResource(nde) {
+   var str="<ul class='linkList'>", child;
+   for (var i = 0; i < nde.childNodes.length; i++) {
+     child = nde.childNodes[i];
+     switch (child.nodeName) {
+      case "#text" :
+        if(/[a-zA-Z]/.test(child.nodeValue))
+          str += '<li>' + child.nodeValue + '</li>\n';
+       break;
+      case "URL" :
+        str+='<li>' + makeLink(child) + '</li>\n';
+      break;
+      case "NEWSGROUP" :
+        var url = child.firstChild.nodeValue;
+        str += '<li><a href="news:'+url+'">' + url + '</a></li> \n';
+     break;
+ 
+    }
+  }
+  return str + "</ul>";
+}
+
+ function checkUrl(url,node) {
+  url=url.split('#')[0]
+  if (CheckUrls) {
+  if (url.indexOf('http://')==0) {
+   xmlhttp.Open("get",url,false)
+   try {
+    xmlhttp.Send()
+ 		} catch (e) { WScript.Echo(url);return ""; }
+   stat=xmlhttp.status
+   node.attributes.getNamedItem("status").nodeValue=stat
+			if (stat==200) {
+    source=xmlhttp.responseText
+				if (url.indexOf('microsoft')!=-1 && source.indexOf('Page Cannot')!=-1) {
+     //Ugly hack 'cos MSDN don't understand HTTP.
+     stat=404
+     node.attributes.getNamedItem("status").nodeValue=stat
+     return ' class="nolink" '
+				}
+    contentlength=source.length
+//    oldhash=node.attributes.getNamedItem("hash").nodeValue
+//    hash=mu.MD5(source,"faq")
+//    node.attributes.getNamedItem("hash").nodeValue=hash
+    classstr=""
+//    if (oldhash!=hash) classstr=' class="updated"'
+    lm=xmlhttp.getResponseHeader("Last-Modified")
+    return classstr+' title="'+lm+'" '
+   } else {
+    xmlhttp.Open("get","http://www.google.com/search?q=cache:"+url,false)
+    xmlhttp.Send()
+				if (xmlhttp.responseText.indexOf('did not match any documents')==-1) {
+     return ' class="nolink"> \n<small> \n<a href="http://www.google.com/search?q=cache:'+url+'>(Googles cached copy)</a> \n<small'
+    }
+    return ' class="nolink" '
+   }
+  } else {
+   return ""
+  }
+  } else {
+   return ""
+  }
+
+ }
+</SCRIPT>
+</job>

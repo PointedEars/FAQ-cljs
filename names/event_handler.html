@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	<title>Unsafe Names for HTML Form Controls - Unsafe Names</title>
+	<meta name="author" content="Garrett Smith">
+	<link rel="Start" href="./">
+	<link rel="stylesheet" href="../faq.css" type="text/css" media="all" charset="iso-8859-1">
+	<link rel="stylesheet" href="names.css" type="text/css" media="all" charset="iso-8859-1">
+</head>
+<body>
+    
+    <h1>Unsafe Names for HTML Form Controls</h1>
+    <h2>Event Handler Scope</h2>
+    <h3>Event Handler Content Attributes and Augmented Scope Chain</h3>
+    <p>
+      Event Handler Content Attributes are event handler attributes that appear in the HTML source.
+    </p>
+
+    <p>
+      When an element has an event handler content attribute, the value
+      of that attribute becomes the <code>FunctionBody</code> of a function that the browser calls when it fires that event.
+    </p>
+    <p> 
+      Modern browsers augment the <code>FunctionBody</code>'s scope chain with the element, the element's <code>FORM</code> 
+      (if it is a form control), and <code>document</code>. There is no official standard for this augmented scope chain. 
+    </p>
+    <p> 
+	  Older browsers, such as Safari 2, Mozilla 1.x, Opera 7, differ. Scope augmentation occurs for all 
+	  event handler content attributes with the notable exception of the <code>body</code> element, for
+	  which event handler scope is not consistently augmented across event types and implementations.
+    </p>
+
+	<p>
+      The context (<code>thisArg</code>) is (with the exception of <code>body</code>), the element
+      itself. In the browsers that implement DOM Events [<a href="conclusion.html#controls-normref">DOMEvents</a>], 
+      the event handler function has a single parameter named <code>event</code>.
+	</p>
+
+	<p> 
+	  Given the following markup:
+	</p>
+<pre>&lt;p onclick="self.alert(event);"&gt;&lt;/p&gt;</pre>
+    <p>
+      The augmented scope chain, if written in ECMAScript, would look like:
+    </p>
+
+    <pre>
+<span class='keyword'>function</span> onclick(<var>event</var>) {
+  <span class='keyword'>with</span>(document) {
+    <span class='keyword'>with</span>(<span class='keyword'>this</span>.form) {
+      <span class='keyword'>with</span>(<span class='keyword'>this</span>) {
+        self.alert(<var>event</var>);
+      }
+    }
+  }
+}</pre>
+ 	<p>
+ 		Note that some browsers will not supply an <code><var>event</var></code> parameter.
+ 	</p>
+
+    <h4>Example 3: Augmented Scope Chain</h4>
+    <p>
+      This example shows how <code>window</code> and <code>document</code> 
+      are shadowed: 
+    </p>
+    <form action="">
+      <input type="hidden" name="document">  
+      <button type="button" name="window" 
+      onclick="self.alert([window.tagName, document.tagName])"
+      >self.alert([window.tagName, document.tagName])</button>
+    </form>
+    <strong>Source:</strong>
+    <pre>
+&lt;form action=""&gt;
+  &lt;input type="hidden" name="document"&gt;  
+  &lt;button type="button" name="window" 
+  onclick="self.alert([window.tagName, document.tagName])"&gt;self.alert([window.tagName, document.tagName])&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+    <p>
+      The augmented scope chain, if written in ECMAScript, would look like:
+    </p>
+
+    <pre>
+<span class='keyword'>function</span> onclick(<var>event</var>) {
+  <span class='keyword'>with</span>(document) {
+    <span class='keyword'>with</span>(<span class='keyword'>this</span>.form) {
+      <span class='keyword'>with</span>(<span class='keyword'>this</span>) {
+        self.alert([title, files, focus == window.focus]);
+          <span class='keyword'>var</span> e = <var>event</var>||window.event;
+          <span class='keyword'>if</span>(e && e.preventDefault) e.preventDefault();
+          e.returnValue = <span class='keyword'>false</span>;
+      }
+    }
+  }
+}</pre>
+
+    <p>
+      For all intents and purposes, the browser's 
+      <code>window</code> property of the <code>global</code> object is
+      an alias to the the <code>global</code> object itself.  
+    </p>
+
+    <p>
+      Relying on an augmented scope chain to resolve properties may 
+      have unexpected results in different environments (i.e. browsers). The following example 
+      shows how in at least two browsers, <code>files</code> is resolved as a property 
+      of an <code>input</code> element.
+    </p>
+
+    <script type="text/javascript">
+    var files = [1,2,3];
+    </script>
+
+    <form action="">
+     <input onclick="self.alert([title, files, focus == window.focus]);
+     var e = event||window.event;
+     if(e && e.preventDefault) e.preventDefault();e.returnValue = false;" type="file">
+    </form>
+    <pre>
+&lt;script type="text/javascript"&gt;
+<span class='keyword'>var</span> files = [1,2,3];
+&lt;/script&gt;
+
+&lt;form action=""&gt;
+ &lt;input onclick="self.alert([title, files, focus == window.focus]);
+ var e = event||window.event;
+ if(e && e.preventDefault) e.preventDefault();
+ e.returnValue = false;" type="file"&gt;
+&lt;/form&gt;
+</pre>
+   <h3>Result</h3>
+    Firefox 3, Safari 3:
+     <pre>",[object FileList],false"</pre>
+    Opera 9.5, IE7, IE8: 
+     <pre>",1,2,3,false"</pre>
+
+    <p> 
+      The identifier <code>files</code> is resolved on the input element 
+      in Firefox 3 and Safari 3. In IE8 or Opera 9.5, <code>files</code> is
+      resolved on the window object.
+    </p>
+	<p>
+		A <a href="scope_aug_example.html">modified example</a> from c.l.js thread <a 
+		href="http://groups.google.com/group/comp.lang.javascript/browse_frm/thread/2d1bd03a4bc47add"
+		>"Works in ie and opera not mozilla"</a>, by Richard Cornford.
+	</p>
+	<h4>Browsers Tested:</h4>
+<ul>
+	<li>Opera 9.27, 9.63, 10a;</li>
+	<li>Safari 3.2.1;</li>
+	<li>Chrome 1.0.154.46;</li>
+	<li>Firefox 2.0.0.18, 3.0.5;</li>
+	<li>IE 7, 8.0RC1;</li>
+	<li>IE 5.2 (Mac)</li>
+	<li>Konqueror 4.1;</li>
+	<li>Blackberry 4.7 (9500 model)</li>
+	<li>MSIEMobile 6.0 (WinCE)</li>
+</ul>
+	<h4>Results:</h4>
+<pre>
+ex0 = global
+ex1 = document #document
+ex2 = document #document
+ex3 = document #document
+ex4 = 4 FORM
+ex5 = 4 FORM
+ex6 = 4 FORM
+ex7 = 7 INPUT
+ex8 = 7 INPUT
+ex9 = 7 INPUT
+
+// First link
+
+ex0 = global
+ex1 = document #document
+ex2 = document #document
+ex3 = document #document
+ex4 = document #document
+ex5 = document #document
+ex6 = document #document
+ex7 = document #document
+ex8 = 8 A
+ex9 = 8 A
+
+// Second link
+
+ex0 = global
+ex1 = document #document
+ex2 = document #document
+ex3 = document #document
+ex4 = document #document
+ex5 = document #document
+ex6 = document #document
+ex7 = document #document
+ex8 = document #document
+ex9 = 9 A
+</pre>
+	<p>Most of the above results were provided by Juriy Zaytsev on thread 
+	<a 
+	href="http://groups.google.com/group/comp.lang.javascript/browse_frm/thread/8e48b8520d359395/61b45f35fb76694f"
+	>Cross-Browser Mouse Event Handling</a>.
+	</p>
+<h4>Older Browsers</h4>
+	<p>
+	Less recent browsers, including Safari 2.0.4, Mozilla 1.x, 
+	and Opera 7, featured different scope chains. 
+	</p>
+
+	<h4>Exception: The <code>BODY</code> Tag.</h4>    
+    <p>
+      The <code>body</code> tag's event handler attributes are either mapped to 
+      <code>window</code> (which has no tag) or to the <code>BODY</code> element. 
+      Results vary based on the event and the browser. Do not use event handler 
+      attributes for the <code>body</code> element.
+    </p>
+
+    <h3>Problem</h3>
+    
+	<p>
+	  An augmented scope chain, combined with event handler content attributes, means that 
+	  properties of the element itself, the element's form (if it is a form control), 
+	  and document, may shadow properties of the window object.
+	  As explained in: <a href="http://groups.google.com/group/comp.lang.javascript/msg/3f5495216b3e9b67"
+	  >select?</a>, and 
+	  <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2008-September/016184.html"
+	  >hashchange only dispatched in history traversal</a>, comments by Garrett Smith. Shortened code excerpt:
+	</p>
+	<pre>
+&lt;img name='alert' alt="Alert!" src="alert.jpg"&gt;
+&lt;button onclick="self.alert(alert);"&gt;self.alert(alert);&lt;/button&gt;
+</pre>
+
+<img name='alert' alt="Alert!" src="" style="z-index:-1;position:absolute">
+<button onclick="self.alert(alert);">self.alert(alert);</button>
+    
+    <h4>Result</h4>
+    <p>
+        Alerts <samp>[object HTMLImageElement]</samp> (or similar implementation-dependent string).
+    </p>
+    
+    <p>
+        By using an unsafe name of <samp>"alert"</samp> for an <code>IMG</code>, 
+        The <code>window</code>'s <code>alert</code> property 
+        identifier is shadowed by <code>document</code>'s <code>alert</code>
+        property identifier because
+        <code>document</code> is in the event handler's augmented scope 
+        before <code>window</code>.
+    </p>
+
+    <p>
+        By using event handler content attributes and unsafe names, 
+        <code>document</code> and <code>window</code>, the respective identifiers
+        are resolved on the augmented scope chain.
+    </p>
+
+    <p>
+      The augmented scope chain 
+      creates more ambiguity and increases the number of unsafe names. 
+    </p>
+    <h3>Solution</h3>
+    <ul>
+        <li>  
+            Don't rely on the augmented scope chain to find properties of the <code>FORM</code>, 
+            <code>body</code>, or <code>document</code>. Instead, use fully qualified property lookups, 
+            e.g. <code>document.body</code>, <code>this.form.elements</code>.
+        </li>
+        <li>
+            Avoid Event Handler Content Attributes. 
+            Registering event callbacks in the script (not in HTML) avoids 
+            the possibility of a property such as unqualified <code>alert</code> 
+            being resolved on an object other than <code>window</code>.
+        </li>
+        <li>
+	        Do not use Event Handler Content Attributes for <code>body</code>.
+        </li>
+        <li>
+            Use prefixed names for all <code>id</code> or <code>name</code> attribute values.
+        </li>
+    </ul>
+    
+    <div id="toc">
+    	<h4>Table of Contents</h4>
+        <ul class="pagination linkList">
+            <li><a href="./index.html">Introduction</a></li>
+            <li><a href="extra_props.html">Extra Properties: <code>FORM</code> Elements</a></li>
+            <li><a href="extra_props_document.html">Extra Properties: <code>document</code></a></li>
+            <li><a href="extra_props_global.html">Extra Properties: <code>global</code></a></li>
+            <li>Event Handler Scope</li>
+            <li><a href="api_design.html">API Design?</a></li>
+            <li><a href="unsafe_names.html">Unsafe Names</a></li>
+            <li><a href="conclusion.html">Conclusion</a></li>
+        </ul>    
+    </div>
+    <ul id="nextLink" class="linkList">
+      <li>
+        <span class="prev">Previous:</span> <a href="extra_props_global.html">Extra Properties: global</a>
+      </li>
+      <li>
+        <span class="next">Next:</span> <a href="api_design.html">API Design?</a>
+      </li>
+    </ul>
+</body>
+</html>

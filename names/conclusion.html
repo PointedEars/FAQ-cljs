@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+	<title>Unsafe Names for HTML Form Controls - Conclusion</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	<meta name="author" content="Garrett Smith">
+	<link rel="Start" href="./">
+	<link rel="stylesheet" href="../faq.css" type="text/css" media="all" charset="iso-8859-1">
+	<link rel="stylesheet" href="names.css" type="text/css" media="all" charset="iso-8859-1">
+</head>
+<body>
+
+    <h1>Unsafe Names for HTML Form Controls</h1>
+    <h2>Conclusion</h2>
+    
+    <h3>Problem</h3>
+    <p>
+        Browser APIs and Web Standards are designed in such a way that
+        element <code>id</code>s and <code>name</code>s, if not 
+        carefully chosen, may inadvertently pollute other objects 
+        with extra properties. This can cause problems. 
+    </p> 
+    
+    <h3>Solution</h3>
+    <p>
+        There are several steps that you, as a page author, can take 
+        to avoid these problems. 
+    </p>
+    
+    <ul>
+        <li>
+            Be aware of the problem.
+        </li>
+        <li>  
+          Don't rely on the augmented scope chain to find properties of the <code>FORM</code>, 
+          <code>body</code>, or <code>document</code>. Instead, use fully qualified property lookups, 
+          e.g. <code>document.body</code>, <code>this.form.elements</code>.
+        </li>
+        <li>
+            Avoid Event Handler Content Attributes. 
+            Events can be registered in the script (not in HTML). 
+        </li>
+        <li>
+          Use prefixed or "namespaced" names for 
+          <code>id</code> and <code>name</code> attribute values.
+        </li>
+    </ul>
+
+    <h3>Do Web Standards Suck?</h3>
+    <p>
+      They are not without their problems. 
+      Most of the problems and <a href="extra_props.html#StandardWrong">misconceptions</a> 
+      would become self-evident if the standards bodies were to use a 
+      test-driven approach. The current approach is Big Up Front Design 
+      with the traditional analysis-documentation-implementation phases. 
+      The APIs are designed with a waterfall approach. 
+    </p>
+
+    <p>
+      Testing is informal and not part of the official process. This is something 
+      that needs to change in order to avoid unforseen pitfalls. Unfortunately, there has 
+      not been enough change in this direction and we can witness current problems 
+      with HTML 5 that build upon the mistakes of prior specifications and poor 
+      design of experimental implementations.
+    </p>
+
+    <p>
+      A test-based process could have revealed the design problem 
+      with form-as-a-collection, as specified in HTML 5, or the issues 
+      with <code>body</code> event handler content attributes (e.g. 
+      <code>hashchange</code>). Multiple contributors 
+      to a test suite would make it hard for the author to ignore API design mistakes.
+    </p>
+
+	<h4>Normative References</h4>
+    <ul id="controls-normref">
+      <li> [DOM1]
+      	<a href="http://www.w3.org/TR/REC-DOM-Level-1/level-one-html.html#ID-40002357"
+      	>Document Object Model (HTML) Level 1</a>, Mike Champion, others.
+      </li>
+      <li> [DOM2]
+      	<a href="http://www.w3.org/TR/DOM-Level-2-HTML/ecma-script-binding.html"
+      	>Document Object Model (HTML) Level 2</a>, Johnny Stenback, others.
+      </li>
+      <li>
+          [DOMEvents]
+          <a href="http://www.w3.org/TR/DOM-Level-3-Events/events.html"
+      	>Document Object Model Events</a>, Philippe Le H&eacute;garet, Tom Pixley
+      </li> 
+      <li>
+      [HTML 5]
+      <a href="http://www.whatwg.org/specs/">HTML 5</a>, 
+      Ian Hickson
+      </li>
+      <li>[WebIDL]
+      <a href="http://www.w3.org/TR/WebIDL/">Web IDL</a>, 
+      Cameron McCormack
+      </li>
+    </ul>
+
+    <div id="toc">
+    	<h4>Table of Contents</h4>
+        <ul class="pagination linkList">
+            <li><a href="./index.html">Introduction</a></li>
+            <li><a href="extra_props.html">Extra Properties: <code>FORM</code> Elements</a></li>
+            <li><a href="extra_props_document.html">Extra Properties: <code>document</code></a></li>
+            <li><a href="extra_props_global.html">Extra Properties: <code>global</code></a></li>
+            <li><a href="event_handler.html">Event Handler Scope</a></li>
+            <li><a href="api_design.html">API Design?</a></li>
+            <li><a href="unsafe_names.html">Unsafe Names</a></li>
+            <li>Conclusion</li>
+        </ul>
+    </div>
+    <ul id="nextLink" class="linkList">
+      <li>
+        <span class="prev">Previous:</span> <a href="unsafe_names.html">Unsafe Names</a>
+      </li>
+    </ul>
+</body>
+</html>

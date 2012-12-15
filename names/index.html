@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+    <title>Unsafe Names for HTML Form Controls</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	<meta name="author" content="Garrett Smith">
+	<meta name="author-email" content="dhtmkitchen@gmail.com">
+	<link rel="stylesheet" href="../faq.css" type="text/css" media="all" charset="iso-8859-1">
+	<link rel="stylesheet" href="names.css" type="text/css" media="all" charset="iso-8859-1">
+	<link rel="Start" href="./">
+</head>
+<body>
+    <h1>Unsafe Names for HTML Form Controls</h1>
+    
+    <p>
+      by Garrett Smith (<a href="http://www.dhtmlkitchen.com/">dhtmlkitchen.com</a>), 
+     edited by Frank Manno (<a href="http://www.frankmanno.com/">frankmanno.com</a>) 
+     with comments from David Mark, Richard Cornford, RobG, and Juriy Zaytsev.
+    </p>
+    <h2>Rich, Featureful Forms</h2>
+
+    <p>
+        An HTML <code>FORM</code> element, in most modern browsers, 
+        implements many interfaces and has a rich set of features.
+        These features are exposed as properties of the form, such as
+        <code>addEventListener</code>, <code>parentNode</code>, and 
+        <code>submit</code>. Browsers also add their own non-standard features 
+        such as <code>all</code>, <code>contentEditable</code>, or <code>spellcheck</code>.
+    </p>
+
+    <h3>Problem</h3>
+    <p>
+        Browsers add <code>name</code>s and <code>id</code>s of form 
+        controls as properties to the <code>FORM</code>. This results in 
+        the properties of the form being replaced.
+    </p>
+    <p>
+        Browsers also may add <code>name</code>s 
+        and <code>id</code>'s of other elements as properties to 
+        <code>document</code>, and sometimes to the <code>global</code> 
+        object (or an object above the <code>global</code> object in scope). 
+        This non-standard behavior can result in replacement of
+        properties on other objects. The problems it causes are discussed in detail.
+    </p>
+    
+    <p>
+        A problem occurs when a form control's <code>name</code> conflicts 
+        with the a property name of the <code>FORM</code> object. For example:
+    </p>
+
+    <h4>Simple Unsafe Name Example</h4>
+    <pre>
+&lt;form action=""&gt;
+  &lt;input type="text" name="name"&gt;
+  &lt;input type="submit" name="submit"&gt;
+&lt;/form&gt;
+</pre>
+
+	<h5>Result</h5>
+    <p>
+        The element with <code>name="name"</code> replaces
+        the value of the <code>FORM</code>'s <code>name</code> property. 
+        A similar type of conflict happens with the
+        <code>FORM</code>'s <code>submit</code> method and the 
+        element with <code>name="submit'</code>. Which will win? 
+    </p>
+    <p>
+        In most cases, the form control wins and the <code>FORM</code>'s property is 
+        replaced to have the value of the form control, or, if more than 
+        one form control has that name, the <code>FORM</code>'s property is 
+        replaced with a <code>NodeList</code> containing those form controls. 
+    </p>
+    <p>
+        However, in some cases, the <code>FORM</code>'s property is <em>not</em> replaced 
+        to have the value of the form control with the same name. The examples in this page show that 
+        the result depends on the browser, the property, and how the control is added. 
+    </p>
+
+    <h4>How is a Form Like a Collection?</h4>
+	<p>
+	    The DOM 1 specification states:
+	</p>
+    <blockquote cite="http://www.w3.org/TR/REC-DOM-Level-1/level-one-html.html#ID-40002357">
+        <p>
+            The <code>FORM</code> element encompasses behavior similar to a collection and an element. 
+            It provides direct access to the contained <code>input</code> elements as well as the 
+            attributes of the <code>FORM</code> element. [<a href="conclusion.html#controls-normref">DOM1</a>]
+        </p>
+    </blockquote>
+	
+    <p>
+        <cite>"Similar to a collection?"</cite> 
+        <em>What</em> collection? Similar in what way? 
+        The only standardized feature that is <cite>"similar to a collection"</cite> is 
+        the <code>length</code> property. 
+    </p>
+    
+	<p>
+	 In most browsers, a form has direct access to all named form controls,
+	 (except for <code>input type="image"</code>), not just <code>input</code> elements. 
+	</p>
+	<p>
+		 Accessing controls as named or indexed properties is not standardized by the w3c DOM specification. 
+		 It is a holdover feature from Netscape Navigator that was copied by Internet Explorer
+		 and since copied by every other major browser vendor.
+	</p>
+	
+    <h4>How the Nonstandard Form-as-a-Collection <em>Really</em> Works</h4>
+	<p>
+		 Controls may be accessed directly off the form. 
+	</p>
+    
+    <p>Given the following form:</p>
+    
+    <pre>
+&lt;form action=""&gt;
+  &lt;input type="text" name="a"&gt;
+&lt;/form&gt;
+</pre>
+	<p>
+		The <code>input name="a"</code> may be retrieved in one of two ways, from the form
+		or from the <code>elements</code> collection.
+	</p>
+	<h5>The elements Collection (standard)</h5>
+	
+	<pre>
+	// Standard.
+    document.forms[0].elements[0];
+    document.forms[0].elements.a;		
+</pre>
+	<p>
+	    The control may be accessed directly off the form:
+	</p>
+	<h5>Directly from the Form (nonstandard)</h5>
+    <pre>
+    // non-standard.
+    document.forms[0][0];
+    document.forms[0].a;
+</pre>
+    
+    <h4>Side Effects</h4>
+    <p>
+    	Accessing a named control directly off the form can have undesirable results.
+    </p>
+    <p>
+        In a few browsers, removing a named control from the form will leave the named 
+        control as a property of the form.
+    </p>
+    <h5>Form-as-a-Collection Leak Example</h5>
+    <p>
+      This <a href="simple-leak-form-input.html">Simple leak</a> example shows 
+      that accessing a named element property directly from the <code>form</code>
+      may cause the property to remain on the form, even after the element 
+      has been removed from the DOM. 
+    </p>
+    <h5>Results</h5>
+    <strong>Firefox 3, Safari 3</strong>
+    <pre>
+foo:          [object HTMLInputElement]
+bar:          undefined
+elements.foo: undefined
+</pre>
+    <strong>Opera 9.5, IE 6, Safari 2</strong>
+    <pre>
+foo:          undefined
+bar:          undefined
+elements.foo: undefined
+</pre>
+	
+	<p>
+		Similarly, when a named <code>FORM</code> element is removed from the <code>document</code> 
+		some browsers will keep that form name as a property of the <code>document</code>. 
+		Accessing named <code>FORM</code> controls as properties of the document is also nonstandard.
+    </p>
+    
+    <h5>Standard</h5>
+    <pre>document.forms.myform;</pre>
+    <h5>Nonstandard</h5>
+    <pre>document.myform;</pre>
+
+    <p>
+        A <code>form</code>'s indexed form control properties may also appear out of order. 
+        This behavior would not be compliant for the <code>elements</code> collection,
+        it does not violate any standard for the form-as-a-collection (because
+        there is no standard).
+    </p>
+    
+    <p>
+        Form-as-a-collection is unreliable and therefore should never be used.
+    </p>
+
+    <h3>The <code>elements</code> Collection</h3>
+    <p>
+        The <code>form.elements</code> collection 
+        provides programmers a safe place to access form controls. 
+    </p>
+
+    <p>
+        The <code>elements</code> collection contains the following properties: 
+        <code>length</code>, <code>item</code>, <code>namedItem</code>, plus an ordinal 
+        index property for each form control (excepting <code>input type="image"</code> controls). 
+        Some browsers also have a <code>tags</code> property on the <code>elements</code> collection. 
+    </p>
+
+    <h4>The elements Collection is Live</h4>
+    <p>
+        When a form control is removed from the DOM, the <code>elements</code> collection 
+        is updated; however, the property will still remain on the form in some browsers
+        (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=307415">Mozilla bug 307415</a>). 
+    </p>
+    <h5>Element Removal Example</h5>
+    <p>
+        <a href="form_dom_removal.html">element removal example</a>
+    </p>
+
+    <div id="toc">
+    	<h4>Table of Contents</h4>
+        <ul class="pagination linkList">
+            <li>Introduction</li>
+            <li><a href="extra_props.html">Extra Properties: <code>FORM</code> Elements</a></li>
+            <li><a href="extra_props_document.html">Extra Properties: <code>document</code></a></li>
+            <li><a href="extra_props_global.html">Extra Properties: <code>global</code></a></li>
+            <li><a href="event_handler.html">Event Handler Scope</a></li>
+            <li><a href="api_design.html">API Design?</a></li>
+            <li><a href="unsafe_names.html">Unsafe Names</a></li>
+            <li><a href="conclusion.html">Conclusion</a></li>
+        </ul>
+    </div>
+    <ul id="nextLink" class="linkList">
+      <li>
+        <span class="next">Next:</span> <a href="extra_props.html">Extra Properties: <code>FORM</code> Elements</a>
+      </li>
+    </ul>
+</body>
+</html>

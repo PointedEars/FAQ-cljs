@@ -1,0 +1,569 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>An Alternative DynWrite function</title>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<link href="../faq.css" rel="stylesheet" type="text/css">
+<link href="faq_notes.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<h1><a name="alDynWr" id="alDynWr">An Alternative DynWrite function</a></h1>
+
+<ul>
+	<li><a href="#DynWr">The DynWrite function.</a></li>
+	<li><a href="#getEl">Element retrieval given the element ID as a string.</a></li>
+	<li><a href="#innHTest">innerHTML Testing Strategy.</a></li>
+	<li><a href="#AltDynWr">Alternative DynWrite function.</a></li>
+</ul>
+
+
+<h2><a name="DynWr" id="DynWr">The Original DynWrite function.</a></h2>
+
+<p id="DynWr_1">
+<a href="http://jibbering.com/faq/#FAQ4_15">The quick answer in section
+4.15 of the FAQ</a> defines a function called <code>DynWrite</code> that will insert <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>
+content into an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> page by writing a string of <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> to the <code>innerHTML</code>
+property of an IDed element, but only on browsers that fully support
+the (Microsoft IE originated) <code>innerHTML</code> extension.
+</p>
+
+<p id="DynWr_2">
+On browsers that do not provide a suitable mechanism for accessing the
+element, do not implement the <code>innerHTML</code> extension and browsers that
+implement <code>innerHTML</code> as a read-only property (along with Javascript
+incapable/disabled browsers) no content will be inserted with this
+function.
+</p>
+
+<p id="DynWr_3">
+On browsers that lack the element retrieval mechanism the <code>DynWrite</code>
+function is created as a simple function that just returns false. That
+would allow code that called <code>DynWrite</code> to check the value returned from
+a call to <code>DynWrite</code> and, if it was false, know that there would be no
+point in continuing to use the function as content will never be
+inserted into the document.
+</p>
+
+<p id="DynWr_4">
+Unfortunately the other branch, when an element retrieval mechanism is
+available, produces a function that will retrieve the element and write
+to its <code>innerHTML</code> property, returning true. On the browsers that do not
+implement, or fully implement, <code>innerHTML</code> this action should have no
+harmful side effects, merely creating a new <code>innerHTML</code> property on the
+element in browsers that do not implement the extension at all and
+leaving read-only <code>innerHTML</code> properties unchanged. But the true return
+value cannot be taken as an indicator of the success of the action.
+</p>
+
+<p id="DynWr_5">
+Ideally the return value from <code>DynWrite</code> should be a reasonable
+indicator of the success of the attempt to insert contents into the
+<span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> as that would facilitate controlled degradation on un-supporting
+browsers.
+</p>
+
+<p id="DynWr_6">
+However, it is necessary to have a reference to an element in order
+to examine it to see if it does support <code>innerHTML</code> and the testing
+would alter the contents of that element (though possibly only
+temporarily). As a page loads elements usually become available
+(or, at least, referencable) after their opening <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> tag has been
+parsed, so code defined (or imported) in the HEAD section of a page
+could access the <code><span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span></code> element and the <code>HEAD</code> element along with,
+possibly, the <code>TITLE</code> and any other preceding elements.
+</p>
+
+<p id="DynWr_7">
+It would be theoretically possible acquire a reference to one of
+these elements and determine whether it has an <code>innerHTML</code> property
+and maybe then attempt to write to it to see if that had the desired
+effect. In reality there is at least one <code>innerHTML</code> supporting
+browser that will allow the dynamic modification of the content of
+any element within the BODY but generates run-time errors if an
+attempt is made to test, read or modify the <code>innerHTML</code> property of
+elements within the HEAD. That rules out examining the elements
+within the HEAD for <code>innerHTML</code> support and means that when <code>DynWrite</code>
+is initially configured it cannot know whether it is going to be
+effective or not.
+</p>
+
+<p id="DynWr_8">
+It would, in principle, be possible to write the <code>DynWrite</code> functions
+so that it tests the element that it is asked to insert <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> into
+prior to making the attempt so that it could act (or not) and then
+return true/false based on the result of those tests. But that would
+be inefficient as it would require that the test be carried out on
+every invocation of <code>DynWrite</code>. Iit may also be visually undesirable as
+the testing strategy (described below) involves setting the <code>innerHTML</code>
+to a test value resulting in two <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> modification per write operation
+(which may become visually apparent).
+</p>
+
+<p id="DynWr_9">
+An alternative is to exploit the flexibility of Javascript by
+initially assigning a function to <code>DynWrite</code> that could carry out
+the required tests and then re-assign <code>DynWrite</code> to a function that
+returned a true/false value that more accurately reflected the
+browser's support for the <code>innerHTML</code> extension. Allowing the tests
+to be performed on an element that should be available at the time
+of the test and the content of which is intended that it be replaced
+so it will not matter if it is replaced with the test value because
+if it was successfully replaced for the test it would then be
+re-replaced with the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> that was intended to be inserted. It also
+allows the test to only be performed once as success or failure on
+the first attempt should indicate the same outcome on subsequent
+attempts.
+</p>
+
+<p id="DynWr_10">
+<code>DynWrite</code> is initially configured based on the browser's apparent
+ability to retrieve a reference to a DOM element given its ID in
+the form of a string. On modern browsers the document.getElementById
+function can be used to return a reference to an element given the
+ID as a string. Older browsers may not implement the getElementById
+function, but some may provide an alternative mechanism such as
+document.all.
+</p>
+
+<h2><a name="getEl" id="getEl">Element retrieval given the element ID as a string.</a></h2>
+
+<p id="getEl_1">
+Several approaches can be taken towards maximising the ability
+to retrieve references to DOM elements.
+</p>
+
+<p id="getEl_2">
+1. Writing a general element retrieval function such as:-
+</p>
+
+<pre id="getEl_ex1">
+function getElementWithId(id){
+    var obj = null;
+    if(document.getElementById){
+        <span class="commentJS">/* Prefer the widely supported W3C DOM method, if
+           available:-
+        */</span>
+        obj = document.getElementById(id);
+    }else if(document.all){
+        <span class="commentJS">/* Branch to use document.all on document.all only
+           browsers. Requires that IDs are unique to the page
+           and do not coincide with NAME attributes on other
+           elements:-
+        */</span>
+        obj = document.all[id];
+    }
+    <span class="commentJS">/* If no appropriate element retrieval mechanism exists on
+       this browser this function always returns null:-
+    */</span>
+    return obj;
+}
+</pre>
+
+<p id="getEl_3">
+2. Assigning one of many functions tailored to element retrieval on
+the current browser to a global variable that can then be used to
+call the element retrieval function.
+</p>
+
+<pre id="getEl_ex2">
+var getElementWithId;
+if(document.getElementById){
+    <span class="commentJS">/* Prefer the widely supported W3C DOM method, if 
+       available:-
+    */</span>
+    getElementWithId = function(id){
+        return document.getElementById(id);
+    }
+}else if(document.all){
+    <span class="commentJS">/* Branch to use document.all on document.all only
+       browsers. Requires that IDs are unique to the page
+       and do not coincide with NAME attributes on other
+       elements:-
+    */</span>
+    getElementWithId = function(id){
+        return document.all[id];
+    }
+}else{
+    <span class="commentJS">/* No appropriate element retrieval mechanism exists on
+       this browser. So assign this function as a safe dummy.
+       Values returned form calls to getElementWithId probably
+       should be tested to ensure that they are non-null prior
+       to use anyway so this branch always returns null:-
+    */</span>
+    getElementWithId = function(id){
+        return null;
+    }
+}
+</pre>
+
+<p id="getEl_4">
+3. Using a feature of a browser to emulate getElementById on a browser
+that does not implement it. So that getElementById can be used as a
+general element reference retrieval method.
+</p>
+
+<pre id="getEl_ex3">
+<span class="commentJS">/* Emulate getElementById on document.all only browsers. Requires
+   that IDs are unique to the page and do not coincide with NAME
+   attributes on other elements:-
+*/</span>
+if((!document.getElementById) &amp;&amp; document.all){
+    document.getElementById = function(id){return document.all[id];};
+}
+</pre>
+
+<p id="getEl_5">
+The reason for the comment about the use of ID and NAME attributes is
+that the <code>document.all</code> collection does not have exactly
+analogous behaviour with the <code>document.getElementById</code> method.
+If multiple elements have the same ID (or share an ID with the NAME of
+other elements) then <code>document.all</code> returns a collection
+instead of an individual element, while <code>document.getElementById</code>
+only ever returns an individual element or <code>null</code>. However,
+ID attributes are supposed to be unique to an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> page if that page
+is valid <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> 4 so multiple identical IDs should not be a problem.
+The issue with IDs coinciding with NAMEs remains, though it would not
+be good <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> design to provoke that problem.
+</p>
+
+<p id="getEl_6">
+Also, when a string used to refer to a property of the <code>document.all</code>
+collection does not refer to an element or a collection of elements
+<code>undefined</code> is returned by the above function. In most
+type-converting tests <code>undefined</code> and <code>null</code>
+behave the same (they both convert to boolean <code>false</code>)
+so the distinction is not necessarily important.
+</p>
+
+<p id="getEl_7">
+However, a more cautious but slower getElementById emulation could be
+used. Including tests that ensure that its behaviour exactly matched
+the W3C getElementById method.
+</p>
+
+<pre id="getEl_ex4">
+<span class="commentJS">/* Emulate getElementById on document.all only browsers. */</span>
+if((!document.getElementById) &amp;&amp; document.all){
+    document.getElementById = function(id){
+        var tempEl = null, el = document.all[id];
+        if(el){ <span class="commentJS">//document.all returned something.</span>
+            if((!el.id)||(el.id != id)){
+                <span class="commentJS">/* Either this is a collection or the only element
+                   available under the property name provided as the
+                   - id - parameter is a named element:
+                */</span>
+                if(el.length){ <span class="commentJS">//assume it is a collection.</span>
+                    <span class="commentJS">/* But it might be an element with a NAME
+                       corresponding with the id parameter that has
+                       collection-like behaviour such as a form or a
+                       select element so proceed with caution:
+                    */</span>
+                    for(var c = 0;c &lt; el.length;c++){
+                        if((el[c].id)&amp;&amp;(el[c].id == id)){
+                            <span class="commentJS">/* Set tempEl to the first match and
+                               break out of the - for - loop:
+                            */</span>
+                            tempEl = el[c];
+                            break;
+                        }
+                    }
+                    <span class="commentJS">/* el will be set to null if the loop did not
+                       find an element with the corresponding ID
+                       because the default null value of tempEl
+                       will not have changed:
+                    */</span>
+                    el = tempEl;
+                }else{ <span class="commentJS">//only a named element is available for id.</span>
+                    <span class="commentJS">/* getElementById should not return named elements
+                       only an IDed element so set el to null:
+                    */</span>
+                    el = null;
+                }
+            } <span class="commentJS">//else we have our element (the ID matches).</span>
+        }else{ <span class="commentJS">//el is undefined so make it null;</span>
+            el = null;
+        }
+        <span class="commentJS">/* The returned value will be the first element confirmed as
+           having the corresponding ID or it will be null:
+        */</span>
+        return el;
+    };
+}
+</pre>
+
+<p id="getEl_8">
+One of the consequences of creating a function to emulate
+<code>getElementById</code> is that other scripts that use the
+existence of <code>document.getElementById</code> to infer the
+existence of features of the browser beyond the getElementById method
+may wrongly infer that a browser that is provided with the emulation
+may have features that it does not have (unless they have also been
+emulated). This should not be a problem as using a test on one feature
+to infer the existence of other features is a <strong>fatally flawed
+technique</strong>, the use of which <strong>is discouraged</strong>.
+</p>
+
+<p id="getEl_9">
+I will be using the third approach, emulating the
+<code>document.getElementById</code> method, in the modified
+<code>DynWrite</code> function (with notes on what would differ
+with either of the first two).
+</p>
+
+<h2><a name="innHTest" id="innHTest">innerHTML Testing Strategy.</a></h2>
+
+<p id="innHTest_1">
+Initially testing an element to see if <code>innerHTML</code> is supported simply
+involves using the <code>typeof</code> operator to see if it returns
+<code>&quot;string&quot;</code>. That test will identify browsers such as Opera 6,
+where the <code>innerHTML</code> property is undefined.
+</p> 
+
+<p id="innHTest_2">
+The second test is based on the fact that when the <code>innerHTML</code> property
+of an element is read on a supporting browser the value returned is
+normalised <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> and not the literal <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> source code. However, all
+browsers seem to take a different attitude when generating that
+normalised source. So given the original <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> source:-<br><code>&lt;td
+CLASS=&quot;obj&quot;&gt;&lt;U&gt;firstChild&lt;/U&gt;&lt;/td&gt;</code><br>
+the corresponding <code>innerHTML</code> of the parent element reads <br><code>&lt;TD
+CLASS='obj'&gt;&lt;U&gt;firstChild&lt;/U&gt;&lt;/TD&gt;</code><br> on
+Opera 7.11, <br><code>&lt;TD class=obj&gt;&lt;U&gt;firstChild&lt;/U&gt;&lt;/TD&gt;
+</code><br> on IE 5.0 and <br><code>&lt;td 
+class=&quot;obj&quot;&gt;&lt;u&gt;firstChild&lt;/u&gt;&lt;/td&gt;
+</code><br> on Mozilla 1.2.
+</p>
+
+<p id="innHTest_3">
+None of these correspond with the original <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> but they are also
+different from each other. What is needed for the test is <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>
+source that all supporting browsers will return as different text
+from the source assigned. For that task a mixed case <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> string with additional
+unnecessary whitespace characters is used. That test <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> is appended
+to the original <code>innerHTML</code> value to ensure that the test string will
+never be equivalent to either the original <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> or the normalised
+result of reading the innnerHTML property after the assignment, even
+by accident. The fact that the browser has normalised the source is
+taken as indicating that the browser supports the <code>innerHTML</code> extension.
+</p>
+
+<p id="innHTest_4">
+After writing the test <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> to the <code>innerHTML</code> property it is possible
+to determine whether the property is read only by comparing a stored
+copy of the original value against the retrieved value. This is also
+necessary because otherwise the fact that the returned <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> does not
+correspond with the testHTML would be taken as indicating that
+it had been normalised.
+</p>
+
+<p id="innHTest_5">
+Finally, it is necessary to determine whether inserting the test
+<span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> has added the element that it defines to the DOM for the page.
+</p>
+
+<p id="innHTest_6">
+When those tests are passed correctly the <code>DynWrite</code> function can be
+replaced with a new function that does not bother repeating the tests
+for subsequent assignments to <code>innerHTML</code>. If the tests are failed
+then the <code>DynWrite</code> function replaces itself with one that does no
+more than return false to indicate its failure.
+</p>
+
+<h2><a name="AltDynWr" id="AltDynWr">Alternative DynWrite function.</a></h2>
+
+<p id="AltDynWr_1">
+The modified, and commented, alternative <code>DynWrite</code> function
+incorporating these tests is as follows:-
+</p>
+
+<pre id="AltDynWr_ex1">
+<span class="commentJS">/* As written here, to support older browsers like IE 4, the emulation
+   of getElementById MUST HAVE BEEN EXECUTED _PRIOR_ TO THE FIRST CALL
+   TO THIS FUNCTION. If either of the alternative element retrieval
+   methods are to be used the noted changes also need to be made to
+   this function and the alternative method MUST have been set-up
+   prior to the first use of this function.
+*/</span>
+function DynWrite(id, S){<span class="commentJS"> //Generates a successor when first called!</span>
+    <span class="commentJS">/* Define local variables:-
+    */</span>
+    var testH, newH, inH, testID;
+    <span class="commentJS">/* Set the default value for the body text of the function that
+       will be created to replace this function as the DynWrite
+       function:-
+    */</span>
+    var funcBody = &quot;return false;&quot;
+    <span class="commentJS">/* This ensures that getElementById is available (or emulated)
+       on this browser prior to calling it:-
+    */</span>
+    var el = (document.getElementById)?document.getElementById(id):null;
+    <span class="commentJS">/* If one of the other element retrieval strategies was used,
+       creating a getElementWithId function, then because that function
+       will return null when an element cannot be found, it is
+       practical to just call that function as -
+       var el = getElementWithId(id);
+       - as subsequent tests result in an appropriate response.
+    */</span>
+    <span class="commentJS">/* This ensures that the referenced element has been successfully
+       retrieved and tests to verify that its innerHTML property is
+       a string (as opposed to being undefined):-
+    */</span>
+    if((el)&amp;&amp;(typeof el.innerHTML == 'string')){
+        <span class="commentJS">/* Arbitrary string to use as an ID for an element that
+           should be created as a result of writing to the innerHTML
+           value (The string itself and the result of concatenating it
+           to itself (repeatedly) should follow the rules for valid
+           <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> ID attributes):-
+        */</span>
+        testID = &quot;tSt&quot;;
+        <span class="commentJS">/* This ensures that the test ID is not in use on the page by
+           modifying it until an element cannot be retrieved using it:-
+        */</span>
+        while(document.getElementById(testID)){
+            <span class="commentJS">/* If the getElementWithId function is being used instead
+               of the getElementById emulation then the preceding test
+               must also use that function.
+            */</span>
+            testID += testID;
+        }
+        inH = el.innerHTML;    <span class="commentJS">//Read the original innerHTML value.</span>
+        <span class="commentJS">/* The following mixed case <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> string is _not_ an error.
+        */
+        /* Note also that the STRONG element inserted in the page
+           contains the text "test", which may momentarily be
+           visible to the user. It would probably not be a good
+           idea to have no contents in the STRONG at all but &amp;nbsp;
+           could be used to reduce the potential visual impact:-
+        */</span>
+        newH = inH+&quot;&lt;sTrOnG  Id='&quot;+testID+&quot;'  &gt;test&lt;\/StRoNg    &gt;&quot;;
+        el.innerHTML = newH;     <span class="commentJS">//Assumes synchronous update of DOM.</span>
+        testH = el.innerHTML;    <span class="commentJS">//Read innerHTML back for examination.</span>
+        if((testH != newH)&amp;&amp;     <span class="commentJS">//Apparently normalised or unchanged.</span>
+           (testH != inH)&amp;&amp;      <span class="commentJS">//Not unchanged (Not read-only).</span>
+           (document.getElementById(testID))){ <span class="commentJS">//Element found in DOM.</span>
+            <span class="commentJS">/* If the getElementWithId function is being used instead
+               of the getElementById emulation then the preceding test
+               must also use that function.
+            */</span>
+            <span class="commentJS">/* TESTS PASSED! Replace the default function body string
+               with code that will set the innerHTML property of the
+               element and return true, based on the assumption that
+               the assignment will be successful because this test was
+               sucessful:-
+            */</span>
+            funcBody = 
+                &quot;document.getElementById(id).innerHTML=S; return true&quot;;
+            <span class="commentJS">/* See additional notes[1] on the function body to use at
+               this point.
+            */</span>
+        }
+    }
+    <span class="commentJS">/* Replace the DynWrite function with one determined by the results
+       of the tests:-
+    */</span>
+    DynWrite = new Function(&quot;id&quot;, &quot;S&quot;, funcBody);
+    <span class="commentJS">/* Call the newly created DynWrite function and return its return
+       value as the return value for this function call:-
+    */</span>
+    return DynWrite(id, S);
+}
+<span class="commentJS">/* [1] Notes on the body string to use if the tests are passed:-
+   The existing function body string relies on the use of
+   the getElementById emulation approach to retrieving DOM element
+   with an ID. If the getElementWithId function was used the
+   appropriate equivalent body string would be:-
+
+&quot;getElementWithId(id).innerHTML = S;return true;&quot;
+
+   However, if the ID passed as a parameter to DynWrite does not
+   correspond with an existing IDed element then either of these two
+   options would result in a function that would generate run-time
+   errors. For development that is probably a good thing as the
+   resulting error should be corrected in either the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> or the
+   script code by ensuring that the ID string provided does refer to a
+   uniquely identified DOM element.  On the other hand, having fully
+   tested the code, the body string might be best swapped in deployed
+   code to a more cautious version that checked the result of the
+   element retrieval call to ensure that it is a non-null object:-
+
+&quot;var el=document.getElementById(id);if(el){el.innerHTML=S;}return true;&quot;
+
+   - with the getElementById emulation or:-
+
+&quot;var el=getElementWithId(id);if(el){el.innerHTML=S;}return true;&quot;
+
+   - with the getElementWithId function.
+   
+   These function body strings are still returning true. How
+   suited that is to the situation would depend on how the code
+   intended to respond to the return value. The inability to resolve
+   one ID does not indicate that innerHTML would not available on
+   others if they could be resolved so code that decides to stop
+   attempting to write to innerHTML upon the first false return
+   value might be better off using the previous strings. Code that
+   wanted to fall-back based on each attempt to write to innerHTML
+   would be better using a function body string that returned
+   true/false based on the success of each individual attempt. For
+   the body string that tests to ensure that the element reference
+   is recovered a boolean return value based on the success of the
+   element retrieval would be best suited. That is simplest achieved
+   with a double NOT operator - return !!el; - . A null value of
+   - el - would return boolean false and an element reference would
+   return true due to type-converting forced by the NOT operator:-
+
+&quot;var el=document.getElementById(id);if(el){el.innerHTML=S;}return !!el;&quot;
+
+   - with the getElementById emulation or:-
+
+&quot;var el=getElementWithId(id);if(el){el.innerHTML=S;}return !!el;&quot;
+
+   - with the getElementWithId function. 
+
+*/</span>
+</pre>
+
+<p id="AltDynWr_2">
+This design of the function does not involve any configuration tests
+as the page loads. It is one simple function definition. In principle
+calling the function with appropriate parameters will always return
+false if the content inserting is not possible and true otherwise.
+With the tests being performed only on the first invocation of the
+function.
+</p>
+
+<p id="AltDynWr_3">
+Given the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>: <code>&lt;div ID=&quot;anID&quot;&gt;old
+&lt;code&gt;HTML&lt;/code&gt;&lt;/div&gt;</code> examples of usage might be:-
+</p>
+
+<pre id="AltDynWr_ex2">
+if(!DynWrite(&quot;anID&quot;, &quot;new &lt;code&gt;HTML&lt;\/code&gt;&quot;)){
+    ... <span class="commentJS">// Handle the failure of the call to DynWrite.</span>
+}
+</pre>
+
+<p id="AltDynWr_4">
+- or -
+</p>
+
+<pre id="AltDynWr_ex3">
+if(DynWrite(&quot;anID&quot;, &quot;new &lt;code&gt;HTML&lt;\/code&gt;&quot;)){
+    ... <span class="commentJS">// Action following the success of the DynWrite call.</span>
+}else{
+    ... <span class="commentJS">// Handle the failure of the call to DynWrite.</span>
+}
+</pre>
+
+<p id="AltDynWr_5">
+It has been observed that IE 4 errors if DynWrite is called before the
+onload event is triggered by the browser. So to maximise cross-browser
+support for this function it would be better not to use it prior to that
+point.
+</p>
+
+<p id="rToc">
+<a href="faq_notes.html#toc">comp.lang.javascript FAQ notes T.O.C.</a>
+</p>
+
+
+</body>
+</html>

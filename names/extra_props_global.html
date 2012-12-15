@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+	<title>Unsafe Names for HTML Form Controls - Extra Properties: Global</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	<meta name="author" content="Garrett Smith">
+	<link rel="Start" href="./">
+	<link rel="stylesheet" href="../faq.css" type="text/css" media="all" charset="iso-8859-1">
+	<link rel="stylesheet" href="names.css" type="text/css" media="all" charset="iso-8859-1">
+</head>
+<body>
+
+    <h1>Unsafe Names for HTML Form Controls</h1>
+    <h2>Extra Properties: <code>global</code></h2>
+
+    <h3>Extra Properties: The Element Id Resolver Object</h3>
+    <p>
+        IE, Opera, Firefox, and Webkit
+        seem to implement a non-standard <dfn>element id resolver</dfn>
+        object. This object is used to retrieve the element.
+        See comp.lang.javscript thread: 
+        <a href="http://groups.google.com/group/comp.lang.javascript/msg/aed8ecf1660e1dd1"
+        >Why "window.alert()" over "alert()"?</a>, comment by Lasse Reichstein Nielsen.    
+    </p>
+
+    <p>
+        In some browsers, this behavior depends on the DOCTYPE used.  
+    </p>
+
+	<p>
+	    This is a non-standard behavior of browsers that applies to <em>any</em> element with 
+	    an <code>id</code>, not only form controls.
+	</p>
+	
+    <p>
+        Assigning to an undeclared identifier should result in a new global 
+        property being created, or, if the global/window object has a property with 
+        that name, its value should be replaced. However in some 
+        browsers, the assigment can result in an error.
+    </p>
+    
+    <p>
+      The properties of the "element resolver" may appear to be shadowed by 
+      properties of the global object, or vice-versa.
+    </p>
+
+<h4>Property Assignment to Element</h4>    
+    <script type="text/javascript">
+var globalVal;
+function addScript(id) {
+	var script = document.createElement('script'),
+	    src = document.getElementById(id);
+    script.text = src.firstChild.data;
+
+	document.body.appendChild(script);
+	document.getElementById(id+"Result").firstChild.data = globalVal;
+}
+    </script>
+    <p>
+        The following example should result: <samp>undefined, 11</samp>.
+    </p>
+
+    <button id='b1' onclick="addScript('g1')">addScript('g1')</button>
+    <code id='g1Result'>&nbsp;</code>
+	<pre id="g1">
+try {
+  var b1;
+  globalVal = [String(b1)]; // Should be "undefined".
+  b1 = 11;
+  globalVal = globalVal.concat(b1); // Should be ["undefined", 11]
+} catch(ex) {
+  globalVal = ex.message;
+}
+</pre>
+    <p>
+        The following example does not declare a variable. The browser may optionally 
+        resolve the identifier <code>b2</code> on the <dfn>element id resolver</dfn> object.
+    </p>
+  <button id='b2' onclick="addScript('g2')">addScript('g2')</button>
+<code id='g2Result'>&nbsp;</code>
+<pre id="g2">
+try {
+  globalVal = [typeof b2];
+  b2 = 11; // undeclared assignment.
+  globalVal = globalVal.concat(b2);
+} catch(ex) {
+  globalVal = ex.message;
+}
+</pre>
+    <p>
+        The following example should result: <samp>undefined, 11</samp>.
+    </p>
+  <button id='b3' onclick="addScript('g3')">addScript('g3')</button>
+<code id='g3Result'>&nbsp;</code>
+<pre id="g3">
+// remove element id.
+document.getElementById('b3').id = '';
+
+try {
+  globalVal = [typeof b3]; // should be "undefined".
+  b3 = 11; // undeclared assignment.
+  globalVal = globalVal.concat(b3);
+} catch(ex) {
+  globalVal = ex.message;
+}
+</pre>
+    <p>
+        Declared variables that have not yet been assigned a value create a property 
+        on the Variable object with the value <code>undefined</code>.
+    </p>
+    <p>
+        If the <dfn>element id resolver</dfn> object exists above the scope of 
+        the global object, the identifier will be shadowed by the global variable object.
+    </p>
+<h3>Results</h3>
+<p>Firefox:</p>
+<ul>
+  <li>
+    <samp class="expected">undefined, 11</samp>
+  </li>
+  <li>
+    <samp>object, 11</samp>
+  </li>
+  <li>
+    <samp class="expected">undefined, 11</samp>
+  </li>
+</ul>
+<p>Opera 9.5:</p>
+<ul>
+  <li>
+    <samp class="error">undefined, 11</samp>
+  </li>
+  <li>
+    <samp>object, 11</samp>
+  </li>
+  <li>
+    <samp class="expected">undefined, 11</samp>
+  </li>
+</ul>
+<p>Safari 2.0.2, 3.1:</p>
+<ul>
+  <li>
+    <samp class="error">[object HTMLButtonElement], 11</samp>
+  </li>
+  <li>
+    <samp>object, 11</samp>
+  </li>
+  <li>
+    <samp class="expected">undefined, 11</samp>
+  </li>
+</ul>
+<p>MSIE 7</p>
+<ul>
+  <li>
+    <samp>undefined, 11</samp>
+  </li>
+  <li>
+    <samp>Object doesn't support this property or method</samp>
+  </li>
+  <li>
+    <samp>undefined, 11</samp>
+  </li>
+</ul>
+<p>MSIE 6</p>
+<ul>
+    <li>
+        <samp>undefined, 11</samp>
+    </li>
+    <li>
+        <samp>Object doesn't support this property or method</samp>
+    </li>
+    <li>
+        <samp>undefined, 11</samp>
+    </li>
+</ul>
+
+<div id="toc">
+	<h4>Table of Contents</h4>
+    <ul class="pagination linkList">
+        <li><a href="./index.html">Introduction</a></li>
+        <li><a href="extra_props.html">Extra Properties: <code>FORM</code> Elements</a></li>
+        <li><a href="extra_props_document.html">Extra Properties: <code>document</code></a></li>
+        <li>Extra Properties: <code>global</code></li>
+        <li><a href="event_handler.html">Event Handler Scope</a></li>
+        <li><a href="api_design.html">API Design?</a></li>
+        <li><a href="unsafe_names.html">Unsafe Names</a></li>
+        <li><a href="conclusion.html">Conclusion</a></li>
+    </ul>
+</div>
+<ul id="nextLink" class="linkList">
+  <li>
+    <span class="prev">Previous:</span> <a href="extra_props_document.html">Extra Properties: <code>document</code></a>
+  </li>
+  <li>
+    <span class="next">Next:</span> <a href="event_handler.html">Event Handler Scope</a>
+  </li>
+</ul>
+
+</body>
+</html>

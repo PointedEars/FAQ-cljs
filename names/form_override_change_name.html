@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>Safe Form Controls</title>
+  <style type="text/css">
+  input { font-size: 8px; font-family: courier new, monospace; padding: 0 }
+  #pass { display: none; background : #0f0; }
+  #fail { display: none; background : #F33; }
+  </style>
+</head>
+<body>
+<h1>Test: 290 Names not to give a FORM Control</h1>
+<form name="length" action="fail" title="fail">
+<input type="submit" />
+</form>
+<pre id="pass">PASS - All Form Properties Replaced by an Element</pre>
+<pre id="fail">FAIL</pre>
+<pre>
+<script type='text/javascript' src="names.js"></script>
+<script type="text/javascript">
+(function(){
+var form = document.forms[0];
+var input = form.elements[0];
+var bugs = [];
+
+var actual, expected, msg, actualString;
+
+for(var i = names.length -1; i > 0; i--) { 
+  if(names[i] == names[i-1]) {
+    alert("found duplicate: " + names[i]);
+    break;
+  }
+  else {
+    try{
+    input.name = names[i];
+    actual = form[names[i]];
+    if(actual != input) {
+      msg = names[i];
+      if(actual.toString && actual.toString.tagName) 
+        actualString = actual.toString.tagName;
+      else
+        actualString = String(actual);
+      msg += " found: " + (((actualString + " ("+typeof actual+")")) || "(missing)");
+      bugs[bugs.length] = msg;
+      }
+    }  catch(x){
+      msg = "Error: " + x.message;
+    }
+  }
+}
+// can't use form.elements, form.getElementsByTagName, et c
+// because they were replaced by an input.
+
+if(bugs.length > 0)
+  fail(bugs);
+else pass();
+
+function fail(bugs) {
+  var fail = document.getElementById('fail');
+  fail.firstChild.data += ': The following ' + bugs.length +
+  ' form properties should have been an INPUT element:\n  * ' + bugs.join('\n  * ');
+  fail.style.display = "inline-block";
+}
+
+function pass() {
+  var pass = document.getElementById('pass');
+  pass.style.display = "inline-block";
+}
+
+//document.write(names.join("\n  &lt;/li&gt;\n&lt;li&gt;\n"));
+})();
+</script>
+</pre>
+</body>
+</html>

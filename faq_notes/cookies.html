@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>Cookies</title>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<link href="../faq.css" rel="stylesheet" type="text/css">
+<link href="faq_notes.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<h1><a name="cookies" id="cookies">Cookies</a></h1>
+
+<ul>
+	<li><a href="#proxIs">Privacy filters on proxies</a></li>
+</ul>
+
+<h2><a name="proxIs" id="proxIs">Privacy filters on proxies</a></h2>
+
+<p id="proxIs_1">
+<a href="http://www.w3schools.com/js/js_cookies.asp">The page
+referenced</a> from <a href="http://jibbering.com/faq/#FAQ4_4">section 4.4 of
+the FAQ</a> describes a generally sound strategy for using cookies but suffers from
+an additional issue relating to &quot;privacy&quot; filters employed by content
+inserting/re-writing proxies.
+</p>
+
+<p id="proxIs_2">
+The problem is that some of these filters identify the character sequence
+&quot;cookie&quot; within Javascript source code and replace it with an
+alternative string. <a href="http://groups.google.com/groups?threadm=41ebaba2.0306240406.1fdff5ef%40posting.google.com">
+A c.l.j. thread describing an occurrence of this problem</a> had
+&quot;cookie&quot; replaced by &quot;ignore&quot; by ZoneAlarm, and
+Proximatron has a similar filter available (but not active) by default.
+</p>
+
+<p id="proxIs_3">
+The effect of changing occurrences of <code>document.cookie</code>
+into <code>document.ignore</code> within source code is that attempts
+to write to the property just result in  a new string property being
+assigned to the document object, but no cookie is created. And reading
+from the property returns the same string, or an undefined value
+if nothing has yet been written to the property.
+</p>
+
+<p id="proxIs_4">
+The problem with the irt.org code is that the <code>Get_Cookie</code>
+and <code>Set_Cookie</code> functions are
+not written with a consideration that <code>document.cookie</code> may
+not refer to a string.
+</p>
+
+<p id="proxIs_5">
+<code>Get_Cookie</code> will error if &quot;cookie&quot; has been replaced with
+&quot;ignore&quot; because it treats the <code>document.cookie</code>
+value as if it was a string. But changing that one function so that it
+does not attempt to read <code>document.cookie</code> if the value is
+not a string may prevent the error but would still undermine that strategy used.
+</p>
+
+<p id="proxIs_6">
+However, the problem can be completely avoided by wrapping the content
+of the <code>Get_Cookie</code> and <code>Set_Cookie</code> functions
+in <code>typeof</code> tests and only executing the rest of the
+function if <code>typeof</code> returns <code>&quot;string&quot;</code>.
+</p>
+
+
+<pre id="proxIs_ex1">
+function Get_Cookie(name) {
+    if(typeof document.cookie == &quot;string&quot;){
+        var start = document.cookie.indexOf(name+&quot;=&quot;);
+        var len = start+name.length+1;
+        if ((!start)&amp;&amp;
+            (name != document.cookie.substring(0,name.length))){
+               return null;
+           }
+        if (start == -1) return null;
+        var end = document.cookie.indexOf(&quot;;&quot;,len);
+        if (end == -1) end = document.cookie.length;
+        return unescape(document.cookie.substring(len,end));
+    }else{
+        <span class="commentJS">/* document.cookie is not a string so return an
+           empty string. When tested this will type-convert to
+           boolean false (accurately) giving the impression that
+           client-side cookies are not available on this system:-
+        */</span>
+        return &quot;&quot;;
+    }
+}
+
+function Set_Cookie(name,value,expires,path,domain,secure) {
+    if(typeof document.cookie == &quot;string&quot;){
+        document.cookie = name + &quot;=&quot; +escape(value) +
+            ( (expires) ? &quot;;expires=&quot; + expires.toGMTString() : &quot;&quot;) +
+            ( (path) ? &quot;;path=&quot; + path : &quot;&quot;) +
+            ( (domain) ? &quot;;domain=&quot; + domain : &quot;&quot;) +
+            ( (secure) ? &quot;;secure&quot; : &quot;&quot;);
+    }<span class="commentJS">//else document.cookie is not a string so do not write to it.</span>
+}
+
+function Delete_Cookie(name,path,domain) {
+    if (Get_Cookie(name)) document.cookie = name + &quot;=&quot; +
+       ( (path) ? &quot;;path=&quot; + path : &quot;&quot;) +
+       ( (domain) ? &quot;;domain=&quot; + domain : &quot;&quot;) +
+       &quot;;expires=Thu, 01-Jan-70 00:00:01 GMT&quot;;
+    }
+}
+</pre>
+
+<p id="proxIs_7">
+Cookie reading and writing is unlikely to be done sufficiently often that
+the extra overhead of the tests will impact on the performance of
+the resulting script.
+</p>
+
+<p id="rToc">
+<a href="faq_notes.html#toc">comp.lang.javascript FAQ notes T.O.C.</a>
+</p>
+
+
+</body>
+</html>

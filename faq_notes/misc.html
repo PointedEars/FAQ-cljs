@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>Miscellaneous Tricks and Tips</title>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<link href="../faq.css" rel="stylesheet" type="text/css">
+<link href="faq_notes.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<h1><a name="mtHead" id="mtHead">Miscellaneous Tricks and Tips.</a></h1>
+
+<ol>
+	<!-- <li><a href="#mtSort">Sorting Arrays of objects by one of properties of those objects.</a></li> -->
+	<li><a href="#mtCSSUn">Setting the top and left values of positioned elements with <span class="initialism" title="Cascading Style Sheet"><abbr title="Cascading Style Sheet">CSS</abbr></span> units, when needed</a></li>
+	<li><a href="#mtSetTI">Using function references with setTimeout and setInterval</a></li>
+</ol>
+<!--
+<h2><a name="mtSort" id="mtSort">Sorting Arrays of objects by one of properties of those objects.</a></h2>
+
+<p id="mtSort_1">
+Given an <code>Array</code> of like objects it may be necessary to sort
+that <code>Array</code> based on the value of one of the properties of
+those objects. The following functions are based on the results of a
+discussion between Evertjan and Lasse Reichstein Nielsen and are
+probably the shortest possible formulations of <code>&quot;comparefn&quot;</code>
+functions (as per ECMA 262 page 94) for use with the
+<code>Array.prototype.sort</code> method when sorting Arrays of objects
+by values held in one of their properties.
+</p>
+
+<pre id="mtSort_ex1">
+<span class="commentJS">/* These example function use the value of a property of the objects
+   called &quot;x&quot;. That property name would have to be changed if the
+   sorting was to be done by the value held under any other named. If
+   the object to be sorted are other Arrays then the dot notation
+   accessors - a.x - and - b.x - would have to be exchanged for Array
+   accessors - a[n] - and - b[n] - where - n - is the integer index of
+   the element being accessed.
+*/</span>
+<span class="commentJS">/* The object who's property holds the smallest value is placed first
+   in the Array returned by the Array.prototype.sort method:
+   a.x &lt; b.x returns +1
+   b.x &lt; a.x retains -1
+   a.x == b.x returns 0
+*/</span>
+function sortSmallFirst(a, b){
+    <span class="commentJS">/* If a.x == b.x then (a.x &lt; b.x) is false and (a.x &gt; b.x) is
+       false, the subtraction type converts false to zero and the
+       return value is (0 - 0) which is zero. If a.x &lt; b.x then
+       (a.x &lt; b.x) is true, and (a.x &gt; b.x) is false, the
+       subtraction type-converts them into the numbers one and zero
+       respectively and the return value is (1 - 0) which is plus
+       one. Finally, if a.x &gt; b.x then (a.x &lt; b.x) is false, and
+       (a.x &gt; b.x) is true, the subtraction type converts them to
+       the numbers zero and one respectively and the return value
+       is (0 - 1) which is minus one.
+    */</span>
+    return (a.x &lt; b.x) - (a.x &gt; b.x);
+}
+
+<span class="commentJS">/* The object who's property holds the largest value is placed first
+   in the Array returned by the Array.prototype.sort method:
+   a.x &lt; b.x returns -1
+   b.x &lt; a.x retains +1
+   a.x == b.x returns 0
+*/</span>
+function sortLargeFirst(a, b){
+    return (a.x &gt; b.x) - (a.x &lt; b.x);
+}
+
+<span class="commentJS">/* usage:-
+  var unsortedObjectArray = [
+          {x:2, y:'apple', z:5},
+          {x:3, y:'orange', z:7},
+          {x:89, y:'strawberry', z:9},
+          {x:45, y:'peach', z:3},
+          {x:8, y:'banana', z:9},
+          {x:1, y:'lemon', z:34}
+        ];
+
+   var sortedObjectArray = unsortedObjectArray.sort(sortLargeFirst);
+*/</span>
+</pre>
+ -->
+
+
+<h2><a name="mtCSSUn" id="mtCSSUn">Setting the top and left values of positioned
+                  elements with <span class="initialism" title="Cascading Style Sheet"><abbr title="Cascading Style Sheet">CSS</abbr></span> units, when needed</a></h2>
+
+<p id="mtCSSUn_1">
+When setting the position of a positioned element by assigning values
+to the <span class="initialism" title="Cascading Style Sheet"><abbr title="Cascading Style Sheet">CSS</abbr></span> <code>top</code> and <code>left</code> properties of the
+element's <code>style</code> object it is necessary to provide the
+value as a string with the units of the length (usually &quot;px&quot;)
+following the value. Modern standards compliant browsers require this,
+older and more tolerant browsers may assume that values without units
+represent &quot;px&quot; units but they can handle string values which
+include the <span class="initialism" title="Cascading Style Sheet"><abbr title="Cascading Style Sheet">CSS</abbr></span> units. Unfortunately some browsers want the
+<code>top</code> and <code>left</code> values provided as numbers and
+complain (or don't react) if they are provided as strings with units.
+</p>
+
+<p id="mtCSSUn_2">
+A technique for handling this requirement is based on the observation
+that when a browser expects the <code>top</code> and <code>left</code>
+values to be set as a number of pixels a <code>typeof</code> test of
+either the <code>top</code> or <code>left</code> properties will return
+&quot;number&quot; while if that same test returns &quot;string&quot;
+the browser either will require the <span class="initialism" title="Cascading Style Sheet"><abbr title="Cascading Style Sheet">CSS</abbr></span> units to be appended to the
+values set as a string or it will successfully handle a value in that
+format.
+</p>
+
+<p id="mtCSSUn_3">
+Once the object on which the <code>top</code> and <code>left</code>
+values are to be set is available one of its <code>top</code> or
+<code>left</code> properties can be tested with <code>tyoeof</code>
+and an appropriately scoped variable set to either the string
+<code>&quot;px&quot;</code> or the number zero.
+</p>
+
+<pre id="mtCSSUn_ex1">
+var cssUnitsOrZero = (typeof styleObjectRef.top == 'string')?'px':0;
+</pre>
+
+<p id="mtCSSUn_4">
+Then when the position has been calculated (as a number) it can be
+assigned to the appropriate property with the value derived as the
+result of the test applied to it using the <code>+</code> operator.
+Because the <code>+</code> operator is a duel role addition and
+string concatenation operator, and decides which action it will take
+based on its operands, the application of the <code>+</code> operator
+to a position value as a number will depend on the type of the value
+derived from the preceding <code>typeof</code> test on the
+<code>top</code> or <code>left</code> properties.
+</p>
+
+<pre id="mtCSSUn_ex2">
+styleObjectRef.top = numericPosition + cssUnitsOrZero;
+
+<span class="commentJS">/* If the - numericPosition - value was 125, for example, and - 
+   cssUnitsOrZero - was zero, the value assigned would be:-
+
+ styleObjectRef.top = (125 + 0);
+
+   - which is the number 125. If - cssUnitsOrZero - was &quot;px&quot; then
+   the assignment would be:-
+
+ styleObjectRef.top = (125 + &quot;px&quot;);
+
+   - which is the string &quot;125px&quot;.
+*/</span>
+</pre>
+
+<p id="mtCSSUn_5">
+If the tested top property was not a string <code>cssUnitsOrZero</code>
+will be the number zero and the <code>+</code> operator will have two
+numeric operands and will perform numeric addition, assigning a numeric
+value to the property, unmodified by the addition of zero. But if the
+tested property was a string, so <code>cssUnitsOrZero</code> was 
+assigned the string value <code>&quot;px&quot;</code>, the
+<code>+</code> operator will recognise that one of its operands is a
+string and type-convert the other (the calculated position value) into
+a string and perform concatenation, appending the
+<code>&quot;px&quot;</code> <span class="initialism" title="Cascading Style Sheet"><abbr title="Cascading Style Sheet">CSS</abbr></span> units string to the string
+representation of the calculated position and then assign that value to
+the property.
+</p>
+
+<p id="mtCSSUn_6">
+This fulfils the requirement to provide <span class="initialism" title="Cascading Style Sheet"><abbr title="Cascading Style Sheet">CSS</abbr></span> units where needed while
+providing the vlaues in numeric form whenever that is the type of value
+expected. It is inefficient to perform the <code>typeof</code> test on
+a relevant property whenever a value is to be assigned, it is better to
+perform the test once and then re-use the same
+<code>cssUnitsOrZero</code> variable for all subsequent assignments.
+</p>
+
+
+
+<h2><a name="mtSetTI" id="mtSetTI">Using function references with setTimeout and setInterval</a></h2>
+
+<p id="mtSetTI_1">
+The <code>setTimeout</code> and <code>setInterval</code> functions
+provided by web browsers are commonly used with a string of javascript
+source code as their first argument, frequently a string that does no
+more than call a separately defined function:-
+</p>
+
+<pre id="mtSetTI_ex1">
+function invokedWithSetTimeout(){
+    ... <span class="commentJS">// do something.</span>
+}
+...
+var timer = setTimeout(&quot;invokedWithSetTimeout()&quot;, 100);
+</pre>
+
+<p id="mtSetTI_2">
+The string argument is interpreted and executed after the interval
+specified as the second argument (in milliseconds). In the preceding
+code the <code>invokeWithSetTimout</code> function would be called.
+</p>
+
+<p id="mtSetTI_3">
+On more recent browsers (easily the majority these days) the first
+argument to the<code> setTimeout</code> and <code>setInterval</code>
+functions can be a reference to a function. Instead of having to
+interpret and execute a string of javascript source code the function
+referred to is just executed after the interval. That will be more
+efficient as considerably smaller overhead would be involved in the
+execution of the function.
+</p>
+
+<pre id="mtSetTI_ex2">
+var timer = setTimeout(invokedWithSetTimeout, 100);
+</pre>
+
+<p id="mtSetTI_4">
+Unfortunately a number of older browsers such as IE 4 and Opera 5 do
+not understand the function reference versions of 
+<code>setTimeout</code> and <code>setInterval</code>, leaving the use
+of string arguments as apparently the best method for cross-browser
+support. However, it is in the nature of loosely typed javascript that
+when a native code function such as <code>setTimeout/Interval</code> is
+expecting a string argument but is instead passed a value of another
+type that value will be type-converted into a string. That doesn't help
+much when the process of type-converting a function into a string
+results in an implementation dependent representation of the function,
+as is normally the case.
+</p>
+
+<p id="mtSetTI_5">
+Type-converting of a function to a string is done with the
+function's <code>toString</code> method, usually
+<code>Function.prototype.toString</code>. Methods of a
+<code>prototype</code> can be overridden by methods of the function
+object itself and an overriding <code>toString</code> method can return
+any value its creator desires. That fact provides a means of using the
+more efficient function reference arguments with
+<code>setTimeout/Interval</code> and still supporting browsers that can
+only handle string arguments, by assigning a custom
+<code>toString</code> method to the function that is referred to in the
+argument to <code>setTimeout/Interval</code>. That custom method would
+return the string that would have been used in the 
+<code>setTimeout/Interval</code> function call. If the function
+reference is type-converted to a string that string represents the
+javascript source code that would be needed to invoke the function. If
+it is not type-converted then <code>setTimeout/Interval</code> can
+invoke the function directly (and without the overhead involved in
+interpreting and executing the string of source code).
+</p>
+
+<pre id="mtSetTI_ex3">
+function invokedWithSetTimeout(){
+    ... <span class="commentJS">// do something.</span>
+}
+<span class="commentJS">/* Assign a function expression to a toString property of the function
+   object referred to by the identifier - invokeWithSetTimeout -,
+   overriding - Funciton.prototype.toString -. The new toString
+   function returns the javascript source code needed to invoke a call
+   to the function.
+*/</span>
+invokedWithSetTimeout.toString = function(){
+    return &quot;invokedWithSetTimeout();&quot;;
+}
+...
+var timer = setTimeout(invokedWithSetTimeout, 100);
+<span class="commentJS">/* If the browser will only recognise string values as the first
+   argument to - setTimeout - then the function referred to by the
+   identifier - invokeWithSetTimeout - will be type-converted to a
+   string by calling its - toString - method, which will return the
+   string &quot; invokedWithSetTimeout();&quot; and that string will
+   be employed by the setTimeout function. Efectivly the same as
+   calling the setTimeout function as:-
+   
+var timer = setTimeout(&quot;invokedWithSetTimeout()&quot;, 100);
+*/</span>
+</pre>
+
+
+
+
+<p id="rToc">
+<a href="faq_notes.html#toc">comp.lang.javascript FAQ notes T.O.C.</a>
+</p>
+
+</body>
+</html>

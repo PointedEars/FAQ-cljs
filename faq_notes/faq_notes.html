@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>Notes on the comp.lang.javascript FAQ</title>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta name="ROBOTS" content="NOINDEX NOFOLLOW">
+<link href="../faq.css" rel="stylesheet" type="text/css">
+<link href="faq_notes.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+.tocEn {
+	margin-bottom:0.5em;
+}
+</style>
+</head>
+<body>
+<div id="pageWarning">
+    The documents under <kbd>faq_notes/</kbd> are unmaintained. An up-to-date version 
+    of this document may be available at
+    <a href="/faq/notes/">/faq/notes/</a>.
+</div>
+
+<h1>Notes on the comp.lang.javascript FAQ</h1>
+<h2><a name="toc" id="toc">Table of Contents</a></h2>
+
+<ul id="contTable">
+    <li class="tocEn"><a href="#fnIntro">Introduction to the Notes</a>
+    <li class="tocEn">
+    	<a name="FAQN2" id="FAQN2">2 comp.lang.javascript tips</a>
+        <ol>
+            <li><a href="clj_posts.html">Posting Questions and Replies to comp.lang.javascript</a></li>
+        </ol>
+    </li>
+    <li class="tocEn">
+    	<a name="FAQN4_4" id="FAQN4_4">4.4 How can I see in javascript if a web browser accepts cookies?</a>
+        <ol>
+            <li><a href="cookies.html">Privacy filters on proxies</a></li>
+        </ol>
+    </li>
+    <li class="tocEn">
+    	<a name="FAQN4_12" id="FAQN4_12">4.12 Why does parseInt('09') give an error?</a>
+		<ol>
+			<li>See: <a href="type_convert.html#tcPrIntRx">4.21.1 Javascript Type-Conversion - parseInt with a radix argument</a>
+			</li>
+		</ol>
+    </li>
+    <li class="tocEn">
+    	<a name="FAQN4_13" id="FAQN4_13">4.13 How do I get the value of a form control?</a>
+		<ol>
+			<li><a href="form_access.html#faHead">Referencing Forms and Form Controls.</a>
+				<ul>
+					<li><a href="form_access.html#faInt">Introduction</a>
+					<ul>
+						<li><a href="form_access.html#faInF">Forms</a></li>
+						<li><a href="form_access.html#faInC">Form Controls</a></li>
+					</ul>
+					</li>
+					<li><a href="form_access.html#faShrt">Shortcut Accessors</a></li>
+					<li><a href="form_access.html#faComMis">The Most Common Mistake</a></li>
+					<li><a href="form_access.html#faAnon">Anonymous Form References</a></li>
+					<li><a href="form_access.html#faBut">Radio Button and Other Control Collections</a></li>
+					<li><a href="form_access.html#faEff">Efficient use of Form Accessors</a></li>
+				</ul>
+			</li>
+		</ol>
+    </li>
+    <li class="tocEn">
+        <a name="FAQN4_15" id="FAQN4_15">4.15 How do I modify the current page in a browser?</a>
+        <ol>
+        	<li><a href="alt_dynwrite.html#alDynWr">An Alternative DynWrite function</a>
+				<ul>
+					<li><a href="alt_dynwrite.html#DynWr">The DynWrite function.</a></li>
+					<li><a href="alt_dynwrite.html#getEl">Element retrieval given the element ID as a string.</a></li>
+					<li><a href="alt_dynwrite.html#innHTest">innerHTML Testing Strategy.</a></li>
+					<li><a href="alt_dynwrite.html#AltDynWr">Alternative DynWrite function.</a></li>
+				</ul>
+			</li>
+        </ol>
+    </li>
+    <li class="tocEn">
+    	<a name="FAQN4_21" id="FAQN4_21">4.21 Why does 1+1 equal 11? or How do I convert a string to a number?</a>
+		<ol>
+			<li><a href="type_convert.html">Javascript Type-Conversion</a>
+				<ul>
+					<li><a href="type_convert.html#tcInt">Introduction.</a></li>
+					<li><a href="type_convert.html#tcBool">Converting to Boolean.</a></li>
+					<li><a href="type_convert.html#tcString">Converting to String.</a></li>
+					<li><a href="type_convert.html#tcNumber">Converting to Number.</a></li>
+					<li><a href="type_convert.html#tcParse">Parsing to Number.</a>
+						<ul>
+							<li><a href="type_convert.html#tcParseFl">parseFloat</a></li>
+							<li><a href="type_convert.html#tcParseIn">parseInt</a></li>
+							<li><a href="type_convert.html#tcPrIntRx">parseInt with a radix argument</a></li>
+						</ul>
+					</li>
+					<li><a href="type_convert.html#tcToInt32">ToInt32.</a></li>
+					<li><a href="type_convert.html#tcUserIn">Converting User Input.</a>
+						<ul>
+							<li><a href="type_convert.html#tcRegEx">Regular expression examples.</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ol>
+    </li>
+    <li class="tocEn">
+    	<a name="FAQN4_25" id="FAQN4_25">4.25 My element is named myselect[] , how do I access it?</a>
+		<ol>
+			<li>See: <a href="square_brackets.html#illc">4.39.1 Javascript Square Bracket Notation - Illegal characters in Identifier-strings</a>
+			</li>
+		</ol>
+    </li>
+    <li class="tocEn">
+    	<a name="FAQN4_26" id="FAQN4_26">4.26 How do I detect Opera/Netscape/IE?</a>
+		<ol>
+			<li><a href="not_browser_detect.html#bdTop">Browser Detecting (and what to do Instead)</a>
+			
+				<ul>
+					<li><a href="not_browser_detect.html#bdIntro">Introduction</a></li>
+					<li><a href="not_browser_detect.html#bdValid">Avoiding structural differences in the browser DOMs</a></li>
+					<li><a href="not_browser_detect.html#bdDif">Browsers Differences</a></li>
+					<li><a href="not_browser_detect.html#bdFailS">Failed Strategies: Browser Detecting</a>
+						<ul>
+							<li><a href="not_browser_detect.html#bdUAS">Assumptions Based on navigator.userAgent</a></li>
+							<li><a href="not_browser_detect.html#bdOI">Assumptions Based on DOM Objects: Object inference</a></li>
+						</ul>
+					</li>
+					<li><a href="not_browser_detect.html#bdFD">A Strategy That Works: Object/Feature Detecting.</a>
+						<ul>
+							<li><a href="not_browser_detect.html#bdGEID">Example 1: IDed Element Retrieval</a></li>
+							<li><a href="not_browser_detect.html#bdScroll">Example 2: Scroll Values</a></li>
+							<li><a href="not_browser_detect.html#bdReplace">Example 3: String.prototype.replace</a></li>
+						</ul>
+					</li>
+					<li><a href="not_browser_detect.html#bdDesPb">The Javascript Design Problem</a></li>
+				</ul>
+			
+			
+			</li>
+		</ol>
+    </li>
+    <li class="tocEn">
+    	<a name="FAQN4_39" id="FAQN4_39">4.39 How do I access the property of an object using a string?</a>
+		<ol>
+			<li><a href="square_brackets.html">Javascript Square Bracket Notation</a>
+				<ul>
+					<li><a href="square_brackets.html#intro">Introduction</a></li>
+					<li><a href="square_brackets.html#sBs">Square Bracket Syntax</a></li>
+					<li><a href="square_brackets.html#vId">String Variables as Identifiers</a></li>
+					<li><a href="square_brackets.html#eId">String Expressions as Identifiers</a></li>
+					<li><a href="square_brackets.html#aVa">Global Variable access with the Square Bracket Notation</a></li>
+					<li><a href="square_brackets.html#illc">Illegal characters in Identifier-strings</a></li>
+				</ul>
+			</li>
+		</ol>
+    </li>
+    <li class="tocEn">
+    	<a name="FAQN4_41" id="FAQN4_41">4.41 Why doesn't the global variable &quot;divId&quot; always refer to the element with id=&quot;divId&quot;?</a>
+		<ol>
+			<li>See: <a href="alt_dynwrite.html#getEl">4.15.1 An Alternative DynWrite function - Element retrieval given the element ID as a string</a></li>
+			<li>See: <a href="not_browser_detect.html#bdGEID">4.26.1 Browser Detecting (and what to do Instead) - Example 1: IDed Element Retrieval</a></li>
+		</ol>
+    </li>
+    <li>Miscellaneous
+	    <ol>
+			<li class="tocEn"><a href="cljs_charter.html">The comp.lang.javascript Charter</a></li>
+			<li class="tocEn"><a href="closures.html">Javascript Closures</a></li>
+			<li class="tocEn"><a href="script_tags.html">How to Include Scripts in <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> Documents</a></li>
+			<li class="tocEn"><a href="misc.html">Tricks and Tips</a></li>
+		</ol>
+	</li>
+    <li class="tocEn"><a href="contributors.html">Contributors</a></li>
+    <li class="tocEn"><a href="faqNotes.zip">The complete FAQ and Notes in ZIP format (174KB)</a></li>
+</ul>
+
+<h2><a name="fnIntro" id="fnIntro">Introduction to the Notes</a></h2>
+
+<p>
+Because the <a href="http://jibbering.com/faq/">comp.lang.javascript
+FAQ</a> is posted to the group regularly
+there are practical constraints on how much can be included in it. At
+the same time it is often felt that it should contain more (or more
+in-depth) information on some of its topics. The FAQ is largely
+designed to provide URLs of other resources that provide that
+additional information, but where no additional resource is available
+or it is felt that those resources omit important information. These
+notes are intended to provide an opportunity for those additional
+resources to be created.
+</p>
+
+<p>
+It is intended that anyone who wishes to contribute notes should be
+able to do so (under editorial control) and that some of the more
+in-depth postings to the group should become notes, or be
+incorporated within them.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>FormElementCollection.html</title>
+	<style type="text/css">
+	input { font-size: 8px; font-family: courier new, monospace; padding: 0 }
+	#pass { display: none; background : #0f0; }
+	#fail { display: none; background : #F33; }
+	</style>
+</head>
+<body>
+<h1>Test: 290 Names not to give a FORM Control</h1>
+<form name="length" action="fail" title="fail">
+<input type="submit" />
+</form>
+<form name="title"></form>
+
+<pre id="pass">PASS - All Form Properties Replaced by an Element</pre>
+<pre id="fail">FAIL</pre>
+<pre>
+<script type='text/javascript' src="names.js"></script>
+<script type="text/javascript">
+
+(function(){
+var form = document.forms[0];
+var input = document.createElement('input'),
+    clone;
+var bugs = [];
+
+input.type = "text";
+
+for(var i = names.length -1; i >= 0; i--) { 
+  try {
+	  if(names[i] == names[i-1]) {
+		alert("found duplicate: " + names[i]);
+		break;
+	  }
+	  else {
+		clone = input.cloneNode(false);
+		clone.name = clone.id = names[i];
+		clone.value = names[i];
+		form.appendChild(clone);
+	  }
+  } catch(ex) {
+	  //("could not create input named: " + names[i]);
+  }
+}
+// can't use form.elements, form.getElementsByTagName, et c
+// because they were replaced by an input.
+
+var actual, expected, msg, actualString;
+for(i = 0; i < names.length; i++) {
+
+  actual = form[names[i]];
+  expected = document.getElementById(names[i]);
+  if(actual != expected) {
+    msg = names[i];
+    if(actual.toString && actual.toString.tagName) 
+      actualString = actual.toString.tagName;
+    else
+      actualString = String(actual);
+    msg += " found: " + (((actualString + " ("+typeof actual+")")) || "(missing)");
+    bugs[bugs.length] = msg;
+  }
+} 
+
+if(bugs.length > 0)
+  fail(bugs);
+else pass();
+
+function fail(bugs) {
+  var fail = document.getElementById('fail');
+  fail.firstChild.data += ': The following ' + bugs.length +
+  ' form properties should have been an INPUT element:\n  * ' + bugs.join('\n  * ');
+  fail.style.display = "inline-block";
+}
+
+function pass() {
+  var pass = document.getElementById('pass');
+  pass.style.display = "inline-block";
+}
+
+//document.write(names.join("\n  &lt;/li&gt;\n  &lt;li&gt;\n    "));
+})();
+</script>
+</body>
+</html>

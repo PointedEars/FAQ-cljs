@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<title>window postMessage</title>
+
+<body>
+<h1>Ask the 8-Ball</h1>
+<iframe src="http://dhtmlkitchen.com/jstest/postMessage/receiver.html" id="iframe" 
+   style="width: 90%; height: 10em;"></iframe>
+<form id="posterForm">
+  <textarea id="msg" placeholder="Ask the 8 ball" cols="30" rows="5"></textarea>
+  <input type="submit">
+  <pre id="responseMessage">-</pre>
+</form>
+<script type="text/javascript">
+window.onload = function() {
+
+  var DOMAIN_RECEIVER = "http://dhtmlkitchen.com",
+      win = document.getElementById("iframe").contentWindow,
+      responseMessage = document.getElementById("responseMessage"),
+      form = document.getElementById("posterForm").onsubmit = postDataToWin;
+
+  
+
+  function postDataToWin(ev){
+    win.postMessage(
+      document.getElementById("msg").value,
+      DOMAIN_RECEIVER
+    );
+    return false;
+  }
+  
+  // Listen for message back from dhtmlkitchen.
+  addCallback(self, "message", messageReceivedBackHandler);
+  
+  function messageReceivedBackHandler(ev) {
+    ev = ev || self.event;
+    var ACCEPT_DOMAIN = "http://dhtmlkitchen.com",
+        origin = ev.origin,
+        messageEl = document.getElementById("m");
+  
+    // Allow only accepted domain.
+    if(origin !== ACCEPT_DOMAIN) {
+      return;
+    }
+  
+    responseMessage.firstChild.data = ev.data;
+  }
+  
+  function addCallback(o, type, cb){
+    if(o.addEventListener) {
+      o.addEventListener(type, cb, false);
+    } else {
+      o.attachEvent("on" + type, cb);
+    } 
+  }
+};
+</script>
+</body>
+</html>

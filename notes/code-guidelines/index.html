@@ -1,0 +1,615 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>Code Guidelines for Rich Internet Application Development</title>
+
+<link rel="schema.DC" href="http://www.purl.org/dc/elements/1.1/">
+<meta name="DC.title" lang="en" content="Code Guidlines for Rich Internet Applications">
+<meta name="DC.date" scheme="W3CDTF" content="2010-05-29">
+<meta name="DC.source" content="http://www.ecma-international.org/publications/standards/Ecma-262.htm">
+<meta name="DC.publisher" content="Garrett Smith">
+<meta name="DC.Publisher.Address" content="dhtmlkitchen&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">
+<meta name="DCTERMS.audience" content="Programmers, web developers">
+<meta name="DC.description" content="Guidlines and Best Practices for javascript (ECMAScript) in web applications.">
+<meta name="DC.source" content="http://www.ecma-international.org/publications/standards/Ecma-262.htm">
+<meta name="DC.source" content="http://www.w3.org/TR/html4/">
+
+<meta name="DCTERMS.language" scheme="RFC1766" content="en">
+<link rel="DCTERMS.isReferencedBy" href="/faq/notes/" >
+
+<meta name="DC.source" content="news:comp.lang.javascript">
+
+
+<link href="../../faq.css" rel="stylesheet" type="text/css">
+<link href="../notes.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+li {
+  font-weight: bold;
+}
+li p, li  div, ul ul ul li {
+  font-weight: normal;
+}
+h4 {
+  margin: .5ex;
+  font-size: 1em;
+}
+</style>
+
+</head>
+<body>
+<h1>Code Guidelines for Rich Internet Application Development</h1>
+<div id="faqNav">
+  <a href="../../">FAQ</a> &gt; <a href="../">FAQ Notes</a>
+</div>
+<p>
+By Garrett Smith, with contributions from Asen Bozhilov, RobG, John G Harris, David Mark, and Dmitry Soshnikov. 
+</p>
+<h2>Abstract</h2>
+<p>
+    This document points to the causes of errors and problems related to javascript 
+    for web applications and provides explanation of what to do instead.
+</p>
+<p>
+    When followed, these guidelines can improve the code 
+    stability and maintainability of a Rich Internet Application deployed 
+    across a wide range of web browsers.
+</p>
+<p>
+    For code reviews, this document and the 
+    <a href="../review/">Code Review Guidelines</a> should be read by the code author and code reviewer.
+</p>
+<h2>Guidelines</h2>
+<ul>
+   <li>Markup
+       <ul>
+           <li>
+               <p>Use valid html <a href="http://validator.w3.org">validator.w3.org</a>.</p>
+               <p>
+                   Code that uses malformed, nonconforming HTML is expecting nonstandard behavior. 
+                   When a web browser encounters a problem in HTML, it must perform error correction. 
+                   Since there are no error correction mechanisms defined in HTML 4, browsers 
+                   handle the problem in proprietary ways.
+               </p>
+               <p>
+                   When the browser parses a document, it creates a DOM representation of it. 
+                   If the browser performed error correction when parsing, the outcome is a 
+                   different DOM. For an example with a detailed explanation, see:
+                   <a href="http://ln.hixie.ch/?start=1037910467&amp;count=1"
+                   >Tag Soup: How UAs handle &lt;x&gt; &lt;y&gt; &lt;/x&gt; &lt;/y&gt;</a> 
+                   and also <a href="http://jibbering.com/faq/notes/detect-browser/#bdValid"
+                   >Avoiding Structural Differences in the Browser DOMs</a>.
+               </p>
+               <p>
+                   The W3C validator results either with green <code>PASS</code> or with one or more errors
+                   at which point it is clear that the code is not completed to
+                   standard.
+               </p>
+            </li>
+            <li>
+                <p>Use standards mode, with HTML <code>DOCTYPE</code> first (neither comments nor xml declaration preceeding it).</p>
+            </li>
+            <li>
+                <p>Reduce the markup to simplest semantic markup necessary.</p>
+                <p>Simpler code is easier to read.</p>
+                <p>
+                    More markup means more bytes transferred over the wire, 
+                    more parsing for the browser, and a larger DOM for scripts 
+                    to traverse. 
+                </p>
+            </li>
+            <li><p>Set the HTTP content-type text/html.</p></li>
+            <li>
+                <p>Set charset in HTTP or, if using a <code>META</code> tag, as 
+                    <a href="http://www.w3.org/TR/html4/charset.html#spec-char-encoding">early as possible</a> 
+                    in the <code>HEAD</code>.
+                </p>
+            </li>
+            <li>
+                <p>
+                Escape ETAGO delimiter with backwards solidus (backslash).
+                See also : <a href="http://www.cs.tut.fi/~jkorpela/www/revsol.html"
+                >The reverse solidus (backslash, <code>\</code>) in Web authoring</a>.
+                </p>
+                <p>
+                A reverse solidus (backslash) should appear before the solidus 
+                symbol in the sequence "&lt;/", resulting in "&lt;\/", and not "&lt;" + "/".
+                <a href="http://www.w3.org/TR/html4/appendix/notes.html#h-B.3.2.1"
+                >ETAGO in SCRIPT and STYLE</a>.
+                </p>
+            </li>
+            <li>
+                <p>
+                Do not use <code>javascript:</code> pseudo protocol.
+                <a href="../../#javascriptURI">FAQ: I have &lt;a href=&quot;javascript:somefunction()&quot;&gt;  what ... ?</a>
+                </p>
+            </li>
+        </ul>
+        <h3>Validation Note</h3>
+        <p>
+        The <a href="http://validator.w3.org/docs/help.html#validandconform">W3C 
+        validator does not validate conformance</a>. Conformance errors can 
+        cause problems and must be recognized and corrected. See also:
+        <a href="http://www.w3.org/TR/html4/appendix/notes.html#notes-invalid-docs"
+        >Appendix B: Performance, Implementation, and Design Notes: Invalid Documents</a>, 
+        which states <cite>This specification does not define how conforming 
+        user agents handle general error conditions...</cite>
+        </p>
+        
+        <p>
+        When the code does not do what is wanted of it, it is important to understand 
+        why. The HTML validator can help because it can report HTML errors (and much more quickly 
+        than a tired human eye could).
+        </p>
+        
+        <p>
+        Poring over a long list of validation errors to find the validation error(s) 
+        that could be related to the code not doing what is wanted of it is error-prone, 
+        time-consuming guesswork. When an HTML error is found, the next task is finding 
+        when that error crept in, why it is there, what other code is relying 
+        on the problematic area, who wrote that other code, where is he now, so a 
+        possible fix can be discussed, etc. Using invalid HTML is a waste of time. 
+        Instead, by always using valid HTML, clear expectations can be made of what 
+        the code should be doing.
+        </p>
+        
+        <p>
+        Running the W3C validator is a little extra effort that saves a lot of time.
+        See also: <a href="http://validator.w3.org/docs/why.html">W3C: Why Validate?</a>
+        </p>
+    </li>
+
+    <li>
+    CSS
+        <ul>
+            <li>
+                <p>
+                  Use valid css. (Excepting vendor extensions and css 3 features).
+                  <a href="http://jigsaw.w3.org/css-validator/">http://jigsaw.w3.org/css-validator/</a>
+                </p>
+            </li>
+            <li>
+                <p>
+                    Class and id selectors should have semantic meaning. See also: 
+                    <a href="http://www.w3.org/QA/Tips/goodclassnames">Use class with semantics in mind</a>.
+                    Selectors such as <code>.redButton</code>, <code>#ItalicStatement</code> are meaningless.
+                    Instead, use class and id that represent an object or state.
+                </p>
+                    Example:
+                    <pre>.errorButton, #warningMessage, .active-panel</pre>
+                <p>
+                    This makes the code meaningful even when the styles change.
+                </p>
+            </li>
+        </ul>
+    </li>
+    <li>
+    Script:
+        <ul>
+            <li>Variables
+                <ul>
+                    <li>
+                        <p>
+                            Declare variables in the narrowest possible scope, never global.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Do not assign to undeclared identifiers (do not forget <code>var</code>).
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Give each identifier a meaningful name.
+                        </p>
+                    </li>
+                </ul>
+            </li>
+            <li id="methods">Methods
+                <ul>
+                    <li>
+                        Avoid initialization routines that loop through the DOM.
+                        Instead, use event delegation and inspect the target (see design 
+                        section).
+                    </li>
+                    <li>Avoid methods that do too much or have side effects. Methods should be simple and do one thing.</li>
+                    <li>Avoid long parameter lists. The fewer the better.</li>
+                    <li>Do not include non-localized strings in scripts (excepting developer error messages).</li>
+                    <li>Be clear and consistent with their return type.</li>
+                    <li>Test not only that it succeeds correctly (happy path), 
+                    but also that it fails correctly (sad path). </li>
+                </ul>
+            </li>
+            <li id="design">Design
+                <ul>
+                    <li>Avoid creating and using useless methods, e.g.
+            <pre>goog.isDef = function(val) {
+  return val !== undefined;
+};
+</pre>
+                    </li>
+                    <li>
+                        Do not use non-standard or inconsistent ECMAScript methods (<code>substr</code>, 
+                        <code>escape</code>, <code>getYear</code>, <code>parseInt</code> with no radix). Instead, use 
+                        <code>substring</code>, <code>encodeURIComponent</code>, <code>getFullYear</code>, 
+                        and <code>parseInt(<var>s</var>, 10)</code> with a radix, respectively.
+                    </li>
+                    <li>
+                        Do not use non-standard syntax such as "function statement"
+                        (see also: <a href="/faq/#functionStatement">FAQ: What is a function statement?</a> and 
+                        <a href="http://yura.thinkweb2.com/named-function-expressions/"
+                        >Named Function Expressions</a>).
+                    </li>
+                    <li>
+                        Consider refactoring a function with conditionals to dynamic dispatch or 
+                        function redefinition.
+                    </li>
+                    <li>
+                        Avoid modifying objects you don't own.
+                        <p>
+                        A piece of code that modifies any object it does not own is not 
+                        clear to the client of the API where those changes are coming from. 
+                        </p>
+                        
+                        <p>
+                        Modifying built-ins has been known to cause forwards-compatibility problems 
+                        and conflict with other code. Modifying host objects can result in 
+                        javascript errors.
+                        </p>
+                        
+                        <p>
+                        Instead, use another approach. For example, define your own object, possibly hidden 
+                        in a closure.
+                        </p>
+                        
+                        <p>
+                        Modifying host objects or host objects' constructors' prototypes with new properties 
+                        is unspecified. The practice has been known to be the source of cross-browser problems. 
+                        </p>
+                        
+                        <p>
+                        Where DOM host objects are implemented with prototypes, the prototype chain 
+                        is implementation-dependent (not specified). The interface-based API design of the 
+                        <a href="http://www.w3.org/TR/DOM-Level-2-HTML/">W3C DOM</a> does not forbid a 
+                        sub-interface from providing a more specific implementation that could shadow 
+                        the a user-defined method of the same name further up in the prototype chain. 
+                        </p>
+                        <p>
+                        The W3C DOM does not prevent implementations from creating their own 
+                        interfaces. Quite often implementations do create interfaces that are 
+                        interwoven through the interface hierarchy. Such interfaces may or may 
+                        not be accessible to code. 
+                        </p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Strings:
+                <ul>
+                    <li>
+                    Use efficient string concatenation techniques. Do not repeatedly create 
+                    and discard temporary strings.
+                    </li>
+                    <li>
+                    Instead use <code>String.prototype.concat(a, b, c)</code> or 
+                    <code>htmlArray.push(a, b, c);</code>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Loops:
+                <ul>
+                    <li>
+                        Avoid chains of identifiers in loop.
+                        Replace a long chain of identifiers with a variable.
+                    </li>
+                    <li>
+                        Do not traverse over elements to modify the style or add an event 
+                        callback to each element.
+                        <div> 
+                          
+                            <p>
+                                For Styles, replace a loop that applies styles to descendants by 
+                                adding a class token to the nearest common ancestor (<a 
+                                href="descendant-sel.html">example</a>).
+                            </p>
+                            <ol>
+                                <li>
+                                    Add a style rule to the stylesheet with selector text 
+                                    <code>.special-state .special-descendant-class</code>. 
+                                </li>
+                                <li>
+                                    In the HTML, for each element to be to dynamically updated, add 
+                                    the class attribute <code>"special-descendant-class"</code>. 
+                                </li>
+                                <li>
+                                    In the script, add the class "special-state" to the ancestor 
+                                    and. 
+                                    The style rule defined in the stylesheet will be applied to 
+                                    the descendants with <code>"special-descendant-class"</code>.
+                                </li>
+                            </ol>
+                            <p>
+                                For events, use event delegation. That is, replace a loop that adds a 
+                                callback to each element in a collection with a callback on a common ancestor.
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>Statements:
+                <ul>
+                    <li>
+                      <p>
+                          Do not use <code>==</code> where strict equality is required.
+                          Where strict equality is required, the strict equality operator <code>===</code> must be used. 
+                          The strict equality operator should always be used to compare objects.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                      Do not use Boolean conversion of value that may be acceptably falsish, 
+                      e.g. <code>if(e.pageX)</code>. 
+                      </p>
+                      <p>
+                        Instead check the property using <code>typeof</code>. For example: 
+                        <code>if(typeof e.pageX == "number")</code>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                          Do not use useless statements (e.g. <code>typeof it == "array"</code>). In addition to 
+                          contributing to code size and runtime performance, useless statements make the 
+                          code harder to understand.
+                      </p>
+                    </li>
+                </ul>
+            </li>
+            <li id="regex">
+                Regular Expressions
+                <ul>
+                    <li>
+                        Be simple, but do not match the wrong thing.
+                        A complex regular expression is harder to understand than a simple one. 
+                        
+                        <p>
+                          The context of a Regular Expression is as important as what it can match. 
+                          A complex regular expression is harder to understand than a simple one.
+                          Simple regular expressions are preferred. It is sometimes acceptable for the 
+                          expression to match the wrong thing, just so long as the context in which it 
+                          is used precludes or handles that.
+                        </p>
+                        <pre>
+// Wrong: Matches 137, 138...
+ARROW_KEY_EXP : /37|38|39|40/;
+
+// Right: matches only arrow keys.
+ARROW_KEY_EXP : /^(?:37|38|39|40)$/;
+
+// Simple: Can match the wrong thing, but that can be handled.
+var iso8601Exp = /^\s*([\d]{4})-(\d\d)-(\d\d)\s*$/;
+</pre>
+                        <p>
+                        Trying to match leap years would be excessively complex. 
+                        Instead, the date validation can be addressed where the expression is used. 
+                        </p>
+                        <p>
+                        As with functions, test not only that it succeeds correctly, 
+                        but also that it fails correctly.
+                        </p>
+                    </li>
+                </ul>
+            </li>    
+        <li id="formatting">
+          Formatting:
+            <ul>
+                <li>
+                    Code should not be formatted with tabs. 
+                    Space indentation should be used consistently.
+                </li>
+                <li>
+                    Code should be formatted to a maximal line length. For newsgroup code, 
+                    it should not exceed 72 chars.
+                </li>
+                <li id="asi">Semicolons:
+                    <h4>Semicolons, Newlines, and ASI (Automatic Semicolon Insertion)</h4>
+                    <p>
+                        Avoid mistakes caused by <dfn title="Automatic Semicolon Insertion">ASI</dfn>.
+                    </p>
+                    
+                    <p>
+                        In ECMAScript, line terminators affect how a program is interpreted. This is a design 
+                        mistake of the language of which the details are complicated. The following guidelines 
+                        can help avoid ASI problems with both <dfn>restricted productions</dfn> and productions that 
+                        are not restricted.
+                    </p>
+                    <h5>Line Terminators: Restricted Productions</h5>
+
+                    <p>
+                        <dfn>Restricted productions</dfn> include only the postfix operators and the control 
+                        statements <code>return</code>, <code>throw</code>, <code>continue</code>, and 
+                        <code>break</code>. ASI affects a <dfn>restricted productions</dfn> 
+                        when a line terminator is introduced. The following guidelines help avoid that mistake:
+                    </p> 
+                    <h5>ASI Guidelines for <dfn>restricted productions</dfn>:</h5>
+                    <ul>
+                        <li>
+                            A postfix <code>++</code> or <code>--</code> operator must appear
+                            on the same line as its operand.
+                        </li>
+                        <li>An Expression in a <code>return</code> or <code>throw</code> statement must 
+                            start on the same line as the <code>return</code> or <code>throw</code> token.
+                        </li>
+                        <li>
+                            An Identifier in a <code>break</code> or <code>continue</code> statement 
+                            must be on the same line as the <code>break</code> or <code>continue</code> token.
+                        </li>
+                    </ul>
+
+                    <h5>Guidelines for Semicolons in Source Code:</h5>
+                    <ul>
+                        <li>
+                            <p>
+                                Don't rely on ASI. Use semicolons explicitly.
+                            </p>
+                            <p>
+                                A program that uses semicolons explicitly is less 
+                                susceptible to different interpretation caused by 
+                                changes in line terminators and expressions. 
+                            </p>
+                            <p>
+                                For more details, please see: <a href="asi.html"
+                                >Automatic Semicolon Insertion : Unrestricted Productions</a>
+                            </p>
+                        </li>
+                    </ul>
+                    <h5>Extraneous Semicolons and The Empty Statement, ;</h5>
+                    <p>
+                        While it is important use semicolons explicitly, where required,
+                        there are cases where a semicolon should not be added.
+                    </p>
+                    <p>
+                        The <dfn>Statement</dfn>s that do not end in semicolon all end in close 
+                        curly braces instead. They are :
+                    </p>
+<pre>
+Block:
+    { ... }
+
+SwitchStatement:
+    switch ( ... ) { ... }
+
+TryStatement:
+    try ... catch ( ... ) { ... }
+    try ... finally { ... }
+</pre>
+
+                    <p>
+                        Something that isn't a statement but looks like one:
+                    </p>
+<pre>
+Function Declaration:
+    function x{ ... }
+</pre>
+                    <p>
+                        A semicolon that immediately follows a FunctionDeclaration 
+                        is interpreted as an <dfn>EmptyStatement</dfn>. Useless 
+                        statements should be avoided.
+                    </p>
+                </li>
+            </ul>
+        </li>
+        <li id="dom">
+            DOM:
+            <ul>
+                <li id="unrelatedInference">
+                    Do not use poor or unrelated inferences such as <a href="../detect-browser/">browser detection</a> 
+                    (see also <a href="../../#detectBrowser">FAQ: How do I detect Opera/Safari/IE?</a>). 
+            <pre>// Unrelated inference:
+if(typeof window.innerHeight == "number") // it isn't IE
+// Good inference: 
+if(typeof window.innerHeight == "number") // innerHeight available.
+
+// Unrelated inference based on proprietary XUL feature (Borrowed from MooTools).
+// See also: Bug 340571  - getBoxObjectFor leaking-onto-the-Web disaster 
+// https://bugzilla.mozilla.org/show_bug.cgi?id=340571
+gecko: function(){
+    return (document.getBoxObjectFor == undefined) ? false : ((document.getElementsByClassName) ? 19 : 18);
+}
+</pre>
+                </li>
+                 <li>
+                    Use standards W3C DOM approach preferentially and proprietary DOMs as a fallback.
+                 </li> 
+                 <li>
+                     If an approach requires several branches for handling browser variance, 
+                     look for a different approach that works in all tested browsers.
+                 </li>
+                 <li>
+                     Do not traverse the DOM on page load; do not traverse the DOM 
+                     using user-defined css query selector.
+                 </li>
+                 <li>
+                  Instead of traversing the DOM, use Event delegation.
+                 </li>
+            </ul>
+        </li>
+        <li id="hostObjects">
+         Host Objects:
+            <ul>
+                <li>Operators:
+                    <ul>
+                        <li>
+                            Do not use <code>delete</code> operator with host object This will cause errors in IE, and others: 
+                            <pre>delete window.location; //Security error" code: "1000"</pre>
+                        </li>
+                        <li>
+                            Do not add any expando properties (<code>unselectable</code> is safe).
+                            See also: <a href="http://msdn.microsoft.com/en-us/library/ms533747(v=VS.85).aspx"
+                            >msdn expando</a>.
+                        </li>
+                        <li>
+                            Host objects that error upon <code>[[Get]]</code> access are often 
+                            <code>ActiveX</code> objects. These include, but are not limited to:
+                            <ul>
+                                <li>
+                                    Disconnected nodes whose <code>parentNode</code> is not an element (<code>node.offsetParent</code>).
+                                </li>
+                                <li>
+                                    <code>XMLHttpRequest</code> methods (<code>open</code>, <code>send</code>, etc).
+                                </li>
+                                <li>
+                                    filters: <code>elem.filters.alpha</code>, <code>elem.style.filters.alpha</code>, etc.
+                                </li>
+                                <li>
+                                    <code>document.styleSheets[99999] </code>- Error from <code>[[Get]]</code> for a 
+                                    nonexistent numeric property of a <code>styleSheets</code> collection.
+                                </li>
+                                <li>
+                                    <code>link.href</code> for <code>nntp:</code> links in IE.
+                                </li>
+                                <li>
+                                    <code>NodeList</code> in Safari 2 - do not attempt access a 
+                                    nonexistent property 
+                                    (e.g. <code>document.childNodes.slice</code>).
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>Type conversion
+                    <dl>
+                        <dt><code>[[ToString]]</code></dt>
+                        <dd>Perform string conversion by starting concatenation with a string value.
+                            See <a href="http://groups.google.bg/group/comp.lang.javascript/msg/1528f612e31f09fe"
+                        >Newsgroup message explanation</a>.
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </li>
+        <li>
+            Comments:
+            <ul>
+                <li>
+                    Avoid too many comments; let the code speak for itself. 
+                </li>
+                <li>
+                    Avoid comments that are likely to become obsolete or are redundant.
+                </li>
+                <li>
+                    Explain <em>why</em>, not <em>what</em>. 
+                    Comments should help explain things that are not obvious.
+                </li>
+                <li>
+                    Comments should never contain inaccurate statements or terminology, 
+                    should never be misleading, and should be well-written.
+                </li>
+            </ul>
+        </li>
+        </ul>
+    </li>
+</ul>
+</body>
+</html>

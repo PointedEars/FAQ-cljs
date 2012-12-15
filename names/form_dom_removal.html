@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Test element Removal</title>
+<style type='text/css'>
+  .fail { background: #F33; }
+  .pass { background: #0f0; }
+  b { display: none; padding: 1px 3px; 
+  font-family: monospace; white-space: pre;}
+</style> 
+</head>
+<body>
+<form action="">
+<input type="text" name="test">
+</form>
+
+<b id="failElements" class="fail">FAIL</b>
+<b id="passElements" class="pass">PASS</b>
+<strong>form.elements.test is null?</strong>
+
+<div>
+<b id="passForm" class="pass">PASS</b>
+<b id="failForm" class="fail">FAIL</b>
+<strong>form.test is null?</strong>
+</div>
+
+<script type="text/javascript">
+var d = document,
+    form = d.forms[0],
+    display = "inline-block",
+    failElements = d.getElementById('failElements'),
+    passElements = d.getElementById('passElements'),
+    failForm = d.getElementById('failForm'),
+    passForm = d.getElementById('passForm');
+    
+// comment the following line to hide bug:
+form.test;
+
+while(form.lastChild){
+  form.removeChild(form.lastChild);
+}
+if(document.forms[0].elements.test  )
+  failElements.style.display = display;
+else 
+  passElements.style.display = display;
+
+if(document.forms[0].test  )
+  failForm.style.display = display;
+else 
+  passForm.style.display = display;
+</script>
+</body>
+</html>

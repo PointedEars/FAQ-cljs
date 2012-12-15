@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+	<title>Callable HTMLCollection</title>
+	<link rel="Start" href="./">
+    <link rev="Section" href="api_design.html">
+</head>
+<body>
+<form action="" id="a" name="d"><input type="text"></form>
+<h3>Your Browser's Result:</h3>
+<pre id="callableResult">-</pre>	
+<pre>
+<script type="text/javascript">(function(){
+var f = document.forms, isCallable = true,
+    callableResult = document.getElementById('callableResult');
+try {
+  f(0);
+} catch(ex) {
+  isCallable = false;
+}
+if(!isCallable) {
+  callableResult.firstChild.data = "form is not callable";
+} else {
+  callableResult.firstChild.data = 
+  ["typeof f  " + "\""+ (typeof f) + "\"",
+  "f('0')    " + f('0'),
+  "f('a')    " + f('a'),
+  "f('d')    " + f('d')].join('\n');
+}
+})();</script>
+</pre>
+<hr>
+<h3>Browser Results:</h3>
+Firefox
+<pre>form is not callable</pre>
+Opera 9
+<pre>
+typeof f  "object"
+f('0')    [object HTMLFormElement]
+f('a')    [object HTMLFormElement]
+f('d')    [object HTMLFormElement]
+</pre>
+IE6, IE7, IE8
+<pre>
+typeof f  "object"
+f('0')    [object]
+f('a')    [object]
+f('d')    [object]
+</pre>
+Safari
+<pre>
+typeof f  "function"
+f('0')    [object HTMLFormElement]
+f('a')    [object HTMLFormElement]
+f('d')    [object HTMLFormElement]
+</pre>
+</body>
+</html>

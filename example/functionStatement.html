@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="iso-8859-15"> 
+<link rel="DCTERMS.isReferencedBy" href="http://jibbering.com/faq/#functionStatement">
+
+<title>Function Statement Example - FAQ - comp.lang.javascript</title>
+
+<style type="text/css">
+pre {
+    background: #fefefe;
+    padding: 1ex;
+    border: 1px dashed #eee;
+}
+</style>
+</head>
+
+<body style="background: #f9f9f9">
+<h1>Function Statement Example - FAQ : "What is a function statement?"</h1>
+<h2>Example Code</h2>
+<pre>
+try {
+  x; // ReferenceError: x is not defined.
+  function Fze(a, b) {a.unselectable = b}
+} catch(e) { }
+
+document.write("typeof Fze: ", typeof Fze, "\ntypeof e: ", typeof e);
+</pre>
+
+<h2>Result</h2>
+<pre>
+<script type="text/javascript">
+try {
+  x; // ReferenceError: x is not defined.
+  function Fze(a, b) {a.unselectable = b}
+} catch(e) { }
+
+document.write("typeof Fze: ", typeof Fze, "\ntypeof e: ", typeof e);
+</script>
+</pre>
+
+<p>
+Expected outcome for <code>typeof Fze</code> is not specified by ECMA-262. 
+</p>
+If <code>typeof Fze</code> results <code>"function"</code>, then <code>Fze</code> was interpreted 
+as a FunctionDeclaration. Otherwise if <code>typeof Fze</code> resulted <code>"undefined"</code>, 
+then <code>Fze</code> was not reached as a Statement; the preceeding statement - <code>x;</code> - 
+would trigger a ReferenceError, making it unreachable.
+</p>
+<p>
+Expected outcome for <code>typeof e</code> is <code>"undefined"</code>.
+</p>
+</body>
+</html>

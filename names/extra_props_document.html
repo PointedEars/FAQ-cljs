@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+    <title>Unsafe Names for HTML Form Controls - Extra Properties: Document</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	<meta name="author" content="Garrett Smith">
+	<link rel="Start" href="./">
+	<link rel="stylesheet" href="../faq.css" type="text/css" media="all" charset="iso-8859-1">
+	<link rel="stylesheet" href="names.css" type="text/css" media="all" charset="iso-8859-1">
+</head>
+<body>
+    
+    <h1>Unsafe Names for HTML Form Controls</h1>
+    <h2>Extra Properties: <code>document</code></h2>
+
+    <h3>Non-Standard Named Properties</h3>
+    <p>
+        A browser may add a property to the <code>document</code> for each named 
+        (or <code>id</code>'d) FORM element, IMG, or possibly any other element. 
+        Alternatively, the same 
+        browser may implement a specialized <code>[[Get]]</code> method to find the property. 
+    </p>
+    
+    <form action="" id="testFormID" name="testFormName">
+    <pre>
+&lt;form action="" id="testFormID" name="testFormName"&gt;
+&lt;/form&gt;
+</pre>
+        <button class="evaluator" onclick="this.nextSibling.firstChild.data = eval(this.firstChild.data);return false"
+        >'testFormID' in document</button
+        ><span>&nbsp;</span>
+        <button class="evaluator" onclick="this.nextSibling.firstChild.data = eval(this.firstChild.data);return false"
+        >'testFormName' in document</button
+        ><span>&nbsp;</span>
+        <img name="testImgNAME" src="" alt="404" style="z-index: -1;position:relative;">
+<pre>
+&lt;img name="testImgNAME" src=""&gt;
+</pre>
+
+        <button class="evaluator" onclick="this.nextSibling.firstChild.data = eval(this.firstChild.data);return false"
+        >'testImgNAME' in document</button
+        ><span>&nbsp;</span>
+        
+        <a name='testLinkNAME' style="z-index: -1;position:relative;">link</a>
+<pre>
+&lt;a name='testLinkNAME'&gt;link&lt;/a&gt;
+</pre>
+        <button class="evaluator" onclick="this.nextSibling.firstChild.data = eval(this.firstChild.data);return false"
+        >'testLinkNAME' in document</button
+        ><span>&nbsp;</span>
+    </form>
+    
+    <h3>Non Standard</h3>
+    
+    <p>
+        Accessing objects from the <code>document</code> collection is not standard and unsafe. 
+    </p>
+    
+    <p>
+        The extra properties added to <code>document</code>
+         can cause problems with Event Handler Content Attributes as we will see later on.
+    </p>
+    
+    <div id="toc">
+    	<h4>Table of Contents</h4>
+        <ul class="pagination linkList">
+            <li><a href="./index.html">Introduction</a></li>
+            <li><a href="extra_props.html">Extra Properties: <code>FORM</code> Elements</a></li>
+            <li>Extra Properties: <code>document</code></li>
+            <li><a href="extra_props_global.html">Extra Properties: <code>global</code></a></li>
+            <li><a href="event_handler.html">Event Handler Scope</a></li>
+            <li><a href="api_design.html">API Design?</a></li>
+            <li><a href="unsafe_names.html">Unsafe Names</a></li>
+            <li><a href="conclusion.html">Conclusion</a></li>
+        </ul>
+    </div>
+    <ul id="nextLink" class="linkList">
+      <li>
+        <span class="prev">Previous:</span> <a href="extra_props.html">Extra Properties: <code>FORM</code> Elements</a>
+      </li>
+      <li>
+        <span class="next">Next:</span> <a href="extra_props_global.html">Extra Properties: <code>global</code></a>
+      </li>
+    </ul>
+</body>
+</html>

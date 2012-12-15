@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>javascript pseudo-protocol errors</title>
+<meta http-equiv="refresh" content="10; url=pseudoGifTest.html">
+<link rel="index" href="http://jibbering.com/faq/">
+<script type="text/javascript">
+var loadTime;
+function init(){
+    loadTime = +new Date
+	showTime();
+	setInterval(showTime, 100);
+	
+}
+window.onbeforeunload = function() {
+  document.getElementById("bNotifier").value = "beforeonload handler called";
+};
+
+function showTime(){
+	document.forms['f'].elements['t'].value = (((new Date()).getTime() - loadTime)/1000)
+}
+</script>
+</head>
+<body onload="init()">
+<h1>javascript: uri problems demo</h1>
+<p>
+  <img src="waveAnim.gif" alt="animated wave">
+</p>
+ 
+<form action="" onsubmit="return false;" name="f">
+    <input type="text" value="" name="t" size="20">
+    <input type="text" value="" id="bNotifier" size="30">
+</form>
+ 
+<h3>javascript: uri as href</h3>
+<p>
+<a href="javascript:void 0;">javascript:void 0;</a>
+</p> 
+
+<h3>Actual link to invalid URL</h3>
+  <a href="http://bogus.example.com/v.html">http://bogus.example.com/</a>
+
+<h3>javascript: uri with syntactially invalid code</h3>
+<p>
+  <a href="javascript:void();">javascript:void();</a>
+</p>
+</body>
+</html>

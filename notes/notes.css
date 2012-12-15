@@ -1,0 +1,34 @@
+#contTable {
+    font-size: 120%;
+}
+#contTable, #contTable li dt {
+    font-weight: bold;
+}
+
+#contTable dl {
+    margin-left: 1.1em;
+    font-size: 86%;
+}
+
+#contTable dl * {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+#contTable dl dd {
+    margin-left: 2.2em;
+}
+
+#contTable li * {
+  font-weight: normal;
+}
+
+div {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+#faqNav a {
+  font-weight: 700;
+}

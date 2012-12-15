@@ -1,0 +1,51 @@
+P CODE, LI CODE {
+	background-color:#FFFFDD;
+	color:#000000;
+	padding:0;
+	margin:0;
+}
+BLOCKQUOTE {
+	background-color:#EEEEFF;
+	color:#000000;
+	padding:0.5em;
+}
+BLOCKQUOTE DD PRE, BLOCKQUOTE DD CODE {
+	background-color:#EEEEFF;
+	color:#000000;
+	border:#EEEEFF 0px none;
+	margin:0.5em;
+	padding:0;
+}
+BLOCKQUOTE DT {
+	font-weight:bold;
+	margin-bottom:0.5em;
+}
+.commentJS {
+	background-color:#FFFFCC;
+	color:#004800;
+}
+.person {
+	font-weight:bold;
+}
+.fn {
+	text-align:left;
+	color:#B00000;
+	}
+.ob {
+	color:#AA6500;
+}
+.st {
+	color:#0000DD;
+}
+.nm {
+	color:#006000;
+	}
+.bl{
+	color:#003444;
+}
+.un {
+	color:#666666;
+}
+DL {
+	MARGIN-TOP: 0.5em; FONT-SIZE: 100%; MARGIN-BOTTOM: 0.5em; MARGIN-LEFT: 2.5em
+}

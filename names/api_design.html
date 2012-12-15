@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+    <title>Unsafe Names for HTML Form Controls - API Design?</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	<meta name="author" content="Garrett Smith">
+	<link rel="Start" href="./">
+	<link rel="stylesheet" href="../faq.css" type="text/css" media="all" charset="iso-8859-1">
+	<link rel="stylesheet" href="names.css" type="text/css" media="all" charset="iso-8859-1">
+</head>
+<body>
+
+    <h1>Unsafe Names for HTML Form Controls</h1>
+    <h2>API Design?</h2>
+    <h3>Form-as-a-collection Design Decision</h3>
+    
+    <p>
+    	Form-as-a-collection is problematic for implementors and should be a 
+    	concern for developers (because bugs can occur when unsafe names are used).
+    </p>
+    
+    <p>
+        The idea of creating properties on a form creates 
+        a conflict. In Opera, the same key may appear twice in a for in loop.
+        <a href="http://groups.google.com/group/comp.lang.javascript/browse_frm/thread/a27c626bd71f1f0/"
+        >Opera, For In Loop, Same Key Appears Twice</a>. 
+    </p>
+
+    <p>
+        The elements collection is a safe alternative.
+        By deprecating the non-standard mystery <code>"similar to a collection"</code> 
+        behavior of a form, authors would be discouraged from using it.
+    </p>
+
+    <p>
+        Developers can still safely access the properties directly from the <code>elements</code> collection. 
+        There is no need to standardize this. 
+    </p>
+    <h4>HTML 5</h4>
+	<p>
+	The HTML 5 draft has merged in much of the Web Forms 2.0 specification, 
+	which attempted to standardize some of the browser inconsistencies, strange behavior, 
+	and bugs.
+	</p>
+	
+    <h4 id="controls-example-2">toString Example</h4>
+    <p>
+        This example contains a <code>FORM</code> element with two form controls, 
+        one named "length", the other "toString". A click callback is added to the 
+        <code>FORM</code>'s <code>length</code> property. The body of the function calls 
+        the <code>alert</code> function with the <code>FORM</code>. 
+    </p>
+    <form action=";" id="form1" style="display:inline">
+        <input name="toString" type="hidden">
+        <input name="length" value="submit" type="submit">
+    </form>
+    (Click the submit button to see what happens.)
+
+    <script type="text/javascript">
+    (function (){
+        var form = document.getElementById('form1');
+        form.length.onclick = function(e) {
+            try{
+                alert(form);
+            } catch(ex) {
+                alert("Error:\n" +ex.message);
+            } finally {
+                return false;
+            }
+        };
+        })();
+    </script>
+
+    <p>
+        <a onclick="toggleDisplay('controls-example-2-source', 'block', 'none'); return false;"
+        href="">source...</a>
+    </p>
+
+    <pre id='controls-example-2-source' style="display:none">
+&lt;form action="" id="form1"&gt;
+&lt;input name="toString" type="hidden"/&gt;
+&lt;input  name="length" value="submit" type="submit"/&gt;
+&lt;/form&gt;
+&lt;script type="text/javascript"&gt;
+(<span class='keyword'>function</span> (){
+    <span class='keyword'>var</span> form = document.getElementById(<span class='q'>'form1'</span>);
+    form.length.onclick = <span class='keyword'>function</span>(e) {
+        <span class='keyword'>try</span>{
+            alert(form);
+        } <span class='keyword'>catch</span>(ex) {
+            alert(<span class='q'>"Error:\n"</span> +ex.message);
+        } <span class='keyword'>finally</span> {
+            <span class='keyword'>return</span> <span class='keyword'>false</span>;
+        }
+    };
+})();&lt;/script&gt;
+    </pre>
+
+    <strong>Result</strong>
+    <p>
+        The callback tries to <code>alert</code> 
+        the <code>FORM</code> but throws an error when the <code>alert</code> function 
+        attempts to call the form's <code>toString</code> 
+        property, which was shadowed by a form control.
+    </p>
+    
+    <h3>Callable Collections</h3>
+    <p>
+      Many browsers make <code>HTMLCollection</code> collection a callable object. 
+      When called, <code>document.forms(<var>x</var>)</code> returns a form element whose <code>name</code>, 
+      <code>id</code>, or <code>index</code> matches the supplied argument <code><var>x</var></code>.
+    </p>
+    <p>
+      <a href="callable_example.html">Callable HTMLCollection Example</a>
+    </p>
+	<p>
+	  The DOM does not standardize collections to be callable. There isn't a good reason to call 
+	  a collection. The property access operators provide a standard, cross-browser alternative. 
+	  Callable collections are not implented in Mozilla. This feature does not appear to be considered for 
+	  inclusion in HTML 5 or Web IDL.
+	</p>
+
+    <h3>Map-like NodeList Collections</h3>
+	<p>
+	  Many browsers implement Map-like quality on <code>NodeList</code>.
+	  In these browsers, elements are accessible off the <code>NodeList</code> by their ID.
+	</p>
+    <p>
+      <a href="map-like-nodelist.html">Map-like NodeList Example</a>
+    </p>
+	<p>
+	  This behavior is nonstandard and may be present, but should not be used. 
+      It is one innovation of Internet Explorer, 
+	  copied in Safari, Opera, and perhaps elsewhere. 
+	</p>
+	
+	<p>
+	  Implementation developers and specifications authors must be aware of the permanence of 
+	  API Design. We should all be cognizant of the impact that an API has on the future. 
+	</p>
+    <div id="toc">
+    	<h4>Table of Contents</h4>
+        <ul class="pagination linkList">
+            <li><a href="./index.html">Introduction</a></li>
+            <li><a href="extra_props.html">Extra Properties: <code>FORM</code> Elements</a></li>
+            <li><a href="extra_props_document.html">Extra Properties: <code>document</code></a></li>
+            <li><a href="extra_props_global.html">Extra Properties: <code>global</code></a></li>
+            <li><a href="event_handler.html">Event Handler Scope</a></li>
+            <li>API Design?</li>
+            <li><a href="unsafe_names.html">Unsafe Names</a></li>
+            <li><a href="conclusion.html">Conclusion</a></li>
+        </ul>
+    </div>
+    <ul id="nextLink" class="linkList">
+      <li>
+        <span class="prev">Previous:</span> <a href="event_handler.html">Event Handler Scope</a>
+      </li>
+      <li>
+        <span class="next">Next:</span> <a href="unsafe_names.html">Unsafe Names</a>
+      </li>
+    </ul>
+    <script type="text/javascript">
+    function toggleDisplay(id, d1, d2) {
+        var s = document.getElementById(id).style;
+        s.display = s.display === d2 ? d1 : d2;
+    }
+    </script>
+</body>
+</html>

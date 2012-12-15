@@ -1,0 +1,949 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>How to Include Scripts in HTML Documents</title>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<link href="../faq.css" rel="stylesheet" type="text/css">
+<link href="faq_notes.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+BLOCKQUOTE PRE {
+	background-color:#EEEEFF;
+	color:#000000;
+	border:#EEEEFF 0px none;
+	margin:0;
+	padding:0;
+}
+BLOCKQUOTE H5 {
+	margin-left:0;
+}
+CODE { white-space:nowrap; }
+.elContent {
+	background-color:#EEEEFF;
+	color:#900000;
+}
+</style>
+</head>
+<body>
+
+<h1><a name="hsHead" id="hsHead">How to Include Scripts in <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> Documents</a></h1>
+
+<ul>
+	<li><a href="#hsIntro">Introduction</a></li>
+	<li><a href="#hsSE">SCRIPT Elements</a>
+		<ul>
+			<li><a href="#hsAt">Attributes</a>
+				<ol>
+					<li><a href="#hsAtch">charset</a></li>
+					<li><a href="#hsAtty">type</a></li>
+					<li><a href="#hsAtln">language</a></li>
+					<li><a href="#hsAtsc">src</a></li>
+					<li><a href="#hsAtdf">defer</a></li>
+				</ol>
+			</li>
+		</ul>
+	</li>
+	<li><a href="#hsStFm">The Standard Formulations</a></li>
+	<li><a href="#hsPrCn">Permissible Contexts for Script Elements</a></li>
+	<li><a href="#hsCt">The Content of Script Elements</a>
+		<ul>
+			<li><a href="#hsOld">Hiding Scripts from Older Browsers</a></li>
+			<li><a href="#hsETO">Closing Script Tags and &quot;&lt;/&quot; (end-tag open delimiter)</a></li>
+		</ul>
+	</li>
+	<li><a href="#hsExF">External Javascript Files</a>
+		<ul>
+			<li><a href="#hsExC">The content of External Javascript Files.</a></li>
+		</ul>
+	</li>
+	<li>
+		<a href="#hsMix">Script Elements that Import Javascript Files and Have Contents</a>
+	</li>
+	<li><a href="#hsEh">Event Handling Attributes: Intrinsic Events</a>
+		<ul>
+			<li><a href="#hsEhD">The Default Language for Intrinsic Events</a></li>
+		</ul>
+	</li>
+	<li><a href="#hsNs">NOSCRIPT Elements</a></li>
+</ul>
+
+<h2><a name="hsIntro" id="hsIntro">Introduction</a></h2>
+
+
+<p>
+There are three ways of including scripts in <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> documents:-
+</p>
+
+<ol>
+	<li>As the string value provided for an event handling attribute such as onclick (intrinsic events).</li>
+	<li>As the contents of a SCRIPT element (between opening and closing script tags in certain permissible locations within <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> source code.</li>
+	<li>As a separate script file imported into an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> page by having the URL of the file assigned to the SRC attribute of a SCRIPT element, again at certain permissible locations within the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> source.</li>
+</ol>
+
+<h2><a name="hsSE" id="hsSE">SCRIPT Elements</a></h2>
+
+<p>
+The current <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> version is 4.01. The <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> 4.01 transitional DTD
+defines a script element with:-
+</p>
+
+<blockquote cite="http://www.w3.org/TR/html4/loose.dtd" style="font-family:Courier, monospace;">
+&lt;!ELEMENT SCRIPT <span class="elContent">- -</span> %Script;          -- script statements --&gt;<br>
+&lt;!ATTLIST SCRIPT<br>
+<pre>
+  charset  %Charset;     #IMPLIED  - char encoding of linked resource -
+  type     %ContentType; #REQUIRED - content type of script language -
+  language CDATA         #IMPLIED  - predefined script language name -
+  src      %URI;         #IMPLIED  - URI for an external script -
+  defer    (defer)       #IMPLIED  - UA may defer execution of script -
+  event    CDATA         #IMPLIED  - reserved for possible future use -
+  for      %URI;         #IMPLIED  - reserved for possible future use -
+  </pre>
+  &gt;
+</blockquote>
+
+<p>
+(The <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> 4.01 strict DTD omits the <code>language</code> attribute
+as it is deprecated in the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> 4.01 standard.)
+</p>
+
+<p>
+Script elements are defined with opening and closing script tags. The
+two dashes after the element name in the DTD means that neither opening nor
+closing tag may be omitted, even when the element is importing a
+javascript file and has no contents.
+</p>
+
+<h3><a name="hsAt" id="hsAt">Attributes</a></h3>
+
+<h4><a name="hsAtch" id="hsAtch">charset</a></h4>
+
+<p>
+The <code>charset</code> attribute can declare the character encoding of an external
+javascript file that is being imported using the <code>src</code> attribute. In all
+cases it is preferable that the server sending the file provide
+character encoding information in Content-Type 
+<span class="initialism" title="HyperText Transfer Protocol ">
+<abbr title=" Transfer Protocol ">HTTP</abbr></span> headers (with the
+slight problem that there was no official content-type for use with
+scripts; see the <code>type</code> attribute below). 
+</p>
+
+<p>
+Javascript itself uses a very limited repertoire of characters but the
+content of string literals in non-Latin languages may necessitate an
+interest in character encodings with script files. That is not a
+problem that I have faced to date so I don't know how it should best
+be handled. I am yet to see a <code>charset</code> attribute used in
+a script tag.
+</p>
+
+<h4><a name="hsAtty" id="hsAtty">type</a></h4>
+
+<p>
+The <code>type</code> attribute is required in <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> 4 but the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> 4
+specification is not very helpful on the subject. It says:-
+</p>
+
+<blockquote cite="http://www.w3.org/TR/html4/interact/scripts.html#h-18.2.1">
+<h5>type = content-type [CI]</h5> 
+This attribute specifies the scripting language of the element's
+contents and overrides the default scripting language. The scripting
+language is specified as a content type (e.g.,
+&quot;text/javascript&quot;). Authors must supply a value for this
+attribute. There is no default value for this attribute. 
+</blockquote>
+
+<p>
+(The [CI] means that the attribute's value is case insensitive.)
+</p>
+
+<p>
+Pursuing the permissible values of content-type through the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>
+specification leads to a list of currently recognised content types
+(MIME or Media types). Up until mid 2005 that list did not include
+anything related to ECMAScript or javascript. So although the attribute
+is required, and so must have a value, there was no standardised
+content-type for that value. However, the HTML 4 specification did give
+text/javascript as an example (even though it was not a recognised
+standard content type) so it was that value that has traditionally been
+used with the <code>type</code> attribute when including or importing
+ECMAScript/javascript into an HTML page.
+</p>
+
+<p>
+The MIME types introduced in 2005 are application/ecmascript,
+application/javascript and text/javascript. The last of these, and the
+value that has traditionally been used; text/javascript, was official
+deprecated and so should be phased-out over time. However, at the point
+of officially recognising these new MIME types no browsers exist that
+will recognise either of application/ecmascript and application/javascript.
+This means that if either are actually used for the value of the <code>type</code>
+attribute the likelihood is that the script in question will never be
+executed.
+</p>
+
+<p>
+So for the present, and probably many years to come, text/javascript is
+the only viable value for use with the <code>type</code> attribute when using javascript.
+</p>
+
+<pre>
+type=&quot;text/javascript&quot;
+</pre>
+
+<h4><a name="hsAtln" id="hsAtln">language</a></h4>
+
+<p>
+The <code>language</code> attribute is deprecated (and not allowed under
+the strict DTD) and it is unnecessary when the <code>type</code> attribute
+is required, as that attribute will determine the language used.
+</p>
+
+<p>
+The <code>language</code> attribute can be more specific than the
+<code>type</code> attribute because it can also specify the language
+version.  In almost all respects specifying a language version is not 
+helpful and even potentially dangerous.
+</p>
+
+<p>
+By default a web browser will execute a script using the latest version
+of the language that it supports. Generally all current (March 2004)
+browsers support all of the language features specified in ECMA 262 2nd
+edition (approximately JavaScript 1.3) and most fully support the 3rd
+edition. Restricting the language features used to those defined in
+ECMA 262 2nd edition (with additional care in some less used areas)
+should result in scripts that will happily execute on all current
+browsers without a need to specify a language version.
+</p>
+
+<p>
+Netscape initially attempted to tie the DOM features of their browser
+to the language version, which would have allowed a specified language
+version to imply the DOM features supported. That idea was abandoned
+because other browsers produced by their competitors introduced
+scripting with near identical languages but significantly different
+DOMs. DOM support should be determined independently of language
+version using object/feature detecting.
+</p>
+
+<p>
+The potential danger with specifying a language version comes with
+specifying version 1.2. Version 1.2 was an aberration. It deviated
+significantly from earlier versions of the language in anticipation
+of changes to the ECMA specification, but those changes were never
+made. Netscape had to reverse the changes it had made to version
+1.2 in version 1.3 in order to conform with what was eventually
+published as ECMA 262 2nd edition. The only browsers released for
+which version 1.2 was the default JavaScript version were Netscape
+4.00 to 4.05 (and you won't find many of those left in the wild).
+</p>
+
+<p>
+The problem is that if you specify version 1.2 in a <code>language</code> attribute
+you may actually get it, with all of its deviant characteristics, but
+at the same time most browsers will not exhibit those characteristics.
+It is always a bad idea to encourage the same code to be interpreted in
+two different ways, and certainly never without fully understanding how
+the language versions differ. The specific problem can be avoided by
+never specifying the language version as 1.2. The issue can be avoided
+by never providing the deprecated <code>language</code> attribute at all.
+</p>
+
+<h4><a name="hsAtsc" id="hsAtsc">src</a></h4>
+
+<p>
+The SRC attribute specifies the URL of an external javascript file that
+is to be imported by the script element. If no file is being imported
+by the element (the script is the element's contents) then the
+<code>src</code> attribute is omitted.
+</p>
+
+<h4><a name="hsAtdf" id="hsAtdf">defer</a></h4>
+
+<p>
+The <code>defer</code> attribute is specified as providing a
+&quot;hint&quot; to the browser as to whether it needs to process
+the script immediately (as it usually would), or whether it can carry
+on parsing the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> following the script element and leave the
+javascript interpreter to process the script in its own time.
+</p>
+
+<p>
+If a script uses the <code>document.write</code> method to insert
+content into the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> being processed then the script element
+containing that script must not be deferred as the inserted <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>
+could end up at any point in the document (or even be inserted after
+the current document has closed, replacing it). If a script is
+deferred additional care must be taken before any part of it, such
+as a function it defines, is interacted with by other scripts (such
+as intrinsic events).
+</p>
+
+<p>
+It is unusual for a script element to have a <code>defer</code>
+attribute. And many browsers will not recognise/act upon a
+<code>defer</code> attribute even if one is present.
+</p>
+
+<h2><a name="hsStFm" id="hsStFm">The Standard Formulations</a></h2>
+
+<p>
+Leaving the <code>defer</code> and <code>charset</code> attributes
+aside, the normal formulation for a valid <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> 4 script element that
+imports a javascript file is:-
+</p>
+
+<pre>
+&lt;script type=&quot;text/javascript&quot;
+        src=&quot;http://example.com/scriptFile.js&quot;&gt;&lt;/script&gt;
+
+<span class="commentJS">&lt;!-- or using an example relative URL --&gt;</span>
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;../scripts/scriptFile.js&quot;&gt;&lt;/script&gt;
+</pre>
+
+<p>
+<span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> is case insensitive so the tag name and attribute names can be
+in upper or lower (or mixed) case (current practice tends to prefer
+lower case).
+</p>
+
+<p>
+The attribute values must be quoted because in both cases they include
+characters that are forbidden in unquoted attribute values (forbidden
+characters would be any character that is not: letters (a-z and A-Z),
+digits (0-9), hyphens (ASCII decimal 45), periods (ASCII decimal 46),
+underscores (ASCII decimal 95), and colons (ASCII decimal 58)). The
+quote characters used may be double quotes (<code>&quot;</code>) or single quotes
+(<code>'</code>). Common practice prefers double quotes for <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> attributes.
+</p>
+
+<p>
+Traditionally javascript files are given a two-letter extension of <code>.js</code>.
+That extension is not required, any valid URL to a resource that
+returns content that can be interpreted as valid javascript source
+code will work. In addition, browsers do not appear to be interested
+in any Content Type headers sent with the javascript source, which is
+probably a good thing as officially recognised content types have only
+just (mid 2005) been introduced.
+</p>
+
+<p>
+Script that is to be included in an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> page is placed as the content
+of a script element. Appearing between the opening and closing script
+tags:-
+</p>
+
+<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+function exampleFunctionDeclaration(n){
+    return (n * 4);
+}
+&lt;/sciprt&gt;
+</pre>
+
+<p>
+The same case sensitivity and attribute value quoting considerations
+apply to this application of the script tags as applied to their use
+when importing external script files.
+</p>
+
+
+<h2><a name="hsPrCn" id="hsPrCn">Permissible Contexts for Script Elements</a></h2>
+
+<p>
+Script elements may not appear in all contexts in an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> document.
+They may be children of the <code>HEAD</code> element because the DTD
+defines the content of the <code>HEAD</code> element as including
+<code>%head_misc;</code> content which includes <code>SCRIPT</code> in
+its definition. Script elements may also appear within the
+<code>BODY</code> element in any context that is specified as
+<code>%flow;</code>, <code>%inline;</code>, <code>%special;</code> or
+specifically <code>SCRIPT</code> by the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> DTDs. This is because
+<code>%flow;</code> includes all elements defined as
+<code>%inline;</code>, which includes all elements defined as
+<code>%special;</code>, which includes <code>SCRIP</code> in its
+definition (among others).
+</p>
+
+<p>
+Reading the DTDs and looking out for these categories will indicate
+where script elements are allowed to appear. For example, the (<span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>
+4.01 transitional) DTD definition for the paragraph element reads:-
+</p>
+
+<blockquote cite="http://www.w3.org/TR/html4/loose.dtd">
+<pre>
+&lt;!ELEMENT P - O (<span class="elContent">%inline;</span>)*        -- paragraph --&gt;
+</pre>
+</blockquote>
+
+<p>
+The content for the <code>P</code> element is <code>%inline;</code> and
+<code>%inline;</code> encompasses <code>SCRIPT</code>. Similarly:-
+</p>
+
+<blockquote cite="http://www.w3.org/TR/html4/loose.dtd">
+<pre>
+&lt;!ELEMENT DD - O (<span class="elContent">%flow;</span>)*         -- definition description --&gt;
+</pre>
+</blockquote>
+
+<p>
+The <code>DD</code> element has <code>%flow;</code> defining its content so it is
+allowed <code>SCRIPT</code> as its content (or part of it). Whereas:-
+</p>
+
+<blockquote cite="http://www.w3.org/TR/html4/loose.dtd">
+<pre>
+&lt;!ELEMENT DL - - (<span class="elContent">DT|DD</span>)+          -- definition list --&gt;
+</pre>
+</blockquote>
+
+<p>
+The <code>DL</code> element is only allowed <code>DT</code> and
+<code>DD</code> elements as its children. So a script element
+cannot appear as a child of a <code>DL</code> element in valid <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> 4.
+</p>
+
+<p>
+The DTD for the particular flavour of <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> being authored is the best
+guide as the where in a document script elements may appear, but note
+that the different versions of the DTD differ slightly in terms of the
+content defined for some elements.
+</p>
+
+<h2><a name="hsCt" id="hsCt">The Content of Script Elements</a></h2>
+
+<p>
+Script elements that have source code as their contents and appear on
+an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> page need some special consideration.
+</p>
+
+<h3><a name="hsOld" id="hsOld">Hiding Scripts from Older Browsers</a></h3>
+
+<p>
+When scripting was first introduced the preceding generations of
+browsers had no concept of what a script element was, and would treat
+the content of the unrecognised script tags in the way unrecognised
+tags are normally handled in <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>. The content is treated as <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>
+source, which, for a scripts, meant including it as text in a page.
+The results did not look good and a mechanism was provided to hide the
+script element contents from browsers that did not know how to handle
+script elements.
+</p>
+
+<p>
+Javascript has an end of line comment symbol consisting of two slashes
+(<code>//</code>). All characters between that symbol and the end of
+the line are treated as a comment and ignored. <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> also provides a
+means of commenting out parts of its source, an opening comment
+tag <code>&lt;!--</code> and a closing comment tag
+<code>--&gt;</code> (strictly these are not opening and closing tags
+in HTML, it is the pairs of dashes that start and end a comment. The
+surrounding <code>&lt;!</code> and <code>&gt;</code> represent a
+processing instruction, which is the only context in which a comment
+is recognised in HTML.).
+</p>
+
+<p>
+The trick to hiding javascript source code from
+browsers that did not recognise the script element, so it would not
+be shown on the page, was to allow script included in an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> page to
+use an additional end of line comment symbol that corresponded with
+the <code>&lt;!--</code> opening comment tag used by <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>. The script
+author would then place this tag/comment symbol at the start of the
+script source code (on a line of its own, so as not to comment out
+any javascript code) and then use the normal javascript end of line
+comment symbol to comment out (from the javascript interpreter) an
+<span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> end of comment tag.
+</p>
+
+<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+<span class="commentJS">&lt;!--</span>
+function exampleFunctionDeclaration(n){
+    return (n * 4);
+}
+<span class="commentJS">// --&gt;</span>
+&lt;/sciprt&gt;
+</pre>
+
+<p>
+A browser incapable of recognising the script element would treat its
+content as <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>
+source and so it would interpret the script within the script element
+as effectively commented out, thus not displaying it on the page.
+</p>
+
+<p>
+When scripting was introduced the practice was necessary and highly
+recommended, but that was some time ago and browsers and <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> versions
+have moved on two or three generations. We are now at a point where
+the oldest browsers in current use are already two generations into
+<span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> versions that formalised script elements. They all know what a 
+script element is and how its contents should be handled. Even
+browsers that cannot execute scripts know that they are supposed to
+ignore the content of script elements.
+</p>
+
+<p>
+The practice of hiding scripts from &quot;older&quot; browsers has
+become an anachronism, no longer needed and no longer used by informed
+javascript authors. It is still often seen because it is recommended
+in out of date books and in out of date javascript tutorials on the
+web. And the readers of those books and tutorials continue to use and
+promote it, not realising that it no longer serves any real purpose.
+</p>
+
+<p>
+The existence of this additional comment syntax in javascript included
+in <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> pages also lead to <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> style comments being used extensively
+in on-page javascript. This was, and is, a very bad idea. Javascript
+has end of line and multi-line comment syntaxes and they should be used
+exclusively to comment javascript source code.
+</p>
+
+<h3><a name="hsETO" id="hsETO">Closing Script Tags and &quot;&lt;/&quot; (end-tag open delimiter)</a></h3>
+
+<p>
+When a script is included on an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> page the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser needs to
+decide how much of the page's source text to pass on to the javascript
+interpreter and where it should start processing other <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> again.
+Officially an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser is required to take the first occurrence of
+the character sequence &quot;<code>&lt;/</code>&quot; it finds after
+the opening script tag as marking the end of the script element. In
+practice browsers seem to be a lot more lax and only terminate the
+script section when they encounter the character sequence
+&quot;<code>&lt;/script&gt;</code>&quot;.
+</p>
+
+<p>
+That seems reasonable (if lax) but it does not eliminate all problems.
+Suppose that a script includes <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> source in the form of a string
+literal, and that source includes a closing script tag, as might be
+the case when using <code>document.write</code> to write a new script
+element to the page:-
+</p>
+
+<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+document.write(
+    '&lt;script type=&quot;text/javascript&quot; src=&quot;scriptFile.js&quot;&gt;&lt;/script&gt;');
+&lt;/script&gt;
+</pre>
+
+<p>
+That is an example simplified to the point of being futile but it
+should be obvious that if the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser considers the first
+occurrence of &quot;<code>&lt;/script&gt;</code>&quot; as terminating
+the script element the results will be undesirable.
+</p>
+
+<p>
+The solution is to do something to make the character sequence within
+the javascript string of <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> different from the sequence that will be
+recognised as the closing script tag. This is often done by splitting
+the string and using a concatenation operation to let the script
+produce the same output:-
+</p>
+    
+<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+document.write(
+    '&lt;script type=&quot;text/javascript&quot; src=&quot;scriptFile.js&quot;&gt;&lt;/scr'+'ipt&gt;');
+&lt;/script&gt;
+</pre>
+
+<p>
+This conceals the closing script tag from the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser but it is not
+a good idea because string concatenation is a surprisingly heavyweight
+operation and the same goal of disrupting the character sequence that
+the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser will mistake for a closing tag can be achieved by using
+the javascript escape character to escape any character in the closing
+script tag:-
+</p>
+
+<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+document.write(
+    '&lt;script type=&quot;text/javascript&quot; src=&quot;scriptFile.js&quot;&gt;&lt;/script\&gt;');
+&lt;/script&gt;
+</pre>
+
+<p>
+The <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser will now not find the character sequence
+&quot;<code>&lt;/script&gt;</code>&quot; until it encounters the real
+closing script tag, but the internal representation of the string is not
+affected by the use of the escape character in the javascript source
+and no additional operations are needed.
+</p>
+
+<p>
+However, as I said, it is the character sequence
+&quot;<code>&lt;/</code>&quot; that is officially to be taken as
+terminating a script element's contents. While no current browsers are
+known to be that strict it is entirely realistic that some browsers may
+exist (or be introduced) that takes the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> specifications to hart and
+treat &quot;<code>&lt;/</code>&quot; as the end of the script content.
+But <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> validaters already tend to take the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> specification
+seriously and will report many mark-up errors as a result of getting
+the impression that a script element has terminated sooner than a
+browser would think it had.
+</p>
+
+<p>
+The above use of the escape character may placate all known browsers
+but it will not address the requirements of the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> specification.
+But they can both be addressed by escaping a different character,
+specifically the forward slash:-
+</p>
+
+<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+document.write(
+    '&lt;script type=&quot;text/javascript&quot; src=&quot;scriptFile.js&quot;&gt;&lt;\/script&gt;');
+&lt;/script&gt;
+</pre>
+
+<p>
+Of course now it is not just the closing script tag that needs to be
+escaped but all occurrences of closing tags appearing in string
+literals. All occurrences of &quot;<code>&lt;/</code>&quot; would need
+to be escaped to &quot;<code>&lt;\/</code>&quot; to completely avoid
+<span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser and validation problems. Alternatively the javascript
+source could be moved to an external file as then it is never
+examined by an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser or considered in <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> validation.
+</p>
+
+<h2><a name="hsExF" id="hsExF">External Javascript Files</a></h2>
+
+<p>
+Placing javascript source code in external files has several
+advantages. For those who are required to use a browser that is
+javascript incapable/disabled it can significantly reduce download
+time as those browsers just will not bother getting the external file
+as they have no use for it, scripts on an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> page must be downloaded
+with the page if the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> is to be used.
+</p>
+
+<p>
+External javascript files can also be cached separately from <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> pages
+so they may need to be downloaded less often even for the users of
+javascript capable/enabled browsers.
+</p>
+
+<p>
+They entirely remove the need to worry about script hiding (no longer
+needed anyway), escaping <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> closing tags in strings or any other
+factors relating to the parsing of mark-up languages.
+</p>
+
+<p>
+Javascript imported by using the <code>src</code> attribute of a script element is
+used in place of the content for the script element that imported it.
+The position of that element in the page defines the
+&quot;location&quot; of the script in the document. If the file
+executes <code>document.write</code> then any content written will be
+inserted following the script element that imported the file, and any
+other elements on the page referenced by that script as it loads will
+need to have already been parsed by the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser at that point or
+they will not be found in the DOM.
+</p>
+
+<h3><a name="hsExC" id="hsExC">The Content of External Javascript Files.</a></h3>
+
+<p>
+Javascript files imported using the <code>src</code> attribute of script elements
+must contain <em>only</em> javascript source code. They must not contain any
+<span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span>. It is a surprisingly common error for opening and closing script
+tags and/or the &quot;hide from older browsers&quot; <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> comment
+tags to be included in external script files, in that context they are
+javascript syntax errors and nothing else.
+</p>
+
+<h2><a  name="hsMix" id="hsMix">Script Elements that Import Javascript Files and Have Contents</a></h2>
+
+<p>
+Script elements may attempt to both import a file and contain script
+contents. The idea here is to provide some scripted action in the event
+that the external file cannot be loaded for some reason. Such a script
+element may look like:-
+</p>
+
+<pre>
+&lt;script type=&quot;text/javascript&quot; src=&quot;../scripts/scriptFile.js&quot;&gt;
+    var externalScriptLoaded = false;
+&lt;/script&gt; 
+</pre>
+
+<p>
+The browser should handle this formulation of the script element by
+attempting to load the external file, but in the even of that attempt
+failing instead the contents of the script element are executed. So, in
+the example above, if the external file is loaded and executed the
+contents of the element would not be executed. That external file
+would itself define the <code>externalScriptLoaded</code> global
+variable and assign it a value of boolean <code>true</code>. If the
+file did not load the contents would be executed, again creating
+the <code>externalScriptLoaded</code> variable, but this time
+assigning it a <code>false</code> value. Another script on the page
+can then read the <code>externalScriptLoaded</code> variable as a
+means of determining whether the external script loaded successfully.
+</p>
+
+<p>
+The definition of failing to load an external script is centred
+around <span class="initialism" title="HyperText Transfer Protocol ">
+<abbr title=" Transfer Protocol ">HTTP</abbr></span>. If no connection
+to the server can be made, or an
+<span class="initialism" title="HyperText Transfer Protocol ">
+<abbr title=" Transfer Protocol ">HTTP</abbr></span> error response,
+such as <code>404</code>, is returned, then the external script has
+failed to load and the browser can execute the contents of the
+element. However, many servers are set up in such a way that they
+do not actually return the expected
+<span class="initialism" title="HyperText Transfer Protocol ">
+<abbr title=" Transfer Protocol ">HTTP</abbr></span> error responses,
+but instead return an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> page that is intended to inform the user
+of the error. This is fine for humans but from the point of view of
+the browser such a response is indistinguishable from a returned
+(but erroneous) javascript source file (This is in part because
+the browser disregards content-type headers sent with external
+javascript files so even if the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> error reporting page is sent
+with a text/html content type the browser will still assume that
+it contains javascript source). The browser attempts to
+execute the returned <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> source as javascript and fails at the
+first inevitable syntax error. But erroring while executing what
+the browser thought was an external javascript file does not
+result in the execution of the code within the script element.
+</p>
+
+<p>
+In practice script elements are rarely used where an external
+file is imported and script contents are provided for the element.
+If a separate script wanted to verify that an externally imported
+script was available it would not need the mechanism demonstrated
+in the example above as javascript provides many ways of verifying
+the existence of javascript defined entities. So, for example, if
+the external script defined a function called <code>functionName</code>, the
+availability of that function could be verified as:-
+</p>
+
+<pre>
+if(typeof functionName == &quot;function&quot;){
+    functionName();
+}
+</pre>
+
+<p>
+- and if a function defined in an external file is available then
+that external file must have been successfully loaded. 
+</p>
+
+<h2><a name="hsEh" id="hsEh">Event Handling Attributes: Intrinsic Events</a></h2>
+
+<p>
+The final place where javascript can be included in an <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> document is
+as the value strings provided for event handling attributes.
+</p> 
+
+<p>
+The values of event handling attributes will almost certainly need to
+be quoted because it is nearly impossible to write a javascript
+statement that only uses the characters allowed in an unquoted
+attribute value. And quoting can get quite involved in attribute values
+because they need to be quoted in the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> source so whatever type of
+quote marks are used in the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> cannot be used within the javascript
+code provided as the value because the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser would take them as
+ending the string for the attribute value. While javascript string
+literals allow the use of double quotes or single quotes as delimiters
+and allow the type of quote not used as the delimiter to appear within
+the string literal unescaped.
+</p>
+
+<p>
+So, given a desire to assign the string <code>&quot;don't do
+that&quot;</code> to an element's value property in an onclick event,
+because of the single quote appearing in the string itself the attribute
+value <code>onclick='this.value = &quot;don't do that&quot;;'</code>
+will not work because the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser will take the second single quote
+as ending the attribute value. It will not work to simply escape the
+single quote as <code>onclick='this.value = &quot;don\'t do
+that&quot;;'</code> because the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser doesn't know anything about
+javascript escapes and still sees the second single quote in the middle
+of the javascript string.
+</p>
+
+<p>
+In this case escaping the single quote and reversing the quoting
+between the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> and the javascript
+<code>onclick=&quot;this.value = 'don\'t do that';&quot;</code> or
+using a javascript hex escape (which the <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> parser will not see as a
+quote) <code>onclick='this.value = &quot;don\x27t do that&quot;;'</code>
+would solve the problem. But quotes in event handling attribute strings
+that define code that uses string literals often needs to be thought
+about.
+</p>
+
+<h3><a name="hsEhD" id="hsEhD">The Default Language for Intrinsic Events</a></h3>
+
+<p>
+All else being equal, web browsers seem to all default the scripting
+language used with intrinsic events to javascript (ECMAScript, in
+whichever implementation is provided) and there is no formal mechanism
+for associating a scripting language with individual event handling
+attributes (unlike script elements which must be provided with a 
+<code>type</code> attribute).
+</p>
+
+<p>
+The <span class="initialism" title="HyperText Mark-up Language">
+<abbr title="HyperText Mark-up Language">HTML</abbr></span>
+specification calls for a page wide default scripting language
+to be set, and that is the only specified way to set the scripting
+language for intrinsic events.
+</p>
+
+<p>
+To this end The <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> specification proposes the inclusion in the
+<code>HEAD</code> section of a page of a <code>META</code> tag:-
+</p>
+
+<blockquote cite="http://www.w3.org/TR/html4/interact/scripts.html#h-18.2.2.1">
+<pre>
+&lt;meta http-equiv=&quot;Content-Script-Type&quot; content=&quot;text/javascript&quot;&gt;
+</pre>
+</blockquote>
+
+<p>
+This is supposed to assert the default type of script language on a
+page (possibly overridden by the (required) <code>type</code>
+attributes provided for individual script elements). As a result it
+is <em>formally correct</em> to include this tag in <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> 4.01 documents
+(or provide a corresponding <span class="initialism" title="HyperText Transfer Protocol "><abbr title=" Transfer Protocol ">HTTP</abbr></span> header when the page is served).
+</p>
+
+<p>
+However, there is no evidence that any current browsers pay any attention to
+this <code>META</code> element at all (or would have any interest in a corresponding
+<span class="initialism" title="HyperText Transfer Protocol "><abbr title=" Transfer Protocol ">HTTP</abbr></span>
+header), but then there are not many browsers that can execute any
+scripting language but javascript. This entire proposed mechanism
+has also been subject to criticism, and many recommend disregarding
+it entirely in favour of relying on the tendency of browsers to
+default to interpreting intrinsic event code as javascript.
+</p>
+
+<h2><a name="hsNs" id="hsNs">NOSCRIPT Elements</a></h2>
+
+<p>
+The general idea of a <code>NOSCRIPT</code> element is to provide a
+holder for <span class="initialism" title="HyperText Mark-up Language"><abbr title="HyperText Mark-up Language">HTML</abbr></span> marked-up content
+that will only be displayed when scripting is not enabled/available on
+a web browsers. At first sight this seems to be a useful idea, and a
+contribution towards providing clean degradation in circumstances where
+scripts cannot be executed. Showing content that would be a substitute
+for any content that would otherwise have been provided by a script.
+</p>
+
+<p>
+However, <code>SCRIPT</code> and <code>NOSCRIPT</code> elements are not
+actually directly substitutable in
+<span class="initialism" title="HyperText Mark-up Language">
+<abbr title="HyperText Mark-up Language">HTML</abbr></span>. That is, you
+cannot use a <code>NOSCRIPT</code> element in all of the contexts in
+which you can use a <code>SCRIPT</code> element and produce valid
+<span class="initialism" title="HyperText Mark-up Language">
+<abbr title="HyperText Mark-up Language">HTML</abbr></span> as a result.
+</p>
+
+<p>
+The <span class="initialism" title="HyperText Mark-up Language">
+<abbr title="HyperText Mark-up Language">HTML</abbr></span> DTDs
+categories <code>SCRIPT</code> and <code>NOSCRIPT</code> differently:
+<code>SCRIPT</code> is an <code>%inline</code>, <code>%special</code> or <code>%head.misc</code> element,
+it may appear in the <code>HEAD</code> of a document (as a child of
+a <code>HEAD</code> element (<code>%head.misc</code>)), or in any context that
+allows inline or <code>%special</code> content (descendants of the <code>BODY</code>
+element, but not in all contexts). The <code>NOSCRIPT</code> element
+is categorised as <code>%block</code>, and as a result it cannot appear in the
+<code>HEAD</code> at all, and may only appear in the body in a context
+that allows <code>%block</code> content (<code>%flow</code> or <code>%block</code> but not <code>%inline</code>). This
+means that the one cannot always stand as a direct substitute for the
+other in a valid <span class="initialism" title="HyperText Mark-up Language">
+<abbr title="HyperText Mark-up Language">HTML</abbr></span> document.
+</p>
+
+<p>
+<span class="initialism" title="HyperText Mark-up Language">
+<abbr title="HyperText Mark-up Language">HTML</abbr></span> <code>NOSCRIPT</code>
+elements probably seemed like a good idea when they were first introduced.
+They were probably even viable at the time because so few browsers were
+able to execute javascript that a division between <code>SCRIPT</code>
+and <code>NOSCRIPT</code> could encompass all of the possibilities. The
+problem with them now is the diversity of javascript capable web
+browsers, with their differing object models and language implementations.
+</p>
+
+<p>
+While it remains the case that any browser on which scripting is disabled
+or unavailable will use any <code>NOSCRIPT</code> elements provided in
+an <span class="initialism" title="HyperText Mark-up Language">
+<abbr title="HyperText Mark-up Language">HTML</abbr></span> page, it is not the
+case that all javascript supporting and enabled browsers will be able
+to successfully execute any script specified within (or imported by) a
+<code>SCRIPT</code> element. The browser may lack the features needed
+by the script, or just not be sufficiently dynamic to present any
+content that the script intends to insert into the document.
+</p>
+
+<p>
+Even browser features as seemingly universal as the
+<code>document.write</code> function are not universally supported
+(even on modern browsers), and anything even remotely dynamic is bound
+to fail somewhere. So instead of having to cope with two certain
+outcomes, successful execution and no script execution at all, it is
+actually necessary to cope with 3 possible outcomes, adding the
+possibility that scripting is supported by the browser but the features
+required by any individual script are not available. In that third
+case the script fails to provide what it was intended to provide, but
+the contents of the <code>NOSCRIPT</code> elements are not presented
+either.
+</p>
+
+<p>
+This effectively renders <code>NOSCRIPT</code> elements next to
+useless when it comes to providing clean degradation. They leave
+an unbridgeable gap between browsers unwilling or unable to execute
+scripts at all and browsers that will fully support any given script.
+And whatever content seemed to make sense within those
+<code>NOSCRIPT</code> elements must also make sense in the context
+of a javascript capable browser that does not support the features
+required by a script.
+</p>
+
+<p>
+Recognising a requirement for clean degradation in script design,
+and the inability of <code>NOSCRIPT</code> elements to contribute
+towards facilitating it, many recommend never using
+<code>NOSCRIPT</code> elements. Instead providing content that
+works in place of active script support within the 
+<span class="initialism" title="HyperText Mark-up Language">
+<abbr title="HyperText Mark-up Language">HTML</abbr></span> and then
+having their scripts remove, or transform by manipulation, that
+content only when the browser proves sufficiently supportive for
+the script to be viable. This technique allows the design to only
+consider two conditions; the browser fully supports the script
+and will execute it, or the browser does not support the scripts
+so whatever was originally included in the 
+<span class="initialism" title="HyperText Mark-up Language">
+<abbr title="HyperText Mark-up Language">HTML</abbr></span> will be
+what the user is exposed to.
+</p>
+
+<p id="rToc">
+<a href="faq_notes.html#toc">comp.lang.javascript FAQ notes T.O.C.</a>
+</p>
+
+</body>
+</html>

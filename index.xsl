@@ -5,18 +5,19 @@
                 doctype-system="http://www.w3.org/TR/html4/strict.dtd"/>
 
   <xsl:variable name="checkURLs" select="false"/>
-  <xsl:variable name="maintainer">Garrett Smith</xsl:variable>
+  <xsl:variable name="previous_maintainer">Garrett Smith</xsl:variable>
+  <xsl:variable name="maintainer">Thomas 'PointedEars' Lahn</xsl:variable>
                 
   <xsl:template match="/FAQ">
     <xsl:variable name="version" select="@VERSION"/>
-    <xsl:variable name="revision" select="@rev"/>
+    <xsl:variable name="revision" select="@revision"/>
     <xsl:variable name="updated" select="@DATE"/>
         
     <html lang="en">
       <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
         <meta name="DCTERMS.language" scheme="RFC1766" content="en"/>
-        <meta name="DC.title" content="comp.lang.javascript Frequently Asked Questions"/>
+        <meta name="DC.title" content="FAQ for comp.lang.javascript"/>
         <meta name="DCTERMS.subject"
               content="Frequently asked questions in the Usenet newsgroup comp.lang.javascript"/>
         <meta name="DC.format" content="text/html"/>
@@ -27,7 +28,7 @@
               content="dhtmlkitchen&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;"/>
         <meta name="DCTERMS.modified" content="{$updated}"/>
         <meta name="DCTERMS.audience" content="Programmers, web developers"/>
-        <meta name="DC.description" content="Javascript Frequently Asked Questions"/>
+        <meta name="DC.description" content="Frequently Asked Questions about JavaScript and other ECMAScript implementations"/>
         <meta name="DC.identifier" content="http://jibbering.com/faq"/>
         <meta name="DC.source"
               content="http://www.ecma-international.org/publications/standards/Ecma-262.htm"/>
@@ -41,9 +42,14 @@
       </head>
       <body>
         <h1><xsl:value-of select="TITLE"/></h1>
-        <p>Version <xsl:value-of select="$version"/>,
+        <p>Version <xsl:value-of select="$version"/>
+           by <xsl:value-of select="$previous_maintainer"/>,<br/>
+           <xsl:value-of select="$revision"/>
            updated <xsl:value-of select="$updated"/>
            by <xsl:value-of select="$maintainer"/></p>
+        
+        <p><xsl:value-of select="@id"/></p>
+        
         <div id="nav"><a href="notes/">FAQ Notes</a></div>
         
         <xsl:apply-templates select="CONTENTS" mode="toc"/>

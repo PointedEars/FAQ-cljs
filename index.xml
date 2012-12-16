@@ -1,604 +1,445 @@
 <FAQ VERSION="32.2" DATE="2010-10-08" revision="$Revision$" id="$Id$">
- <TITLE>FAQ for comp.lang.javascript</TITLE>
- <CONTENTS>
-  <CONTENT TITLE="Meta-FAQ meta-questions" ID="meta" NUMID="1">
-   <P>
-This is the <EM>comp.lang.javascript</EM> meta-FAQ, <VER/>.  The latest
-version is available at <URL>http://jibbering.com/faq/</URL> in HTML form.
-</P> 
-<P>
-Each day, one section of the FAQ is posted for review and questions,
-and as a reminder that the FAQ is available.
-</P>
-<P>
-For additional explanation and detail relating to some aspects 
-of the FAQ, please see the 
-<URL LINKTEXT="FAQ Notes">notes/</URL>. 
-It has been provided separately to avoid increasing the size of
-the FAQ to a point where it would be unreasonable to post it to
-the group.
-</P>
-<P>
-Code examples in this FAQ use <URL LINKTEXT="JSDoc Toolkit"
->http://jsdoctoolkit.org/</URL> comments.
-</P>
-   <CONTENT TITLE="Which newsgroups deal with javascript?" ID="newsgroups" NUMID="2_1">
-    <P>
-The official Big 8 Usenet newsgroup dealing with javascript is
-<NEWSGROUP>comp.lang.javascript</NEWSGROUP>.
-Some "language" hierarchies also have *.comp.lang.javascript groups.
-    </P>
-    <P>
-c.l.js is an unmoderated newsgroup.
-     </P>
-   </CONTENT>
-   <CONTENT TITLE="What questions are on-topic for comp.lang.javascript?" ID="appropriateQuestions" NUMID="2_2">
-    <P>
-The comp.lang.javascript newsgroup deals with ECMAScript
-languages, so any questions about JavaScript or JScript are
-welcome. However, the majority of questions sent to this group
-relates to javascript in a web browser. If you are experiencing
-issues with a particular browser, or the host is not a browser
-at all, please make this information clear.
-    </P>
-    <P>
-Javascript and Java are two completely different languages.
-Java questions should be asked in one of the comp.lang.java.*
-newsgroups; they are not appropriate for c.l.js (as Java and
-javascript are distinct programming languages with only
-superficial similarities due to sharing a C-like syntax and
-some of the characters in their names).
-    </P>
-    <P>
-Questions dealing with other scripting languages, such as
-VBScript, PerlScript or CGI scripting are also off-topic,
-as are HTML-only or CSS-only questions.
-    </P>
-    <!--
-    <P>
-      Questions about the design of various javascript libraries are 
-      appropriate; questions on how to <EM>use</EM> such libraries
-      are not. Check <URL LINKTEXT="c.l.js FAQ Resources"
-      >http://jibbering.comindex.html#libraryResources</URL> or search the web.
-    </P>
-    -->
-    <P>
-Questions that are specific to Microsoft's JScript may also
-be appropriately asked at:
-<NEWSGROUP>microsoft.public.scripting.jscript</NEWSGROUP>      
-     </P>
-    <P>
-The comp.lang.javascript newsgroup charter is included in
-<URL>faq_notes/cljs_charter.html</URL>.
-    </P>
-   </CONTENT>
-   <CONTENT TITLE="What should I do before posting to comp.lang.javascript?" ID="posting" NUMID="2_3">
-
-    <P>
-Before posting to c.l.js, you should read this document.
-You should also check the <URL LINKTEXT="Resources section">#onlineResources</URL>.
-    </P>
-  <LIST TYPE="UL" TITLE="How to Ask a Question" ID="ask">
-    <LI>
-State your question clearly and concisely.
-    </LI>
-    <LI>
-Use the Subject: line to show the type of problem you have but
-include the question in the body as well.  
-    </LI>
-    <LI>
-For a more detailed explanation of formatting, see 
-      <URL 
-LINKTEXT='&amp;quot;Posting Questions and Replies to comp.lang.javascript&amp;quot;'>notes/posting/</URL>.
-    </LI>
-  </LIST>
-
-  <LIST TYPE="UL" TITLE="Replying" ID="reply">
-    <LI>
-Quote only relevant parts of earlier messages, and add your
-comments below each quoted section
-(<URL LINKTEXT="FYI28/RFC1855">http://www.ietf.org/rfc/rfc1855.txt</URL>). 
-    </LI>
-    <LI>
-Link to specific sections of the FAQ that are relevant.
-    </LI>
-    <LI>
-Avoid being unnecessarily rude, but do not complain about other rude posts.
-    </LI>
-    <LI>
-Don't quote signatures.
-    </LI>
-  </LIST>
-  
-  <LIST TYPE="UL" TITLE="Posting Code" ID="postCode">
-    <LI>
-Remove everything that does not contribute to the problem (images, 
-markup, other scripts, etc).
-    </LI>
-    <LI>
-Validate the HTML and CSS <URL>http://validator.w3.org/</URL>, <URL>http://jigsaw.w3.org/css-validator/</URL>.
-    </LI>
-    <LI>
-Make sure the code is executable as transmitted. 
-    </LI> 
-    <LI>
-Format lines to 72 characters; indent with 2-4 spaces (not tabs). 
-    </LI>
-    <LI>
-State what you expect the code to do.
-    </LI>
-    <LI>
-Mention the platforms, browsers, and versions.
-    </LI>
-    <LI>
-See also the <URL LINKTEXT="FAQ section on debugging"
->#debugging</URL>.
-    </LI>
-    <LI>
-Post in plain-text only. Do not encode it. Do not attach files.
-    </LI>
-    <LI>
-If the code is more than about 100 lines, provide a URL in addition.
-    </LI>
-    <LI>
-Do not multi-post; cross-post if necessary 
-(<URL LINKTEXT="Wikipedia description">http://en.wikipedia.org/wiki/Cross-post</URL>).
-    </LI>
-  </LIST>
-  <LIST TYPE="UL" TITLE="What Not to Post" ID="doNotPost">
-    <LI>
-Do not post job postings. Job postings should go to
-an appropriate regional jobs group. 
-    </LI>
-    <LI>
-Do not post copyright material without permission 
-from the copyright holder.
-    </LI>
-  </LIST>
-  <P>
-Relevant announcements are welcome, but no more often than once 
-per major release, as a short link to the product's webpage. 
-  </P>
-  </CONTENT>
-   <CONTENT TITLE="Why was my post not answered?" ID="noAnswer" NUMID="2_4">
-    <P>
-This could be for several reasons:
-      <UL>
-       <LI>
-It was a variation of a frequently asked question and was 
-therefore ignored by everyone.
-       </LI>
-       <LI>
-Nobody knows the answer.
-       </LI>
-       <LI>
-The person with the answer has not seen the post.
-       </LI>
-       <LI>
-It might not be possible to do what you want to do but perhaps 
-readers of c.l.js are reluctant to answer your post in the negative 
-when they are not convinced that it cannot be done.
-       </LI>
-       <LI>
-The question was not asked clearly enough, or did not included 
-enough information to be answered.
-       </LI>
-       <LI>
-The questioner did not realise the need to read the group, for a 
-few days, to see the answers posted there.
-       </LI>
-       <LI>You ignored the <URL LINKTEXT="section on posting"
-       >#posting</URL>
-       </LI>
-     </UL>
-If it is not one of these, then after a few days consider
-reposting after checking <URL>http://groups.google.com/group/comp.lang.javascript/topics</URL> 
-for replies. Make sure the post is phrased well, and everything
-needed to answer is correct, and the subject is appropriate.
-    </P>
-   </CONTENT>
-  </CONTENT>
-  <CONTENT TITLE="Language Overview" ID="tips" NUMID="2">
-
-   <CONTENT TITLE="What is ECMAScript?" ID="ecma" NUMID="2_6">
-        <P>
-
-<URL LINKTEXT="ECMA-262">http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
-is the international standard that current language implementations 
-(JavaScript&amp;trade;, JScript etc.) are based on. 
-
-    </P>
-    <P>
-<URL LINKTEXT="ECMA-262">http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
-defines the language Syntax, Types, Keywords, Operators, and built-in 
-objects. The ECMAScript specification is the reference to determine the 
-expected behavior of a program. ECMAScript does not define any host 
-objects, such as <ICODE>document</ICODE>, <ICODE>window</ICODE>, or <ICODE>ActiveXObject</ICODE>. 
-    </P>
-<P>
-ECMA-327 defines the Compact Profile of ECMAScript by 
-describing the features from ECMA 262 that may be omitted in some 
-resource-constrained environments.
-<URL>http://www.ecma-international.org/publications/standards/Ecma-327.htm</URL>
-    </P>
-    <P>
-The most widely supported edition of ECMA-262 is the 3rd edition (1999). 
-There is fair support for this edition in JScript 5.5+ (buggy) and good 
-support JavaScript 1.5.
-</P>
-    <P>
-The term "javascript" is used as a common name for all dialects of ECMAScript.
-    </P>
-   </CONTENT>
-   <CONTENT TITLE="What is JScript?" ID="jScript" NUMID="2_7">
-    <P>
-JScript is Microsoft's implementation of ECMAScript.
-     </P>
-    <P>
-Questions that are specific to Microsoft's JScript may also
-be appropriately asked at:
-<NEWSGROUP>microsoft.public.scripting.jscript</NEWSGROUP>.    
-     </P>
-
-   </CONTENT>
-   <CONTENT TITLE="What is the Document Object Model (DOM)?" ID="dom" NUMID="2_9">
-    <P>
-The <DFN>Document Object Model</DFN> (DOM) is a interface-based model for <ICODE>Document</ICODE> 
-objects. The DOM allows scripts to dynamically access and update a 
-document's content, style, and event handlers. 
-</P>
-<P>
-The DOM is <EM>not</EM> part of the ECMAScript programming language.
-</P>
-<P>
-Official DOM standards are defined by the World Wide Web Consortium.
-Scriptable browsers also have <DFN>proprietary</DFN> DOM features (<URL
-LINKTEXT="MSDN">http://msdn.microsoft.com/en-us/library/ms533050(VS.85).aspx</URL>, <URL 
-LINKTEXT="MDC">https://developer.mozilla.org/en/DOM_Client_Object_Cross-Reference</URL>),
-such as <ICODE>document.writeln()</ICODE>.
- </P>
-<P>
-Also see the section on <URL LINKTEXT="DOM and Forms">#domRef</URL>.
-<MOREINFO>
-<URL LINKTEXT="c.l.js DOM Resources">#onlineResources</URL>
-<URL LINKTEXT="W3C DOM FAQ">http://www.w3.org/DOM/faq.html</URL>
-<URL LINKTEXT="W3C DOM ">http://www.w3.org/DOM/</URL>
-<URL LINKTEXT="MDC: What is the DOM?">https://developer.mozilla.org/en/Gecko_DOM_Reference/Introduction#What_is_the_DOM.3F</URL>
-</MOREINFO>
-    </P>
-   </CONTENT>
-   <CONTENT TITLE="Internationalisation and Localisation in javascript" ID="localization" 
-     NUMID="2_10">
-    <P>
-<DFN>Internationalisation</DFN> means using one form which is everywhere both
-acceptable and understood.  Any international standard not supported by
-default can be coded for.
-    </P>
-    <P>
-For example, there is an International Standard for numeric Gregorian 
-date format; but none for decimal and thousands separators.
-    </P>
-    <P>
-<DFN>Localisation</DFN> is the process of adapting software for a specific region 
-or language by adding locale-specific components and translating text. It 
-cannot work well in general, because it requires a knowledge of all 
-preferences and the ability to choose the right one, in an environment 
-where many systems are inappropriately set anyway.
-    </P>
-    <P>
-ECMAScript has a few <DFN>localisation</DFN> features. The various 
-<ICODE>toString()</ICODE> methods are all implementation dependent, 
-but tend to use either UK or US settings (not necessarily correctly).
-ECMAScript Ed. 3 introduced some capabilities, including the 
-<ICODE>toLocaleString()</ICODE>method which should create a string 
-based on the host's locale.
-    </P>
-<P>
-ECMAScript 5th Edition introduces limited ISO 8601 capabilities with 
-<ICODE>Date.prototype.toISOString()</ICODE> and new behavior for <ICODE>Date.parse()</ICODE>.
-</P>
- </CONTENT>
-   <CONTENT TITLE="What does the future hold for ECMAScript?" ID="futureEcmaScript" NUMID="2_12">
-    <P>
-The 5th edition of ECMAScript was approved on 2009-12-04. There is some 
-support in implementations released before approval date (JScript 5.8, 
-JavaScript 1.8, JavaScriptCore). 
-http://www.ecma-international.org/publications/standards/Ecma-262.htm
-<MOREINFO>
-<URL>http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
-</MOREINFO>
-</P>
-  </CONTENT>
-   </CONTENT>
-  <CONTENT TITLE="Javascript Resources" ID="ecmascriptResources" NUMID="3">
-   <CONTENT TITLE="What books are recommended for javascript?" ID="books" NUMID="3_1">
-    <P>
-Most javascript books have been found to contain so many technical 
-errors that consensus recommendations have not emerged from the group.
-    </P>
-    <P>
-The following books have been considered to have value by some
-individuals on c.l.js. The reviews of these books are provided: 
-    </P>
-<LIST TYPE="UL">
-<LI><EM>&amp;quot;JavaScript: The Definitive Guide,&amp;quot;</EM> 5th Edition, by David Flanagan 
-    <UL>
-        <LI>Published: 2006-08</LI>
-        <LI>Pages: 1018</LI>
-        <LI>Errata: <URL>http://oreilly.com/catalog/9780596101992/errata/</URL></LI>
-        <LI>Discussed in:   
-          <UL>
-            <LI>
-              <URL LINKTEXT="FAQ Update 9.85 Dated 2007-08-31"
-        >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/7283898f77fd2a66/9252aa024e058dea#c5f145ae807c918e</URL>
-            </LI>
-          </UL>
-        </LI>
-    </UL>
-</LI>
-    <LI>
-    <EM>"JavaScript, The Good Parts,"</EM> 1st Edition, by Douglas Crockford
-    <UL>
-        <LI>Published: 2008-05</LI>
-        <LI>Pages: 170</LI>
-        <LI>Errata: <URL>http://oreilly.com/catalog/9780596517748/errata/</URL></LI>
-        <LI>Discussed in:
-            <UL> 
-                <LI>
-                    <URL LINKTEXT="Crockford's 'The Good Parts': a short review"
-                  >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/d084d2109f7b4ec7#</URL>
-                  </LI>
-                <LI>
-                    <URL LINKTEXT="FunctionExpression's and memory consumptions"
-                  >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/db1e49ab113aa05c/3987eac87ad27966#3987eac87ad27966</URL>
-                  </LI>
-                  <LI>
-                    <URL LINKTEXT="FAQ Topic - What books are recommended for javascript? (2008-12-02)"
-                    >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/6a41f7835ee728de/da5ccfc65e2df64a#da5ccfc65e2df64a</URL>
-                  </LI>
-                  <LI>
-                     <URL LINKTEXT="Augmenting functions"
-    >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/3a08fb741525ab6d/</URL>
-                  </LI>    
-    
-                  <LI>
-                     <URL LINKTEXT="Crockford's JavaScript, The Good Parts (a book review)."
-    >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/bf26be6e63494ee2/acb733a1c35f6ce5#ee9e4ee29e658d5d</URL>
-                  </LI>
-                  <LI>
-                     <URL LINKTEXT="Closures Explained"
-    >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/df602506ee48b400/e65e00f5cad07676#e65e00f5cad07676</URL>
-                   </LI>
-                  <LI>
-                     <URL LINKTEXT="Javascript library development"
-    >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/acadf1b22b219433/4f69a95607d0b3ae#4f69a95607d0b3ae</URL>
-                  </LI>
-            </UL>
-        </LI>
-        </UL>
-    </LI>
-</LIST>
-
-   </CONTENT>
-   <CONTENT TITLE="What online resources are available?" ID="onlineResources" NUMID="3_2">
-
-  <LIST TITLE="ECMAScript" TYPE="DL" ID="ecmaResources">
-    <DT>
-The Official ECMAScript Specification
-    </DT>
-    <DD>
-<URL>[ECMA-262] http://www.ecma-international.org/publications/standards/Ecma-262-arch.htm</URL>
-    </DD>
-
-    <DT>
-[ISO16262] ISO/IEC 16262, Second Edition 2002-06-01 : ISO Standard matching
-ECMA-262 3rd Edition, with corrections.
-    </DT>
-    <DD>
-    <URL>http://standards.iso.org/ittf/PubliclyAvailableStandards/c033835_ISO_IEC_16262_2002(E).zip</URL>
-    </DD>
-  
-    <DT>
-    [MS-ES3]: Internet Explorer ECMA-262 ECMAScript Language Specification Standards Support 
-    </DT>
-    <DD>
-    <URL>http://msdn.microsoft.com/en-us/library/ff520996%28VS.85%29.aspx</URL>
-    </DD>
-    <DD><URL>res/%5BMS-ES3%5D.pdf</URL> (local alias)</DD>
-    
-    <DT>
-    [MS-ES3EX]: Microsoft JScript Extensions to the ECMAScript Language Specification Third Edition
-    </DT>
-    <DD>
-    <URL>http://msdn.microsoft.com/en-us/library/ff521046%28VS.85%29.aspx</URL>
-    </DD>
-    <DD><URL>res/%5BMS-ES3EX%5D.pdf</URL> (local alias)</DD>
-    
-    <DT>ECMAScript on Wikipedia
-    </DT> 
-    <DD>
-<URL>http://en.wikipedia.org/wiki/ECMAScript</URL>
-    </DD>
-  </LIST>
-  
-  <LIST TITLE="W3C DOM" TYPE="DL" ID="domResources">
-    <DT>
-DOM Level 1 ECMAScript Binding
-    </DT> 
-    <DD>
-<URL>http://www.w3.org/TR/REC-DOM-Level-1/ecma-script-language-binding.html</URL>
-    </DD>
-    <DT>
-DOM Level 2 ECMAScript Binding
-    </DT> 
-    <DD>
-<URL>http://www.w3.org/TR/DOM-Level-2-HTML/ecma-script-binding.html</URL>
-    </DD>
-    <DT>
-DOM Level 2 Events
-    </DT> 
-    <DD>
-<URL>http://www.w3.org/TR/DOM-Level-2-Events/events.html</URL>
-    </DD>
-  
-    <DT>
-DOM Level 2 Style
-    </DT> 
-    <DD>
-<URL>http://www.w3.org/TR/DOM-Level-2-Style/</URL>
-    </DD>
-  
-    <DT>
-DOM Level 3 ECMAScript Binding
-    </DT> 
-    <DD>
-<URL>http://www.w3.org/TR/DOM-Level-3-Core/ecma-script-binding.html</URL>
-    </DD>
-  </LIST>
-
-  <LIST TITLE="Browser Documentation" TYPE="DL" ID="browserResources">
-    <DT>
-Mozilla  
-    </DT> 
-    <DD>JavaScript: 
-<URL>http://developer.mozilla.org/en/docs/JavaScript</URL>
-    </DD>
-    <DD>Gecko DOM Reference: 
-<URL>http://developer.mozilla.org/en/docs/Gecko_DOM_Reference</URL>
-    </DD>   
-    <DT>
-Microsoft
-    </DT> 
-    <DD>HTML and DHTML Reference: 
-<URL>http://msdn.microsoft.com/en-us/library/ms533050.aspx</URL>
-    </DD>
-   
-    <DD>JScript Language Reference: 
-<URL>http://msdn.microsoft.com/en-us/library/hbxc2t98%28VS.85%29.aspx</URL>
-    </DD>   
-    <DD>Scripting: 
-<URL>http://msdn.microsoft.com/en-us/library/ms950396.aspx</URL>
-    </DD>
-
-    <DT>
-Opera
-    </DT> 
-    <DD>Web Specifications Support: 
-<URL>http://www.opera.com/docs/specs/#ecmascript</URL>
-    </DD>
-   
-    <DD>JavaScript Support: 
-<URL>http://www.opera.com/docs/specs/js/</URL>
-    </DD>
-   
-    <DD>ECMAScript Support: 
-<URL>http://www.opera.com/docs/specs/js/ecma</URL>
-    </DD>
-
-    <DT>
-BlackBerry JavaScript Reference
-    </DT> 
-    <DD>
-<URL>http://docs.blackberry.com/en/developers/deliverables/11849/</URL>
-    </DD>
-
-    <DT>
-ICab InScript 
-    </DT> 
-    <DD>
-<URL>http://www.muchsoft.com/inscript/</URL>
-    </DD>
-
-    <DT>Apple Safari</DT>
-    <DD>Web Content Guide: 
-<URL 
->http://developer.apple.com/safari/library/documentation/AppleApplications/Reference/SafariWebContent/Introduction/Introduction.html</URL>
-    </DD>
-   
-    <DT>
-Webkit 
-    </DT> 
-    <DD>Project Site: <URL>http://webkit.org/</URL></DD>
-    <DD>
-    Wiki: <URL>http://trac.webkit.org/wiki</URL>
-    </DD>
-    <DD>DOM Reference: 
-<URL 
->http://developer.apple.com/Mac/library/documentation/AppleApplications/Reference/WebKitDOMRef/index.html#//apple_ref/doc/uid/TP40006089</URL>
-    </DD>
-    <DT>
-Netscape 4 Client-Side JavaScript Reference
-    </DT> 
-    <DD>
-<URL>http://docs.sun.com/source/816-6408-10/</URL>
-    </DD>
+  <TITLE>FAQ for comp.lang.javascript</TITLE>
+  <CONTENTS>
+    <CONTENT TITLE="Meta-FAQ meta-questions" ID="meta" NUMID="1">
+      <P>
+        This is the <EM>comp.lang.javascript</EM> meta-FAQ, <VER/>.  The latest
+        version is available at <URL>http://jibbering.com/faq/</URL> in HTML form.
+      </P> 
+      <P>
+        Each day, one section of the FAQ is posted for review and questions,
+        and as a reminder that the FAQ is available.
+      </P>
+      <P>
+        For additional explanation and detail relating to some aspects 
+        of the FAQ, please see the 
+        <URL LINKTEXT="FAQ Notes">notes/</URL>. 
+        It has been provided separately to avoid increasing the size of
+        the FAQ to a point where it would be unreasonable to post it to
+        the group.
+      </P>
+      <P>
+        Code examples in this FAQ use <URL LINKTEXT="JSDoc Toolkit"
+        >http://jsdoctoolkit.org/</URL> comments.
+      </P>
       
-    <DT>
-Archived documentation for MSIE 3.x
-    </DT> 
-    <DD>
-<URL>http://members.tripod.com/%7Ehousten/download/</URL>
-    </DD>
-   </LIST>
-    
-  <LIST TITLE="Standalone ECMAScript Implementations" TYPE="DL" ID="standaloneImplementations"> 
-    <DT>
-Rhino: An open-source implementation of JavaScript written in Java
-    </DT>
-    <DD>
-<URL>http://www.mozilla.org/rhino/</URL>
-    </DD>
-    <DT>
-Besen IDE: ECMAScript Edition 5 with IDE
-    </DT>
-    <DD>
-<URL>http://besen.sourceforge.net/</URL>
-    </DD>
-    <DT>
-V8: Google's open source JavaScript engine
-    </DT>
-    <DD>
-<URL>http://code.google.com/p/v8/</URL>
-    </DD>
-    <DT>
-SpiderMonkey: Mozilla's C implementation of JavaScript
-    </DT>
-    <DD>
-<URL>http://www.mozilla.org/js/spidermonkey/</URL>
-    </DD>
-    <DT>
-Digital Mars DMD Script, console and MS Active Script implementation of ECMAScript
-    </DT> 
-    <DD>
-<URL>http://www.digitalmars.com/dscript/</URL>
-    </DD>
-  </LIST>
-  
-  <LIST TITLE="Other ECMAScript Implementations" TYPE="DL" ID="nonBrowserResources"> 
-    <DT>
-Developing Dashboard Widgets: Apple Developer Connection
-    </DT> 
-    <DD>
-<URL>http://developer.apple.com/macosx/dashboard.html</URL>
-    </DD>   
-    <DT>
-Whitebeam Apache Module: Server Side JavaScript in Apache
-    </DT> 
-    <DD>
-<URL>http://www.whitebeam.org/</URL>
-    </DD>
-  </LIST>
-  </CONTENT>
-     <CONTENT TITLE="Javascript Libraries" ID="libraryResources"> 
-    <P>
-No javascript libraries are endorsed by this group. If you want help 
-with using a library, visit that library's discussion group instead.
-    </P> 
-</CONTENT>
+      <CONTENT TITLE="Which newsgroups deal with javascript?" ID="newsgroups" NUMID="2_1">
+        <P>
+          The official Big 8 Usenet newsgroup dealing with javascript is
+          <NEWSGROUP>comp.lang.javascript</NEWSGROUP>.
+          Some "language" hierarchies also have *.comp.lang.javascript groups.
+        </P>
+        <P>
+          c.l.js is an unmoderated newsgroup.
+        </P>
+      </CONTENT>
+      
+      <CONTENT TITLE="What questions are on-topic for comp.lang.javascript?" ID="appropriateQuestions" NUMID="2_2">
+        <P>
+          The comp.lang.javascript newsgroup deals with ECMAScript
+          languages, so any questions about JavaScript or JScript are
+          welcome. However, the majority of questions sent to this group
+          relates to javascript in a web browser. If you are experiencing
+          issues with a particular browser, or the host is not a browser
+          at all, please make this information clear.
+        </P>
+        <P>
+          Javascript and Java are two completely different languages.
+          Java questions should be asked in one of the comp.lang.java.*
+          newsgroups; they are not appropriate for c.l.js (as Java and
+          javascript are distinct programming languages with only
+          superficial similarities due to sharing a C-like syntax and
+          some of the characters in their names).
+        </P>
+        <P>
+          Questions dealing with other scripting languages, such as
+          VBScript, PerlScript or CGI scripting are also off-topic,
+          as are HTML-only or CSS-only questions.
+        </P>
+        <!--
+          <P>
+            Questions about the design of various javascript libraries are 
+            appropriate; questions on how to <EM>use</EM> such libraries
+            are not. Check <URL LINKTEXT="c.l.js FAQ Resources"
+            >http://jibbering.comindex.html#libraryResources</URL> or search the web.
+          </P>
+        -->
+        <P>
+          Questions that are specific to Microsoft's JScript may also
+          be appropriately asked at:
+          <NEWSGROUP>microsoft.public.scripting.jscript</NEWSGROUP>      
+        </P>
+        <P>
+          The comp.lang.javascript newsgroup charter is included in
+          <URL>faq_notes/cljs_charter.html</URL>.
+        </P>
+      </CONTENT>
+     
+      <CONTENT TITLE="What should I do before posting to comp.lang.javascript?" ID="posting" NUMID="2_3">
+        <P>
+          Before posting to c.l.js, you should read this document.
+          You should also check the <URL LINKTEXT="Resources section">#onlineResources</URL>.
+        </P>
+        <LIST TYPE="UL" TITLE="How to Ask a Question" ID="ask">
+          <LI>State your question clearly and concisely.</LI>
+          <LI>Use the Subject: line to show the type of problem you have but
+              include the question in the body as well.</LI>
+          <LI>For a more detailed explanation of formatting, see
+              &quot;<URL LINKTEXT="Posting Questions and Replies to comp.lang.javascript">notes/posting/</URL>&quot;.</LI>
+        </LIST>
 
-  </CONTENT>
-  <CONTENT TITLE="Functions" ID="functions">
-  <CONTENT TITLE="What is (function(){ /*...*/ })() ?" ID="scope">
+        <LIST TYPE="UL" TITLE="Replying" ID="reply">
+          <LI>Quote only relevant parts of earlier messages, and add your
+              comments below each quoted section
+              (<URL LINKTEXT="FYI28/RFC1855">http://www.ietf.org/rfc/rfc1855.txt</URL>).</LI>
+          <LI>Link to specific sections of the FAQ that are relevant.</LI>
+          <LI>Avoid being unnecessarily rude, but do not complain about other rude posts.</LI>
+          <LI>Don't quote signatures.</LI>
+        </LIST>
+  
+        <LIST TYPE="UL" TITLE="Posting Code" ID="postCode">
+          <LI>
+            Remove everything that does not contribute to the problem (images, 
+            markup, other scripts, etc).
+          </LI>
+          <LI>Validate the HTML and CSS <URL>http://validator.w3.org/</URL>,
+              <URL>http://jigsaw.w3.org/css-validator/</URL>.</LI>
+          <LI>Make sure the code is executable as transmitted.</LI> 
+          <LI>Format lines to 72 characters; indent with 2-4 spaces (not tabs).</LI>
+          <LI>State what you expect the code to do.</LI>
+          <LI>Mention the platforms, browsers, and versions.</LI>
+          <LI>See also the <URL LINKTEXT="FAQ section on debugging">#debugging</URL>.</LI>
+          <LI>Post in plain-text only. Do not encode it. Do not attach files.</LI>
+          <LI>If the code is more than about 100 lines, provide a URL in addition.</LI>
+          <LI>Do not multi-post; cross-post if necessary
+              (<URL LINKTEXT="Wikipedia description">http://en.wikipedia.org/wiki/Cross-post</URL>).</LI>
+        </LIST>
+        <LIST TYPE="UL" TITLE="What Not to Post" ID="doNotPost">
+          <LI>Do not post job postings. Job postings should go to
+              an appropriate regional jobs group.</LI>
+          <LI>Do not post copyright material without permission
+              from the copyright holder.</LI>
+        </LIST>
+        <P>
+          Relevant announcements are welcome, but no more often than once
+          per major release, as a short link to the product's webpage.
+        </P>
+      </CONTENT>
+      
+      <CONTENT TITLE="Why was my post not answered?" ID="noAnswer" NUMID="2_4">
+        <P>This could be for several reasons:</P>
+        <UL>
+          <LI>It was a variation of a frequently asked question and was
+              therefore ignored by everyone.</LI>
+          <LI>Nobody knows the answer.</LI>
+          <LI>The person with the answer has not seen the post.</LI>
+          <LI>It might not be possible to do what you want to do but perhaps
+              readers of c.l.js are reluctant to answer your post in the negative
+              when they are not convinced that it cannot be done.</LI>
+          <LI>The question was not asked clearly enough, or did not included
+              enough information to be answered.</LI>
+          <LI>The questioner did not realise the need to read the group, for a
+              few days, to see the answers posted there.</LI>
+          <LI>You ignored the <URL LINKTEXT="section on posting">#posting</URL></LI>
+        </UL>
+
+        <p>If it is not one of these, then after a few days consider
+           reposting after checking
+           <URL>http://groups.google.com/group/comp.lang.javascript/topics</URL>
+           for replies. Make sure the post is phrased well, and everything
+           needed to answer is correct, and the subject is appropriate.</p>
+      </CONTENT>
+    </CONTENT>
+    
+    <CONTENT TITLE="Language Overview" ID="tips" NUMID="2">
+      <CONTENT TITLE="What is ECMAScript?" ID="ecma" NUMID="2_6">
+        <P>
+          <URL LINKTEXT="ECMA-262">http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
+          is the international standard that current language implementations
+          (JavaScript&amp;trade;, JScript etc.) are based on.
+        </P>
+        <P>
+          <URL LINKTEXT="ECMA-262">http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
+          defines the language Syntax, Types, Keywords, Operators, and built-in
+          objects. The ECMAScript specification is the reference to determine the
+          expected behavior of a program. ECMAScript does not define any host 
+          objects, such as <ICODE>document</ICODE>, <ICODE>window</ICODE>, or
+          <ICODE>ActiveXObject</ICODE>. 
+        </P>
+        <P>
+          ECMA-327 defines the Compact Profile of ECMAScript by 
+          describing the features from ECMA 262 that may be omitted in some 
+          resource-constrained environments.
+          <URL>http://www.ecma-international.org/publications/standards/Ecma-327.htm</URL>
+        </P>
+        <P>
+          The most widely supported edition of ECMA-262 is the 3rd edition (1999). 
+          There is fair support for this edition in JScript 5.5+ (buggy) and good 
+          support JavaScript 1.5.
+        </P>
+        <P>
+          The term "javascript" is used as a common name for all dialects of ECMAScript.
+        </P>
+      </CONTENT>
+      <CONTENT TITLE="What is JScript?" ID="jScript" NUMID="2_7">
+        <P>
+          JScript is Microsoft's implementation of ECMAScript.
+        </P>
+        <P>
+          Questions that are specific to Microsoft's JScript may also
+          be appropriately asked at:
+          <NEWSGROUP>microsoft.public.scripting.jscript</NEWSGROUP>.    
+        </P>
+      </CONTENT>
+      <CONTENT TITLE="What is the Document Object Model (DOM)?" ID="dom" NUMID="2_9">
+        <P>
+          The <DFN>Document Object Model</DFN> (DOM) is a interface-based model for <ICODE>Document</ICODE> 
+          objects. The DOM allows scripts to dynamically access and update a 
+          document's content, style, and event handlers. 
+        </P>
+        <P>
+          The DOM is <EM>not</EM> part of the ECMAScript programming language.
+        </P>
+        <P>
+          Official DOM standards are defined by the World Wide Web Consortium.
+          Scriptable browsers also have <DFN>proprietary</DFN> DOM features (<URL
+          LINKTEXT="MSDN">http://msdn.microsoft.com/en-us/library/ms533050(VS.85).aspx</URL>, <URL 
+          LINKTEXT="MDC">https://developer.mozilla.org/en/DOM_Client_Object_Cross-Reference</URL>),
+          such as <ICODE>document.writeln()</ICODE>.
+        </P>
+        <P>
+          Also see the section on <URL LINKTEXT="DOM and Forms">#domRef</URL>.
+        </P>
+        <MOREINFO>
+          <URL LINKTEXT="c.l.js DOM Resources">#onlineResources</URL>
+          <URL LINKTEXT="W3C DOM FAQ">http://www.w3.org/DOM/faq.html</URL>
+          <URL LINKTEXT="W3C DOM ">http://www.w3.org/DOM/</URL>
+          <URL LINKTEXT="MDC: What is the DOM?">https://developer.mozilla.org/en/Gecko_DOM_Reference/Introduction#What_is_the_DOM.3F</URL>
+        </MOREINFO>
+      </CONTENT>
+      <CONTENT TITLE="Internationalisation and Localisation in javascript" ID="localization" NUMID="2_10">
+        <P>
+          <DFN>Internationalisation</DFN> means using one form which is everywhere both
+          acceptable and understood.  Any international standard not supported by
+          default can be coded for.
+        </P>
+        <P>
+          For example, there is an International Standard for numeric Gregorian 
+          date format; but none for decimal and thousands separators.
+        </P>
+        <P>
+          <DFN>Localisation</DFN> is the process of adapting software for a specific region 
+          or language by adding locale-specific components and translating text. It 
+          cannot work well in general, because it requires a knowledge of all 
+          preferences and the ability to choose the right one, in an environment 
+          where many systems are inappropriately set anyway.
+        </P>
+        <P>
+          ECMAScript has a few <DFN>localisation</DFN> features. The various 
+          <ICODE>toString()</ICODE> methods are all implementation dependent, 
+          but tend to use either UK or US settings (not necessarily correctly).
+          ECMAScript Ed. 3 introduced some capabilities, including the 
+          <ICODE>toLocaleString()</ICODE>method which should create a string 
+          based on the host's locale.
+        </P>
+        <P>
+          ECMAScript 5th Edition introduces limited ISO 8601 capabilities with 
+          <ICODE>Date.prototype.toISOString()</ICODE> and new behavior for <ICODE>Date.parse()</ICODE>.
+        </P>
+      </CONTENT>
+      <CONTENT TITLE="What does the future hold for ECMAScript?" ID="futureEcmaScript" NUMID="2_12">
+        <P>
+          The 5th edition of ECMAScript was approved on 2009-12-04. There is some 
+          support in implementations released before approval date (JScript 5.8, 
+          JavaScript 1.8, JavaScriptCore). 
+          http://www.ecma-international.org/publications/standards/Ecma-262.htm
+        </P>
+        <MOREINFO>
+          <URL>http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
+        </MOREINFO>
+      </CONTENT>
+    </CONTENT>
+  
+    <CONTENT TITLE="Javascript Resources" ID="ecmascriptResources" NUMID="3">
+      <CONTENT TITLE="What books are recommended for javascript?" ID="books" NUMID="3_1">
+        <P>
+          Most javascript books have been found to contain so many technical 
+          errors that consensus recommendations have not emerged from the group.
+        </P>
+        <P>
+          The following books have been considered to have value by some
+          individuals on c.l.js. The reviews of these books are provided: 
+        </P>
+        <LIST TYPE="UL">
+          <LI><EM>&amp;quot;JavaScript: The Definitive Guide,&amp;quot;</EM> 5th Edition, by David Flanagan 
+            <UL>
+              <LI>Published: 2006-08</LI>
+              <LI>Pages: 1018</LI>
+              <LI>Errata: <URL>http://oreilly.com/catalog/9780596101992/errata/</URL></LI>
+              <LI>Discussed in:   
+                <UL>
+                  <LI>
+                    <URL LINKTEXT="FAQ Update 9.85 Dated 2007-08-31"
+              >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/7283898f77fd2a66/9252aa024e058dea#c5f145ae807c918e</URL>
+                  </LI>
+                </UL>
+              </LI>
+            </UL>
+          </LI>
+          <LI>
+            <EM>"JavaScript, The Good Parts,"</EM> 1st Edition, by Douglas Crockford
+            <UL>
+                <LI>Published: 2008-05</LI>
+                <LI>Pages: 170</LI>
+                <LI>Errata: <URL>http://oreilly.com/catalog/9780596517748/errata/</URL></LI>
+                <LI>Discussed in:
+                    <UL> 
+                      <LI>
+                          <URL LINKTEXT="Crockford's 'The Good Parts': a short review"
+                        >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/d084d2109f7b4ec7#</URL>
+                        </LI>
+                      <LI>
+                          <URL LINKTEXT="FunctionExpression's and memory consumptions"
+                        >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/db1e49ab113aa05c/3987eac87ad27966#3987eac87ad27966</URL>
+                        </LI>
+                        <LI>
+                          <URL LINKTEXT="FAQ Topic - What books are recommended for javascript? (2008-12-02)"
+                          >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/6a41f7835ee728de/da5ccfc65e2df64a#da5ccfc65e2df64a</URL>
+                        </LI>
+                        <LI>
+                           <URL LINKTEXT="Augmenting functions"
+          >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/3a08fb741525ab6d/</URL>
+                        </LI>    
+          
+                        <LI>
+                           <URL LINKTEXT="Crockford's JavaScript, The Good Parts (a book review)."
+          >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/bf26be6e63494ee2/acb733a1c35f6ce5#ee9e4ee29e658d5d</URL>
+                        </LI>
+                        <LI>
+                           <URL LINKTEXT="Closures Explained"
+          >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/df602506ee48b400/e65e00f5cad07676#e65e00f5cad07676</URL>
+                        </LI>
+                        <LI>
+                           <URL LINKTEXT="Javascript library development"
+          >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/acadf1b22b219433/4f69a95607d0b3ae#4f69a95607d0b3ae</URL>
+                        </LI>
+                      </UL></LI>
+            </UL>
+          </LI>
+        </LIST>
+      </CONTENT>
+      
+      <CONTENT TITLE="What online resources are available?" ID="onlineResources" NUMID="3_2">
+        <LIST TITLE="ECMAScript" TYPE="DL" ID="ecmaResources">
+          <DT>The Official ECMAScript Specification</DT>
+          <DD><URL>[ECMA-262] http://www.ecma-international.org/publications/standards/Ecma-262-arch.htm</URL></DD>
+
+          <DT>[ISO16262] ISO/IEC 16262, Second Edition 2002-06-01 : ISO Standard matching
+              ECMA-262 3rd Edition, with corrections.</DT>
+          <DD><URL>http://standards.iso.org/ittf/PubliclyAvailableStandards/c033835_ISO_IEC_16262_2002(E).zip</URL></DD>
+          
+          <DT>[MS-ES3]: Internet Explorer ECMA-262 ECMAScript Language Specification Standards Support</DT>
+          <DD><URL>http://msdn.microsoft.com/en-us/library/ff520996%28VS.85%29.aspx</URL></DD>
+          <DD><URL>res/%5BMS-ES3%5D.pdf</URL> (local alias)</DD>
+    
+          <DT>[MS-ES3EX]: Microsoft JScript Extensions to the ECMAScript Language Specification Third Edition</DT>
+          <DD><URL>http://msdn.microsoft.com/en-us/library/ff521046%28VS.85%29.aspx</URL></DD>
+          <DD><URL>res/%5BMS-ES3EX%5D.pdf</URL> (local alias)</DD>
+          
+          <DT>ECMAScript on Wikipedia</DT>
+          <DD><URL>http://en.wikipedia.org/wiki/ECMAScript</URL></DD>
+        </LIST>
+  
+        <LIST TITLE="W3C DOM" TYPE="DL" ID="domResources">
+          <DT>DOM Level 1 ECMAScript Binding</DT> 
+          <DD><URL>http://www.w3.org/TR/REC-DOM-Level-1/ecma-script-language-binding.html</URL></DD>
+    
+          <DT>DOM Level 2 ECMAScript Binding</DT>
+          <DD><URL>http://www.w3.org/TR/DOM-Level-2-HTML/ecma-script-binding.html</URL></DD>
+          
+          <DT>DOM Level 2 Events</DT>
+          <DD><URL>http://www.w3.org/TR/DOM-Level-2-Events/events.html</URL></DD>
+          
+          <DT>DOM Level 2 Style</DT>
+          <DD><URL>http://www.w3.org/TR/DOM-Level-2-Style/</URL></DD>
+          
+          <DT>DOM Level 3 ECMAScript Binding</DT>
+          <DD><URL>http://www.w3.org/TR/DOM-Level-3-Core/ecma-script-binding.html</URL></DD>
+        </LIST>
+
+        <LIST TITLE="Browser Documentation" TYPE="DL" ID="browserResources">
+          <DT>Mozilla</DT>
+          <DD>JavaScript: <URL>http://developer.mozilla.org/en/docs/JavaScript</URL></DD>
+          <DD>Gecko DOM Reference: <URL>http://developer.mozilla.org/en/docs/Gecko_DOM_Reference</URL></DD>
+          
+          <DT>Microsoft</DT> 
+          <DD>HTML and DHTML Reference: <URL>http://msdn.microsoft.com/en-us/library/ms533050.aspx</URL></DD>
+          <DD>JScript Language Reference:<URL>http://msdn.microsoft.com/en-us/library/hbxc2t98%28VS.85%29.aspx</URL></DD>   
+          <DD>Scripting: <URL>http://msdn.microsoft.com/en-us/library/ms950396.aspx</URL></DD>
+          
+          <DT>Opera</DT>
+          <DD>Web Specifications Support: <URL>http://www.opera.com/docs/specs/#ecmascript</URL></DD>
+          
+          <DD>JavaScript Support: <URL>http://www.opera.com/docs/specs/js/</URL></DD>
+          <DD>ECMAScript Support: <URL>http://www.opera.com/docs/specs/js/ecma</URL></DD>
+          
+          <DT>BlackBerry JavaScript Reference</DT>
+          <DD><URL>http://docs.blackberry.com/en/developers/deliverables/11849/</URL></DD>
+
+          <DT>ICab InScript</DT>
+          <DD><URL>http://www.muchsoft.com/inscript/</URL></DD>
+
+          <DT>Apple Safari</DT>
+          <DD>Web Content Guide: <URL>http://developer.apple.com/safari/library/documentation/AppleApplications/Reference/SafariWebContent/Introduction/Introduction.html</URL></DD>
+   
+          <DT>Webkit</DT> 
+          <DD>Project Site: <URL>http://webkit.org/</URL></DD>
+          <DD>Wiki: <URL>http://trac.webkit.org/wiki</URL></DD>
+          <DD>DOM Reference: <URL>http://developer.apple.com/Mac/library/documentation/AppleApplications/Reference/WebKitDOMRef/index.html#//apple_ref/doc/uid/TP40006089</URL></DD>
+
+          <DT>Netscape 4 Client-Side JavaScript Reference</DT>
+          <DD><URL>http://docs.sun.com/source/816-6408-10/</URL></DD>
+      
+          <DT>Archived documentation for MSIE 3.x</DT>
+          <DD><URL>http://members.tripod.com/%7Ehousten/download/</URL></DD>
+        </LIST>
+    
+        <LIST TITLE="Standalone ECMAScript Implementations" TYPE="DL" ID="standaloneImplementations">
+          <DT>Rhino: An open-source implementation of JavaScript written in Java</DT>
+          <DD><URL>http://www.mozilla.org/rhino/</URL></DD>
+          
+          <DT>Besen IDE: ECMAScript Edition 5 with IDE</DT>
+          <DD><URL>http://besen.sourceforge.net/</URL></DD>
+          
+          <DT>V8: Google's open source JavaScript engine</DT>
+          <DD><URL>http://code.google.com/p/v8/</URL></DD>
+          
+          <DT>SpiderMonkey: Mozilla's C implementation of JavaScript</DT>
+          <DD><URL>http://www.mozilla.org/js/spidermonkey/</URL></DD>
+          
+          <DT>Digital Mars DMD Script, console and MS Active Script implementation of ECMAScript</DT>
+          <DD><URL>http://www.digitalmars.com/dscript/</URL></DD>
+        </LIST>
+        
+        <LIST TITLE="Other ECMAScript Implementations" TYPE="DL" ID="nonBrowserResources">
+          <DT>Developing Dashboard Widgets: Apple Developer Connection</DT>
+          <DD><URL>http://developer.apple.com/macosx/dashboard.html</URL></DD>
+          
+          <DT>Whitebeam Apache Module: Server Side JavaScript in Apache</DT>
+          <DD><URL>http://www.whitebeam.org/</URL></DD>  
+        </LIST>
+      </CONTENT>
+      
+      <CONTENT TITLE="Javascript Libraries" ID="libraryResources"> 
+        <P>
+          No javascript libraries are endorsed by this group. If you want help 
+          with using a library, visit that library's discussion group instead.
+        </P> 
+      </CONTENT>
+    </CONTENT>
+    
+    <CONTENT TITLE="Functions" ID="functions">
+      <CONTENT TITLE="What is (function(){ /*...*/ })() ?" ID="scope">
 <P>
 This is an anonymous <DFN>FunctionExpression</DFN> that is called 
 immediately after creation.

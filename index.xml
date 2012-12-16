@@ -1,3 +1,7 @@
+<!DOCTYPE FAQ [
+  <!-- FIXME: is not used for transformation -->
+  <!ENTITY trade    "&#8482;"><!-- trade mark sign, U+2122 ISOnum -->
+]>
 <FAQ VERSION="32.2" DATE="2010-10-08" revision="$Revision$" id="$Id$">
   <TITLE>FAQ for comp.lang.javascript</TITLE>
   <CONTENTS>
@@ -156,7 +160,7 @@
         <P>
           <URL LINKTEXT="ECMA-262">http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
           is the international standard that current language implementations
-          (JavaScript&amp;trade;, JScript etc.) are based on.
+          (JavaScript&#8482;, JScript etc.) are based on.
         </P>
         <P>
           <URL LINKTEXT="ECMA-262">http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
@@ -271,7 +275,7 @@
           individuals on c.l.js. The reviews of these books are provided: 
         </P>
         <LIST TYPE="UL">
-          <LI><EM>&amp;quot;JavaScript: The Definitive Guide,&amp;quot;</EM> 5th Edition, by David Flanagan 
+          <LI><EM>&quot;JavaScript: The Definitive Guide,&quot;</EM> 5th Edition, by David Flanagan 
             <UL>
               <LI>Published: 2006-08</LI>
               <LI>Pages: 1018</LI>
@@ -538,7 +542,7 @@ The ISO Extended format for common date is <ICODE>YYYY-MM-DD</ICODE>, and for ti
 </P>
 
 <P>
-For an event with an offset from UTC, use <ICODE>YYYY-MM-DDThh:mm:ss&amp;#177;hh:mm</ICODE>.
+For an event with an offset from UTC, use <ICODE>YYYY-MM-DDThh:mm:ss&#177;hh:mm</ICODE>.
 </P>
 <P>
 Never use a local date/time format for a non-local event. Instead, use
@@ -567,7 +571,7 @@ Year <ICODE>0000</ICODE> is unrecognized by some formats (XML Schema, <ICODE>xs:
     <CONTENT TITLE="How do I format a Date object with javascript?" 
      ID="formatDate" NUMID="4_30">
     <P>
-A local <ICODE>Date</ICODE> object where <ICODE>0 &amp;lt;= year &amp;lt;= 9999</ICODE> can be 
+A local <ICODE>Date</ICODE> object where <ICODE>0 &lt;= year &lt;= 9999</ICODE> can be 
 formatted to a common ISO 8601 format <ICODE>YYYY-MM-DD</ICODE> with:-
     <CODE>
   /** Formats a Date to YYYY-MM-DD (local time), compatible with both 
@@ -577,7 +581,7 @@ formatted to a common ISO 8601 format <ICODE>YYYY-MM-DD</ICODE> with:-
    */
   function formatDate(dateInRange) {
      var year = dateInRange.getFullYear(),
-         isInRange = year &amp;gt;= 0 &amp;amp;&amp;amp; year &amp;lt;= 9999, yyyy, mm, dd;
+         isInRange = year &gt;= 0 &amp;&amp; year &lt;= 9999, yyyy, mm, dd;
      if(!isInRange) {
        throw RangeError("formatDate: year must be 0000-9999");
      }
@@ -654,7 +658,7 @@ var numberToFixed =
   
   function toFixedString(n, digits) {
     var unsigned = toUnsignedString(Math.abs(n), digits);
-    return (n &amp;lt; 0 ? "-" : "") + unsigned;
+    return (n &lt; 0 ? "-" : "") + unsigned;
   }
   
   function toUnsignedString(m, digits) {
@@ -678,7 +682,7 @@ var numberToFixed =
    */
   function padLeft(input, size, ch) {
     var s = input + "";
-    while(s.length &amp;lt; size) {
+    while(s.length &lt; size) {
       s = ch + s;
     }
     return s;
@@ -687,13 +691,13 @@ var numberToFixed =
 
 // Test results 
 document.writeln([
-  "numberToFixed(9e-3, 12) =&amp;gt; " + numberToFixed(9e-3, 12),
-  "numberToFixed(1.255, 2) =&amp;gt; " + numberToFixed(1.255, 2),
-  "numberToFixed(1.355, 2) =&amp;gt; " + numberToFixed(1.355, 2),
-  "numberToFixed(0.1255, 3) =&amp;gt; " + numberToFixed(0.1255, 3),
-  "numberToFixed(0.07, 2)   =&amp;gt; " + numberToFixed(0.07, 2),
-  "numberToFixed(0.0000000006, 1) =&amp;gt; " + numberToFixed(0.0000000006, 1),
-  "numberToFixed(0.0000000006, 0) =&amp;gt; " + numberToFixed(0.0000000006, 0)
+  "numberToFixed(9e-3, 12) =&gt; " + numberToFixed(9e-3, 12),
+  "numberToFixed(1.255, 2) =&gt; " + numberToFixed(1.255, 2),
+  "numberToFixed(1.355, 2) =&gt; " + numberToFixed(1.355, 2),
+  "numberToFixed(0.1255, 3) =&gt; " + numberToFixed(0.1255, 3),
+  "numberToFixed(0.07, 2)   =&gt; " + numberToFixed(0.07, 2),
+  "numberToFixed(0.0000000006, 1) =&gt; " + numberToFixed(0.0000000006, 1),
+  "numberToFixed(0.0000000006, 0) =&gt; " + numberToFixed(0.0000000006, 0)
 ].join("\n"));
 </CODE>
      <MOREINFO>
@@ -791,7 +795,7 @@ Additional Notes: <URL>notes/type-conversion/</URL>
    <CONTENT TITLE="How do I generate a random integer from 1 to n?" 
      ID="randomNumber" NUMID="4_22">
     <P>
-     <ICODE>Math.random()</ICODE> returns a value <ICODE>R</ICODE> such that <ICODE>0 &amp;lt;= R &amp;lt; 1.0</ICODE>; therefore:
+     <ICODE>Math.random()</ICODE> returns a value <ICODE>R</ICODE> such that <ICODE>0 &lt;= R &lt; 1.0</ICODE>; therefore:
      <CODE>
   // positive integer expected
   function getRandomNumber(n) { 
@@ -937,7 +941,7 @@ the identifier. For example:-
   var bodyElement = document.body;
 
   //square bracket notation, using an expression
-  var bodyElement = document[&amp;quot;bo&amp;quot;+&amp;quot;dy&amp;quot;];</CODE>
+  var bodyElement = document[&quot;bo&quot;+&quot;dy&quot;];</CODE>
      <MOREINFO>
       <URL>notes/square-brackets/</URL>
      </MOREINFO>
@@ -990,7 +994,7 @@ In HTML documents, a form may be referred to as a property of the
 from its <ICODE>elements</ICODE> collection:
 <CODE>
   var frm = document.forms[0];
-  var control = frm.elements[&amp;quot;elementname&amp;quot;];
+  var control = frm.elements[&quot;elementname&quot;];
 </CODE>
 Once a reference to a control is obtained, its (string) <ICODE>value</ICODE> 
 property can be read:-
@@ -1022,8 +1026,8 @@ reading of <ICODE>type="file"</ICODE> input elements in a way that is useful.
    <CONTENT TITLE="My element is named myselect[], how do I access it?" 
      ID="propertyAccess" NUMID="4_25">
     <P>
-Form controls with any &amp;quot;illegal&amp;quot; characters can be accessed with
-<ICODE>formref.elements[&amp;quot;myselect[]&amp;quot;]</ICODE> - The bracket characters,
+Form controls with any &quot;illegal&quot; characters can be accessed with
+<ICODE>formref.elements[&quot;myselect[]&quot;]</ICODE> - The bracket characters,
 amongst others, are illegal in ID attributes and javascript
 identifiers, so you should try to avoid them as browsers may
 handle them incorrectly.
@@ -1034,7 +1038,7 @@ handle them incorrectly.
 </MOREINFO>
     </P>
    </CONTENT>  
-  <CONTENT TITLE="Why doesn't the global variable &amp;quot;divId&amp;quot; always refer to the element with id=&amp;quot;divId&amp;quot;?"
+  <CONTENT TITLE="Why doesn't the global variable &quot;divId&quot; always refer to the element with id=&quot;divId&quot;?"
    ID="globalPollution" NUMID="4_41">
     <P>
 Microsoft introduced a shortcut that can be used to reference
@@ -1044,14 +1048,14 @@ this behavior. Some, most notably Gecko-based browsers (Netscape and Mozilla),
 do so only in "quirks" mode. The best approach is the <ICODE>document.getElementById</ICODE>
 method, which is part of the W3C DOM standard and implemented
 in modern browsers (including IE from version 5.0). So an
-element with <ICODE>id=&amp;quot;foo&amp;quot;</ICODE> can be referenced
+element with <ICODE>id=&quot;foo&quot;</ICODE> can be referenced
 with:-
      <CODE>
-  var el = document.getElementById(&amp;quot;foo&amp;quot;);
+  var el = document.getElementById(&quot;foo&quot;);
 </CODE>
 Note: make sure not to use the same <ICODE>id</ICODE> twice in the same document 
 and do not give an element a <ICODE>name</ICODE> that matches an <ICODE>id</ICODE> 
-of another in the same document or it will trigger bugs in MSIE &amp;lt;= 7 with 
+of another in the same document or it will trigger bugs in MSIE &lt;= 7 with 
 <ICODE>document.getElementsByName</ICODE> and <ICODE>document.getElementById</ICODE>.
 <MOREINFO>
 <URL>https://developer.mozilla.org/en/Using_Web_Standards_in_your_Web_Pages/Using_the_W3C_DOM#Accessing_Elements_with_the_W3C_DOM
@@ -1065,12 +1069,12 @@ of another in the same document or it will trigger bugs in MSIE &amp;lt;= 7 with
     <P>
 Using the non-standard but widely implemented 
 <ICODE>innerHTML</ICODE> property:
-<ICODE>&amp;lt;div id=&amp;quot;anID&amp;quot;&amp;gt;Some Content&amp;lt;/div&amp;gt;</ICODE> with script:
+<ICODE>&lt;div id=&quot;anID&quot;&gt;Some Content&lt;/div&gt;</ICODE> with script:
       <CODE>
-  document.getElementById(&amp;quot;anID&amp;quot;).innerHTML = 
-    &amp;quot;Some &amp;lt;em&amp;gt;new&amp;lt;/em&amp;gt; Content&amp;quot;;
+  document.getElementById(&quot;anID&quot;).innerHTML = 
+    &quot;Some &lt;em&gt;new&lt;/em&gt; Content&quot;;
 </CODE>
-Where <ICODE>&amp;quot;anID&amp;quot;</ICODE> is the (unique on the HTML page) 
+Where <ICODE>&quot;anID&quot;</ICODE> is the (unique on the HTML page) 
 <ICODE>id</ICODE> attribute value of the element to modify.
     </P>
     <P>
@@ -1088,7 +1092,7 @@ OBJECT, and all TABLE-related elements.
 If the new content is only text and does not need to replace existing HTML, 
 it is more efficient to modify the <ICODE>data</ICODE> property of a text node.
       <CODE>
-  document.getElementById(&amp;quot;anID&amp;quot;).firstChild.data = &amp;quot;Some new Text&amp;quot;;
+  document.getElementById(&quot;anID&quot;).firstChild.data = &quot;Some new Text&quot;;
 </CODE>
 </P>
 <P>
@@ -1122,12 +1126,12 @@ B) use the <ICODE>"load"</ICODE> event to trigger your script.
    <P>
 Example A:
 <CODE>
-&amp;lt;div id="snurgle"&amp;gt;here&amp;lt;/div&amp;gt;
-&amp;lt;script type="text/javascript"&amp;gt;
+&lt;div id="snurgle"&gt;here&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
 // Don't forget var.
 var snurgleEl = document.getElementById("snurgle");
 window.alert(snurgleEl.parentNode);
-&amp;lt;/script&amp;gt;
+&lt;/script&gt;
 </CODE>
    </P>
 
@@ -1135,11 +1139,11 @@ window.alert(snurgleEl.parentNode);
 Example B:
 <CODE>
 // In the HEAD.
-&amp;lt;script type="text/javascript"&amp;gt;
+&lt;script type="text/javascript"&gt;
 window.onload = function(){
   var snurgleEl = document.getElementById("snurgle");
 };
-&amp;lt;/script&amp;gt;
+&lt;/script&gt;
 </CODE>
 </P>
 <LIST TYPE="UL" TITLE="Other problems can include:">
@@ -1293,8 +1297,8 @@ the <ICODE>BODY</ICODE> element.
 This is the more "standard" property for getting the height of 
 the viewport. It usually "works" in modern browsers in 
 <DFN>standards mode</DFN>. Notable exceptions include Safari 2 and 
-Opera  &amp;lt;= 9.25, both of which return the <ICODE>clientHeight</ICODE> 
-of the <ICODE>html</ICODE> <EM>element</EM>. (Oddly, Opera &amp;lt;= 9.25 
+Opera  &lt;= 9.25, both of which return the <ICODE>clientHeight</ICODE> 
+of the <ICODE>html</ICODE> <EM>element</EM>. (Oddly, Opera &lt;= 9.25 
 in standards mode returns the width of the viewport for 
 <ICODE>documentElement.clientWidth</ICODE>). 
     </P>
@@ -1347,7 +1351,7 @@ than the viewport.
 
     <CODE>
   var docEl = document.documentElement,
-    IS_BODY_ACTING_ROOT = docEl &amp;amp;&amp;amp; docEl.clientHeight === 0;
+    IS_BODY_ACTING_ROOT = docEl &amp;&amp; docEl.clientHeight === 0;
   docEl = null; 
 </CODE>
 
@@ -1380,7 +1384,7 @@ having a border).
           div = d.createElement('div');
       div.style.height = "2500px";
       d.body.insertBefore(div, d.body.firstChild);
-      var r = d.documentElement.clientHeight &amp;gt; 2400;
+      var r = d.documentElement.clientHeight &gt; 2400;
       d.body.removeChild(div);
       return r;
   }
@@ -1485,8 +1489,8 @@ properties of documents served from the same domain or IP address,
 protocol, and port. 
   </P>
 <P>
-Any attempt to access a property in such cases will result in a &amp;quot;Permission
-Denied&amp;quot; error. Signed scripts or trusted ActiveX objects can
+Any attempt to access a property in such cases will result in a &quot;Permission
+Denied&quot; error. Signed scripts or trusted ActiveX objects can
 overcome this in limited situations.
 <MOREINFO>
 <URL>http://msdn.microsoft.com/en-us/library/ms533028%28VS.85%29.aspx</URL>
@@ -1565,7 +1569,7 @@ default response.
  "We will now charge your credit card." (right). 
 </P>
    </CONTENT>
-   <CONTENT TITLE="How do I prompt a &amp;quot;Save As&amp;quot; dialog for an accepted mime type?"
+   <CONTENT TITLE="How do I prompt a &quot;Save As&quot; dialog for an accepted mime type?"
     ID="fileDownload" NUMID="4_33">
     <P>
 It is not possible with client-side javascript.
@@ -1590,7 +1594,7 @@ When changing the status in an event (e.g. <ICODE>onmouseover</ICODE>) you
 should return true from the event.  Also a number of browsers
 require a short delay before setting the status to overcome their
 default behaviour with the statusbar. 
-<ICODE>onevent=&amp;quot;setTimeout('window.status=\'Moomin\'',15);&amp;quot;</ICODE>
+<ICODE>onevent=&quot;setTimeout('window.status=\'Moomin\'',15);&quot;</ICODE>
     </P>
     <P>
 Many browsers are configured, by default, to disallow scripts from setting
@@ -1617,8 +1621,8 @@ Use the target attribute on the form, opening a window with
 that name and your feature string in the onsubmit handler of the
 FORM.
      <CODE>
-  &amp;lt;form action=&amp;quot;&amp;quot; method="post"
-      target=&amp;quot;wndname&amp;quot; onsubmit=&amp;quot;window.open('',this.target);return true;&amp;quot;&amp;gt;</CODE>
+  &lt;form action=&quot;&quot; method="post"
+      target=&quot;wndname&quot; onsubmit=&quot;window.open('',this.target);return true;&quot;&gt;</CODE>
      <MOREINFO>
 <URL>http://www.htmlhelp.com/reference/html40/forms/form.html</URL>
      </MOREINFO>
@@ -1685,12 +1689,12 @@ These include quote marks, backslash, and line terminators.
 </P>
 <P>JSP Example, using Apache Commons: <ICODE>org.apache.commons.lang.StringEscapeUtils</ICODE>:
       <CODE>
-var jsVar = "&amp;lt;%= StringEscapeUtils.escapeJavaScript(str) %&amp;gt;";
+var jsVar = "&lt;%= StringEscapeUtils.escapeJavaScript(str) %&gt;";
 </CODE>
 </P>
 <P>PHP example using <ICODE>addcslashes</ICODE>: 
 <CODE>
-var jsVar = "&amp;lt;?php echo addcslashes($str,"\\\'\"\n\r"); ?&amp;gt;";
+var jsVar = "&lt;?php echo addcslashes($str,"\\\'\"\n\r"); ?&gt;";
 </CODE>
      <MOREINFO>
       <URL>example/addcslashes.php</URL>
@@ -1736,13 +1740,13 @@ TITLE="XMLHttpRequest or XMLHTTP">XHR</DFN>, where supported.
     </P>
     <P>
 An image will also
-&amp;quot;swallow&amp;quot; the data sent back by the server, so that they will
+&quot;swallow&quot; the data sent back by the server, so that they will
 not be visible anywhere.
 </P>
     <P>
       <CODE>
   var dummyImage = new Image();
-  dummyImage.src = &amp;quot;scriptURL.asp?param=&amp;quot; + varName;
+  dummyImage.src = &quot;scriptURL.asp?param=&quot; + varName;
 </CODE>
     </P>
     <P>
@@ -1783,7 +1787,7 @@ client is to change the page URI so that it contains a unique
 element, such as the current time. For example:
 <ICODE>location.replace(location.href+'?d='+new Date().valueOf())</ICODE>
 If the <ICODE>location.href</ICODE> already contains a query String, use:
-<ICODE>location.replace(location.href+'&amp;amp;d='+new Date().valueOf())</ICODE>
+<ICODE>location.replace(location.href+'&amp;d='+new Date().valueOf())</ICODE>
      <MOREINFO>
       <URL>http://www.mnot.net/cache_docs/</URL>
       <URL>http://docs.sun.com/source/816-6408-10/date.htm</URL>
@@ -1841,24 +1845,24 @@ a <ICODE>Script Debugger</ICODE> option will appear in the <ICODE>View</ICODE> m
      <DD>
 <EM>Note:</EM> For debugging scripts in IE, the Microsoft Script <EM>Editor</EM> 
 is recommended. However, if not available, the <URL LINKTEXT="Microsoft Script Debugger"
->http://www.microsoft.com/downloads/details.aspx?FamilyId=2F465BE0-94FD-4569-B3C4-DFFDF19CCD99&amp;amp;displaylang=en</URL> may be somewhat helpful.
+>http://www.microsoft.com/downloads/details.aspx?FamilyId=2F465BE0-94FD-4569-B3C4-DFFDF19CCD99&amp;displaylang=en</URL> may be somewhat helpful.
      </DD>
      <DD>
 <URL LINKTEXT="Internet Explorer Developer Toolbar"
-   >http://www.microsoft.com/downloads/details.aspx?FamilyID=e59c3964-672d-4511-bb3e-2d5e1db91038&amp;amp;displaylang=en</URL>
+   >http://www.microsoft.com/downloads/details.aspx?FamilyID=e59c3964-672d-4511-bb3e-2d5e1db91038&amp;displaylang=en</URL>
      </DD>
      <DD>
 To report errors: Wait until a little yellow
 triangle appears at the left end of the status bar, double click
-on it and, when the error dialog box appears, check the &amp;quot;Always
-show errors&amp;quot; checkbox it contains. 
+on it and, when the error dialog box appears, check the &quot;Always
+show errors&quot; checkbox it contains. 
 
 Or, <ICODE>Internet Options</ICODE>, <ICODE>Advanced</ICODE>, deselect <ICODE>"Disable Script Debugging"</ICODE>,
 select <ICODE>"Display a notification ..."</ICODE>.
      </DD>
      <DT>Firefox</DT>
      <DD>
-     <ICODE>Tools &amp;gt; Error console</ICODE> (<ICODE>Ctrl</ICODE> + <ICODE>Shift</ICODE> + <ICODE>j</ICODE>).
+     <ICODE>Tools &gt; Error console</ICODE> (<ICODE>Ctrl</ICODE> + <ICODE>Shift</ICODE> + <ICODE>j</ICODE>).
      </DD>
      <DD>
 <URL LINKTEXT="Firebug">http://getfirebug.com/</URL>
@@ -1885,7 +1889,7 @@ XPath generator, editor and inspector.
      </DD>
      <DT>Opera</DT>    
      <DD>
-Tools &amp;gt; Advanced &amp;gt; Error console
+Tools &gt; Advanced &gt; Error console
      </DD>
      <DD>
 <URL LINKTEXT="Introduction to Opera Dragonfly"
@@ -1903,13 +1907,13 @@ Safari's <ICODE>Advanced</ICODE> Preferences panel.
      <DT>Chrome</DT>
      <DD>
 JavaScript Console: click the <ICODE>Page</ICODE> menu icon and select 
-<ICODE>Developer &amp;gt; JavaScript Console</ICODE>. From here, you'll be 
+<ICODE>Developer &gt; JavaScript Console</ICODE>. From here, you'll be 
 able to view errors in the JavaScript execution, and enter 
 additional javascript commands to execute.
      </DD>
      <DD>
-JavaScript Debugger: available as <ICODE>Page</ICODE> menu icon &amp;gt; <ICODE>Developer</ICODE> 
-&amp;gt; Debug JavaScript, the debugger provides a command prompt from which you 
+JavaScript Debugger: available as <ICODE>Page</ICODE> menu icon &gt; <ICODE>Developer</ICODE> 
+&gt; Debug JavaScript, the debugger provides a command prompt from which you 
 can set breakpoints, backtrace, and more. Type <ICODE>help</ICODE> at the debugger 
 command line to get started.    
      </DD>
@@ -1939,7 +1943,7 @@ The <ICODE>navigator</ICODE> <DFN>host object</DFN> contains properties which
 may identify the browser and version. These properties are historically 
 inaccurate. Some browsers allow the user to set <ICODE>navigator.userAgent</ICODE> to any value. For 
 example, Firefox, (type <ICODE>about:config</ICODE> and search <ICODE>useragent</ICODE> 
-or Safari, <ICODE>Develop &amp;gt; User Agent &amp;gt; Other...</ICODE>, IE, via Registry. 
+or Safari, <ICODE>Develop &gt; User Agent &gt; Other...</ICODE>, IE, via Registry. 
     </P>
     <P>
 Other browsers, such as Opera, provide a list of user agents 
@@ -1987,7 +1991,7 @@ function getEventTarget(e) {
 In practice you can't. While you could create a suitable
 encryption system with a password in the page, the level of
 support you need to do this means it's always simpler to do it
-server-side. Anything that &amp;quot;protects&amp;quot; a page 
+server-side. Anything that &quot;protects&quot; a page 
 other than the current one is definitely flawed.
     </P>
    </CONTENT>
@@ -2053,7 +2057,7 @@ for previous posts on the subject.
      </MOREINFO>
     </P>
    </CONTENT>
-   <CONTENT TITLE="I have &amp;lt;a href=&amp;quot;javascript:somefunction()&amp;quot;&amp;gt;  what ... ?" 
+   <CONTENT TITLE="I have &lt;a href=&quot;javascript:somefunction()&quot;&gt;  what ... ?" 
    ID="javascriptURI" NUMID="4_24">
     <P>
 Whatever the rest of your question, this is generally a very bad idea. 
@@ -2061,10 +2065,10 @@ The <ICODE>javascript:</ICODE> pseudo protocol was designed to replace the
 current document with the value that is returned from the expression. 
 For example:
       <CODE>
-  &amp;lt;a href=&amp;quot;javascript:'&amp;amp;lt;h1&amp;amp;gt;' + document.lastModified + '&amp;amp;lt;/h1&amp;amp;gt;'&amp;quot;&amp;gt;lastModified&amp;lt;/a&amp;gt;
+  &lt;a href=&quot;javascript:'&lt;h1&gt;' + document.lastModified + '&lt;/h1&gt;'&quot;&gt;lastModified&lt;/a&gt;
 </CODE>
 will result in replacing the current document with the value 
-returned from <ICODE>document.lastModified</ICODE>, wrapped in an <ICODE>&amp;lt;h1&amp;gt;</ICODE> 
+returned from <ICODE>document.lastModified</ICODE>, wrapped in an <ICODE>&lt;h1&gt;</ICODE> 
 tag. 
     </P>
     <P>
@@ -2088,7 +2092,7 @@ supported.
     </P>
     <P>
 Instead, use
-<ICODE>&amp;lt;a href=&amp;quot;something.html&amp;quot; onclick=&amp;quot;somefunction();return false&amp;quot;&amp;gt;</ICODE>
+<ICODE>&lt;a href=&quot;something.html&quot; onclick=&quot;somefunction();return false&quot;&gt;</ICODE>
 where <ICODE>something.html</ICODE> is a meaningful alternative. Alternatively,
 attach the <ICODE>click</ICODE> callback using an event registry.
       <MOREINFO>
@@ -2106,18 +2110,18 @@ attach the <ICODE>click</ICODE> callback using an event registry.
       from the xml source <URL>index.xml</URL> using a the XSLT stylesheet
       <URL>index.xsl</URL><!-- which also checks the links -->.
     </P>
-    <CONTENT TITLE="Why do some posts have &amp;lt;FAQENTRY&amp;gt; in them?" ID="FAQENTRY" NUMID="5_1">
+    <CONTENT TITLE="Why do some posts have &lt;FAQENTRY&gt; in them?" ID="FAQENTRY" NUMID="5_1">
       <P>
         If a poster feels that the question they are answering should be
-        covered in the FAQ, placing &amp;lt;FAQENTRY&amp;gt; in the post lets the FAQ
+        covered in the FAQ, placing &lt;FAQENTRY&gt; in the post lets the FAQ
         robot collect the messages for easy review and inclusion. A Draft Proposal
         for the FAQ is requested and appreciated.
       </P>
     <P>
-The &amp;lt;FAQENTRY&amp;gt; should not be used in posts except in
+The &lt;FAQENTRY&gt; should not be used in posts except in
 conjunction with a suggestion/proposal for this FAQ. It should
 also not be literally quoted in replies, instead it should be
-partly obscured as, e.g. &amp;lt;FAQ**TRY&amp;gt; or similar.
+partly obscured as, e.g. &lt;FAQ**TRY&gt; or similar.
     </P>
    </CONTENT>
    <CONTENT TITLE="How do I make a suggestion?" NUMID="5_2" ID="makeSuggestion">

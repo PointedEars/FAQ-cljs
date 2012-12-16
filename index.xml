@@ -1,5 +1,5 @@
 <FAQ VERSION="32.2" DATE="2010-10-08" revision="$Revision$" id="$Id$">
- <TITLE>comp.lang.javascript FAQ</TITLE>
+ <TITLE>FAQ for comp.lang.javascript</TITLE>
  <CONTENTS>
   <CONTENT TITLE="Meta-FAQ meta-questions" ID="meta" NUMID="1">
    <P>
@@ -2260,32 +2260,30 @@ attach the <ICODE>click</ICODE> callback using an event registry.
   </CONTENT>
   
   <CONTENT TITLE="Comments and Suggestions" ID="comments" NUMID="5">
-   <P HTMLONLY="true">
-The FAQ uses the stylesheet <URL>faq.css</URL> and is generated
-from the xml source <URL>index.xml</URL> by the windows script
-host script <URL>process.wsf</URL> which also checks the links.
-   </P>
-   <CONTENT TITLE="Why do some posts have &amp;lt;FAQENTRY&amp;gt; in them?" 
-     ID="FAQENTRY" NUMID="5_1">
-    <P>
-If a poster feels that the question they are answering should be
-covered in the FAQ, placing &amp;lt;FAQENTRY&amp;gt; in the post lets the FAQ
-robot collect the messages for easy review and inclusion. A Draft Proposal
-for the FAQ is requested and appreciated.
+    <P HTMLONLY="true">
+      This FAQ uses the stylesheet <URL>faq.css</URL> and is generated
+      from the xml source <URL>index.xml</URL> using a the XSLT stylesheet
+      <URL>index.xsl</URL><!-- which also checks the links -->.
     </P>
+    <CONTENT TITLE="Why do some posts have &amp;lt;FAQENTRY&amp;gt; in them?" ID="FAQENTRY" NUMID="5_1">
+      <P>
+        If a poster feels that the question they are answering should be
+        covered in the FAQ, placing &amp;lt;FAQENTRY&amp;gt; in the post lets the FAQ
+        robot collect the messages for easy review and inclusion. A Draft Proposal
+        for the FAQ is requested and appreciated.
+      </P>
     <P>
 The &amp;lt;FAQENTRY&amp;gt; should not be used in posts except in
-conjunction with a suggestion/proposal for the FAQ. It should
+conjunction with a suggestion/proposal for this FAQ. It should
 also not be literally quoted in replies, instead it should be
 partly obscured as, e.g. &amp;lt;FAQ**TRY&amp;gt; or similar.
     </P>
    </CONTENT>
    <CONTENT TITLE="How do I make a suggestion?" NUMID="5_2" ID="makeSuggestion">
     <P>
-To make a suggestion to the FAQ, use either the FAQENTRY method
-above, or email Garrett Smith dhtmlkitchen&amp;#64;gmail.com (current FAQ editor) 
-or Jim Ley (jim.ley&amp;#64;gmail.com). All comments, suggestions, and 
-especially corrections are welcome.
+To make a suggestion to this FAQ, use either the FAQENTRY method
+above, or e-mail Thomas 'PointedEars' Lahn &lt;cljs&#64;PointedEars.de&gt; (editor).
+All comments, suggestions, and especially corrections are welcome.
     </P>
    </CONTENT>
    <!--

@@ -43,9 +43,9 @@
       <body>
         <h1><xsl:value-of select="TITLE"/></h1>
         <p>Version <xsl:value-of select="$version"/>
+           of <xsl:value-of select="$updated"/>
            by <xsl:value-of select="$previous_maintainer"/>,<br/>
            <xsl:value-of select="$revision"/>
-           updated <xsl:value-of select="$updated"/>
            by <xsl:value-of select="$maintainer"/></p>
         
         <p><xsl:value-of select="@id"/></p>

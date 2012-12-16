@@ -100,6 +100,19 @@ ul.linkList li {
   margin: .2em;
 }
 
+ul.horizontal {
+  float: left;
+  margin: 0 0 1em 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+ul.horizontal li {
+  float: left;
+  margin-left: 0;
+  margin-right: 0.5em;
+}
+
 #faqList {
   font-size: 120%;
   list-style: none;

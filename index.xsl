@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xsl:stylesheet [
+  <!ENTITY nbsp   "&#160;"><!-- no-break space = non-breaking space,
+                                U+00A0 ISOnum -->
+]>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="html"
                 doctype-public="-//W3C//DTD HTML 4.01//EN"
@@ -51,6 +55,25 @@
         
         <p><xsl:value-of select="@id"/></p>
         
+        <div>
+          <ul class="horizontal">
+            <li><a
+              href="http://PointedEars.de/websvn/log.php?repname=FAQs&amp;path=%2Ftrunk%2Fcljs%2F&amp;isdir=1&amp;showchanges=1"
+            >Change&nbsp;log</a></li>
+            <li><a
+              href="http://PointedEars.de/websvn/listing.php?repname=FAQs&amp;path=%2Ftrunk%2Fcljs%2F"
+              title="Subversion repository browser"
+            >SVN</a></li>
+          </ul>
+        </div>
+      
+        <xsl:variable name="faq_uri">http://PointedEars.de/scripts/faq/cljs/</xsl:variable>
+        <p style="clear: left; text-align: left">
+          Available online at <a
+            href="{$faq_uri}"
+          ><xsl:value-of select="$faq_uri"/></a>
+        </p>
+      
         <div id="nav"><a href="notes/">FAQ Notes</a></div>
         
         <xsl:apply-templates select="CONTENTS" mode="toc"/>

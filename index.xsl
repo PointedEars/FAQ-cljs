@@ -15,7 +15,8 @@
         
     <html lang="en">
       <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+        <meta http-equiv="Content-Type" content="text/html; UTF-8"/>
+        <title><xsl:value-of select="TITLE"/></title>
         <meta name="DCTERMS.language" scheme="RFC1766" content="en"/>
         <meta name="DC.title" content="FAQ for comp.lang.javascript"/>
         <meta name="DCTERMS.subject"
@@ -25,11 +26,11 @@
         <meta name="DC.creator" content="Jim Ley"/>
         <meta name="DC.publisher" content="{$maintainer}"/>
         <meta name="DC.Publisher.Address"
-              content="dhtmlkitchen&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;"/>
+              content="cl&#106;&#115;&#64;&#80;o&#105;n&#116;&#101;d&#69;a&#114;s.&#100;&#101;"/>
         <meta name="DCTERMS.modified" content="{$updated}"/>
         <meta name="DCTERMS.audience" content="Programmers, web developers"/>
         <meta name="DC.description" content="Frequently Asked Questions about JavaScript and other ECMAScript implementations"/>
-        <meta name="DC.identifier" content="http://jibbering.com/faq"/>
+        <meta name="DC.identifier" content="http://PointedEars.de/scripts/faq/cljs/"/>
         <meta name="DC.source"
               content="http://www.ecma-international.org/publications/standards/Ecma-262.htm"/>
         <meta name="DC.source" content="news:comp.lang.javascript"/>
@@ -38,10 +39,10 @@
         <meta name="DC.source" content="http://msdn.microsoft.com/en-us/library/ms533050%28VS.85%29.aspx"/>
         <meta name="DC.rights" content="copyright contributors, comp.lang.javascript"/>
         <link rel="StyleSheet" href="faq.css" type="text/css" media="screen"/>
-        <title><xsl:value-of select="TITLE"/></title>
       </head>
       <body>
         <h1><xsl:value-of select="TITLE"/></h1>
+        
         <p>Version <xsl:value-of select="$version"/>
            of <xsl:value-of select="$updated"/>
            by <xsl:value-of select="$previous_maintainer"/>,<br/>

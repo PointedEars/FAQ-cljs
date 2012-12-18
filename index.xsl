@@ -242,6 +242,34 @@
   <xsl:template match="ICODE">
     <code><xsl:apply-templates /></code>
   </xsl:template>
+
+  <xsl:template match="LIST">
+    <xsl:if test="@TITLE">
+      <xsl:element name="h4">
+        <xsl:if test="@ID">
+          <xsl:attribute name="id"><xsl:value-of select="@ID"/></xsl:attribute>
+        </xsl:if>
+        <h4><xsl:value-of select="@TITLE"/></h4>
+      </xsl:element>
+    </xsl:if>
+ 
+    <xsl:variable name="type">
+      <xsl:choose>
+        <xsl:when test="@TYPE"><xsl:value-of select="@TYPE"/></xsl:when>
+        <xsl:otherwise>ul</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+        
+    <xsl:element name="{$type}">
+      <xsl:if test="not(@TITLE and @ID)">
+        <xsl:attribute name="id"><xsl:value-of select="@ID"/></xsl:attribute>
+      </xsl:if>
+
+      <xsl:for-each select="*">
+        <xsl:apply-templates select="."/>
+      </xsl:for-each>
+    </xsl:element>
+  </xsl:template>
   
   <!-- standard copy template -->
   <xsl:template match="@*|node()">

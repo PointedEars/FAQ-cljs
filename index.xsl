@@ -271,6 +271,13 @@
     </xsl:element>
   </xsl:template>
   
+  <xsl:template match="P">
+    <xsl:copy>
+      <xsl:apply-templates select="@*[local-name() != 'HTMLONLY']"/>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
   <!-- standard copy template -->
   <xsl:template match="@*|node()">
     <xsl:copy>

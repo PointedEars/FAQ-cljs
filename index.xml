@@ -470,15 +470,15 @@
         </P>
         <P>
           Example of nonstandard <DFN>function statement</DFN>:
-          <CODE>
-          // Nonstandard syntax, found in GMail source code. DO NOT USE.
-          try {
-            // FunctionDeclaration not allowed in Block.
-            function Fze(b,a){return b.unselectable=a}
-            /*...*/
-          } catch(e) { _DumpException(e) }
-          </CODE>
         </P>
+        <CODE>
+        // Nonstandard syntax, found in GMail source code. DO NOT USE.
+        try {
+          // FunctionDeclaration not allowed in Block.
+          function Fze(b,a){return b.unselectable=a}
+          /*...*/
+        } catch(e) { _DumpException(e) }
+        </CODE>
         <P>
           Code that uses <DFN>function statement</DFN> has three known interpretations. Some 
           implementations process <ICODE>Fze</ICODE> as a <DFN>Statement</DFN>, in order. Others, including 
@@ -492,19 +492,19 @@
         </P>
         <P>
           Example of <ICODE>FunctionExpression</ICODE> (valid):
-          <CODE>
+        </P>
+        <CODE>
 var Fze;
 try {
   Fze = function(b,a){return b.unselectable=a};
   /*...*/
 } catch(e) { _DumpException(e) }
-          </CODE>
-          Example of <ICODE>FunctionDeclaration</ICODE> (valid):
+        </CODE>
+        Example of <ICODE>FunctionDeclaration</ICODE> (valid):
           <CODE>
 // Program code
 function aa(b,a){return b.unselectable=a}
-          </CODE>
-        </P>
+        </CODE>
 <!--
 Notable examples of the misuse of the term "function statement"
 can be seen in David Flanagan's "JavaScript: The Definitive Guide",
@@ -566,7 +566,8 @@ JSLint error messages.
       <P>
         A local <ICODE>Date</ICODE> object where <ICODE>0 &lt;= year &lt;= 9999</ICODE> can be 
         formatted to a common ISO 8601 format <ICODE>YYYY-MM-DD</ICODE> with:-
-        <CODE>
+      </P>
+      <CODE>
 /** Formats a Date to YYYY-MM-DD (local time), compatible with both 
  *  ISO 8601 and ISO/IEC 9075-2:2003 (E) (SQL 'date' type).
  *  @param {Date} dateInRange year 0000 to 9999.
@@ -583,17 +584,17 @@ function formatDate(dateInRange) {
    dd = ("0" + (dateInRange.getDate())).slice(-2);
    return yyyy + "-" + mm + "-" + dd;
 }
-        </CODE>
-        <MOREINFO>
-          <URL>http://www.merlyn.demon.co.uk/js-date9.htm</URL>
-        </MOREINFO>
-      </P>
+      </CODE>
+      <MOREINFO>
+        <URL>http://www.merlyn.demon.co.uk/js-date9.htm</URL>
+      </MOREINFO>
     </CONTENT>
     <CONTENT TITLE="How can I create a Date object from a String?" ID="parseDate">
       <P>
         An Extended ISO 8601 local Date format <ICODE>YYYY-MM-DD</ICODE> can be parsed to a 
         Date with the following:
-        <CODE>
+      </P>
+      <CODE>
 /**Parses string formatted as YYYY-MM-DD to a Date object.
  * If the supplied string does not match the format, an 
  * invalid Date (value NaN) is returned.
@@ -615,7 +616,6 @@ function parseISO8601(dateStringInRange) {
   }
   return date;
 }</CODE> 
-      </P>
     </CONTENT>
   </CONTENT>
 
@@ -642,8 +642,7 @@ function parseISO8601(dateStringInRange) {
         There are bugs in JScript 5.8 and below with certain numbers, for example 
         <ICODE>0.007.toFixed(2)</ICODE> incorrectly results <ICODE>0.00</ICODE>.
       </P>
-      <P>
-        <CODE>
+      <CODE>
 var numberToFixed = 
 (function() {
   return toFixedString;
@@ -692,7 +691,6 @@ document.writeln([
   "numberToFixed(0.0000000006, 0) =&gt; " + numberToFixed(0.0000000006, 0)
 ].join("\n"));
 </CODE>
-      </P>
       <MOREINFO>
         <URL>http://www.merlyn.demon.co.uk/js-round.htm</URL>
         <URL>http://msdn.microsoft.com/en-us/library/sstyff0z%28VS.85%29.aspx</URL>
@@ -784,15 +782,15 @@ var n = j|0;    // Chop off decimal (convert ToInt32). Result: -9
     <CONTENT TITLE="How do I generate a random integer from 1 to n?" ID="randomNumber" NUMID="4_22">
       <P>
         <ICODE>Math.random()</ICODE> returns a value <ICODE>R</ICODE> such that <ICODE>0 &lt;= R &lt; 1.0</ICODE>; therefore:
-        <CODE>
+      </P>
+      <CODE>
 // positive integer expected
 function getRandomNumber(n) { 
   return Math.floor(n * Math.random());
 }
-        </CODE>
-        - gives an evenly distributed random integer in the range from 
-        <ICODE>0</ICODE> to <ICODE>n - 1</ICODE> inclusive; use <ICODE>getRandomNumber(n)+1</ICODE> for <ICODE>1</ICODE> to <ICODE>n</ICODE>.
-    </P>
+      </CODE>
+      - gives an evenly distributed random integer in the range from 
+      <ICODE>0</ICODE> to <ICODE>n - 1</ICODE> inclusive; use <ICODE>getRandomNumber(n)+1</ICODE> for <ICODE>1</ICODE> to <ICODE>n</ICODE>.
       <MOREINFO>
         <URL>http://msdn.microsoft.com/en-us/library/41336409%28VS.85%29.aspx</URL>
         <URL>http://docs.sun.com/source/816-6408-10/math.htm</URL>
@@ -813,7 +811,8 @@ How to Deal and Shuffle, see in: <URL>http://www.merlyn.demon.co.uk/js-randm.htm
       </P>
       <P>
         Example:
-        <CODE>
+      </P>
+      <CODE>
 // Native built-in objects:
 var m = Math, // Built-in Math object.
     slice = Array.prototype.slice, // Built-in native method.
@@ -822,8 +821,7 @@ var m = Math, // Built-in Math object.
     d = new Date(),
     a = [],
     e = new Error("My Message.");
-        </CODE>
-      </P>
+      </CODE>
       See also:
       <MOREINFO>
         <URL>http://dmitrysoshnikov.com/ecmascript/chapter-7-2-oop-ecmascript-implementation/</URL>
@@ -889,12 +887,12 @@ has the <ICODE>WScript</ICODE> object available.
  this usually includes the w3c specifications as well as documentation
  for that browser.
  See also:
+</P>
 
 <MOREINFO>
 <URL>notes/code-guidelines/#hostObjects</URL>
 <URL>http://peter.michaux.ca/articles/feature-detection-state-of-the-art-browser-scripting</URL>
 </MOREINFO>
-</P>
    </CONTENT>
    <CONTENT TITLE="When should I use eval?" ID="eval" NUMID="4_40">
     <P>
@@ -908,267 +906,269 @@ When <ICODE>eval( '{"key" : 42}' )</ICODE> is called, <ICODE>{</ICODE> is interp
 code instead of an object literal. Hence, the Grouping Operator (parentheses) 
 is used to force <ICODE>eval</ICODE> to interpret the JSON as an object literal:
 <ICODE>eval( '({"key" : 42})' );</ICODE>.
+    </P>
      <MOREINFO>
        <URL>http://json.org/</URL>
        <URL LINKTEXT="How do I access a property of an object using a string?"
        >#propertyAccessAgain</URL>
        <URL>notes/square-brackets/</URL>
      </MOREINFO>
-    </P>
-   </CONTENT>
-   <CONTENT TITLE="How do I access a property of an object using a string?" 
-    ID="propertyAccessAgain" NUMID="4_39">
-    <P>
+    </CONTENT>
+    <CONTENT TITLE="How do I access a property of an object using a string?" ID="propertyAccessAgain" NUMID="4_39">
+      <P>
 There are two ways to access properties: dot notation and square bracket 
 notation. What you are looking for is the square bracket notation in 
 which the dot, and the identifier to its right, are replaced with a set 
 of square brackets containing a string. The value of the string matches 
 the identifier. For example:-
-<CODE>
-  //dot notation
-  var bodyElement = document.body;
+      </P>
+      <CODE>
+//dot notation
+var bodyElement = document.body;
 
-  //square bracket notation, using an expression
-  var bodyElement = document[&quot;bo&quot;+&quot;dy&quot;];</CODE>
-     <MOREINFO>
-      <URL>notes/square-brackets/</URL>
-     </MOREINFO>
-    </P>
+//square bracket notation, using an expression
+var bodyElement = document[&quot;bo&quot;+&quot;dy&quot;];</CODE>
+      <MOREINFO>
+        <URL>notes/square-brackets/</URL>
+      </MOREINFO>
     </CONTENT>
   </CONTENT>
   <CONTENT TITLE="Strings and RegExp" ID="strings">
-   <CONTENT TITLE="How do I trim whitespace?" ID="trimString" NUMID="4_16">
-    <P>
-ECMAScript 5 defines <ICODE>String.prototype.trim</ICODE>. Where not supported,
-it can be added as a function that uses a <DFN>regular expression</DFN>:
-<CODE>
+    <CONTENT TITLE="How do I trim whitespace?" ID="trimString" NUMID="4_16">
+      <P>
+        ECMAScript 5 defines <ICODE>String.prototype.trim</ICODE>. Where not supported,
+        it can be added as a function that uses a <DFN>regular expression</DFN>:
+      </P>
+      <CODE>
 if(!String.prototype.trim) {
   String.prototype.trim = function() {
     return String(this).replace(/^\s+|\s+$/g, "");
   };
 } 
-</CODE>
-Implementations are inconsistent with <ICODE>\s</ICODE>. For example, 
-some implementations, notably JScript 5.8 and Safari 2, do not match <ICODE>\xA0</ICODE> 
-(no-break space), among others. 
-   </P>
-   <P>
-A more consistent approach would be to create a character class 
-that defines the characters to trim.
-   </P>
-    <P>
-<MOREINFO>
-<URL>https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/RegExp</URL>
-<URL>http://thinkweb2.com/projects/prototype/whitespace-deviations/</URL>
-<URL>https://developer.mozilla.org/en/Firefox_3.1_for_developers</URL>
-<URL>http://docs.sun.com/source/816-6408-10/regexp.htm</URL>
-<URL>http://msdn.microsoft.com/en-us/library/6wzad2b2%28VS.85%29.aspx</URL>
-<URL>http://groups.google.com/group/comp.lang.javascript/browse_frm/thread/c7010139217600c3/31092c5eb99625d0?#31092c5eb99625d0</URL>
-<URL>http://unicode.org/Public/UNIDATA/PropList.txt</URL>
-</MOREINFO>
-</P>
-   </CONTENT>  
+      </CODE>
+      <P>
+        Implementations are inconsistent with <ICODE>\s</ICODE>. For example, 
+        some implementations, notably JScript 5.8 and Safari 2, do not match <ICODE>\xA0</ICODE> 
+        (no-break space), among others.</P>
+      <P>
+        A more consistent approach would be to create a character class 
+        that defines the characters to trim.
+      </P>
+      <MOREINFO>
+        <URL>https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/RegExp</URL>
+        <URL>http://thinkweb2.com/projects/prototype/whitespace-deviations/</URL>
+        <URL>https://developer.mozilla.org/en/Firefox_3.1_for_developers</URL>
+        <URL>http://docs.sun.com/source/816-6408-10/regexp.htm</URL>
+        <URL>http://msdn.microsoft.com/en-us/library/6wzad2b2%28VS.85%29.aspx</URL>
+        <URL>http://groups.google.com/group/comp.lang.javascript/browse_frm/thread/c7010139217600c3/31092c5eb99625d0?#31092c5eb99625d0</URL>
+      <URL>http://unicode.org/Public/UNIDATA/PropList.txt</URL>
+      </MOREINFO>
+    </CONTENT>  
   </CONTENT>
   
   <CONTENT TITLE="DOM and Forms" ID="domRef">
-  
-
-   <CONTENT TITLE="How do I get the value of a form control?" 
+    <CONTENT TITLE="How do I get the value of a form control?" 
      ID="formControlAccess" NUMID="4_13">
-    <P>
-In HTML documents, a form may be referred to as a property of the 
-<ICODE>document.forms</ICODE> collection, either by its ordinal index or by name 
-(if the <ICODE>form</ICODE> has a name). A <ICODE>form</ICODE>'s controls may be similarly referenced 
-from its <ICODE>elements</ICODE> collection:
-<CODE>
-  var frm = document.forms[0];
-  var control = frm.elements[&quot;elementname&quot;];
-</CODE>
-Once a reference to a control is obtained, its (string) <ICODE>value</ICODE> 
-property can be read:-
-<CODE>
-  var value = control.value;
-  value = +control.value; //string to number.
-</CODE>
-Some exceptions would be: 
-</P>
-<P>
-First Exception: Where the control is a <ICODE>SELECT</ICODE> element, and 
-support for older browsers, such as NN4, is required:
-<CODE>
-  var value = control.options[control.selectedIndex].value;
-</CODE>
-Second Exception: Where several controls share the same name,
-such as radio buttons. These are made available as collections
-and require additional handling. For more information, see:-
-<MOREINFO>
-<URL>notes/form-access/</URL>
-<URL LINKTEXT="Unsafe Names for HTML Form Controls">names/</URL>
-</MOREINFO>
-      </P>
       <P>
-Third Exception: File inputs. Most current browsers do not allow
-reading of <ICODE>type="file"</ICODE> input elements in a way that is useful.
+        In HTML documents, a form may be referred to as a property of the 
+        <ICODE>document.forms</ICODE> collection, either by its ordinal index or by name 
+        (if the <ICODE>form</ICODE> has a name). A <ICODE>form</ICODE>'s controls may be similarly referenced 
+        from its <ICODE>elements</ICODE> collection:
       </P>
-   </CONTENT>
-   <CONTENT TITLE="My element is named myselect[], how do I access it?" 
-     ID="propertyAccess" NUMID="4_25">
-    <P>
+      <CODE>
+var frm = document.forms[0];
+var control = frm.elements[&quot;elementname&quot;];
+      </CODE>
+      <P>
+        Once a reference to a control is obtained, its (string) <ICODE>value</ICODE> 
+        property can be read:-
+      </P>
+      <CODE>
+var value = control.value;
+value = +control.value; //string to number.
+      </CODE>
+      Some exceptions would be: 
+      <P>
+        First Exception: Where the control is a <ICODE>SELECT</ICODE> element, and 
+        support for older browsers, such as NN4, is required:
+      </P>
+      <CODE>
+var value = control.options[control.selectedIndex].value;
+      </CODE>
+      <P>
+        Second Exception: Where several controls share the same name,
+        such as radio buttons. These are made available as collections
+        and require additional handling. For more information, see:-
+      </P>
+      <MOREINFO>
+        <URL>notes/form-access/</URL>
+        <URL LINKTEXT="Unsafe Names for HTML Form Controls">names/</URL>
+      </MOREINFO>
+      <P>
+        Third Exception: File inputs. Most current browsers do not allow
+        reading of <ICODE>type="file"</ICODE> input elements in a way that is useful.
+      </P>
+    </CONTENT>
+    <CONTENT TITLE="My element is named myselect[], how do I access it?" ID="propertyAccess" NUMID="4_25">
+      <P>
 Form controls with any &quot;illegal&quot; characters can be accessed with
 <ICODE>formref.elements[&quot;myselect[]&quot;]</ICODE> - The bracket characters,
 amongst others, are illegal in ID attributes and javascript
 identifiers, so you should try to avoid them as browsers may
 handle them incorrectly.
+    </P>
 <MOREINFO>
 <URL>http://msdn.microsoft.com/en-us/library/ms537449%28VS.85%29.aspx</URL>
 <URL>https://developer.mozilla.org/en/DOM/form</URL>
 <URL>notes/form-access/</URL>
 </MOREINFO>
-    </P>
-   </CONTENT>  
-  <CONTENT TITLE="Why doesn't the global variable &quot;divId&quot; always refer to the element with id=&quot;divId&quot;?"
-   ID="globalPollution" NUMID="4_41">
-    <P>
-Microsoft introduced a shortcut that can be used to reference
-elements which include an <ICODE>id</ICODE> attribute where the 
-<ICODE>id</ICODE> becomes a globally-accessible property. Some browsers reproduce 
-this behavior. Some, most notably Gecko-based browsers (Netscape and Mozilla),
-do so only in "quirks" mode. The best approach is the <ICODE>document.getElementById</ICODE>
-method, which is part of the W3C DOM standard and implemented
-in modern browsers (including IE from version 5.0). So an
-element with <ICODE>id=&quot;foo&quot;</ICODE> can be referenced
-with:-
-     <CODE>
-  var el = document.getElementById(&quot;foo&quot;);
-</CODE>
-Note: make sure not to use the same <ICODE>id</ICODE> twice in the same document 
-and do not give an element a <ICODE>name</ICODE> that matches an <ICODE>id</ICODE> 
-of another in the same document or it will trigger bugs in MSIE &lt;= 7 with 
-<ICODE>document.getElementsByName</ICODE> and <ICODE>document.getElementById</ICODE>.
-<MOREINFO>
-<URL>https://developer.mozilla.org/en/Using_Web_Standards_in_your_Web_Pages/Using_the_W3C_DOM#Accessing_Elements_with_the_W3C_DOM
-</URL>
-<URL>faq_notes/faq_notes.html#FAQN4_41</URL>
-</MOREINFO>
-</P>
-   </CONTENT>
-   <CONTENT TITLE="How do I modify the content of the current page?" 
-     ID="updateContent" NUMID="4_15">
-    <P>
-Using the non-standard but widely implemented 
-<ICODE>innerHTML</ICODE> property:
-<ICODE>&lt;div id=&quot;anID&quot;&gt;Some Content&lt;/div&gt;</ICODE> with script:
+    </CONTENT>  
+    <CONTENT TITLE="Why doesn't the global variable &quot;divId&quot; always refer to the element with id=&quot;divId&quot;?"
+            ID="globalPollution" NUMID="4_41">
+      <P>
+        Microsoft introduced a shortcut that can be used to reference
+        elements which include an <ICODE>id</ICODE> attribute where the 
+        <ICODE>id</ICODE> becomes a globally-accessible property. Some browsers reproduce 
+        this behavior. Some, most notably Gecko-based browsers (Netscape and Mozilla),
+        do so only in "quirks" mode. The best approach is the <ICODE>document.getElementById</ICODE>
+        method, which is part of the W3C DOM standard and implemented
+        in modern browsers (including IE from version 5.0). So an
+        element with <ICODE>id=&quot;foo&quot;</ICODE> can be referenced
+        with:-
+      </P>
       <CODE>
-  document.getElementById(&quot;anID&quot;).innerHTML = 
-    &quot;Some &lt;em&gt;new&lt;/em&gt; Content&quot;;
-</CODE>
-Where <ICODE>&quot;anID&quot;</ICODE> is the (unique on the HTML page) 
-<ICODE>id</ICODE> attribute value of the element to modify.
-    </P>
-    <P>
+var el = document.getElementById(&quot;foo&quot;);
+      </CODE>
+      <P>
+        Note: make sure not to use the same <ICODE>id</ICODE> twice in the same document 
+        and do not give an element a <ICODE>name</ICODE> that matches an <ICODE>id</ICODE> 
+        of another in the same document or it will trigger bugs in MSIE &lt;= 7 with 
+        <ICODE>document.getElementsByName</ICODE> and <ICODE>document.getElementById</ICODE>.
+      </P>
+      <MOREINFO>
+        <URL>https://developer.mozilla.org/en/Using_Web_Standards_in_your_Web_Pages/Using_the_W3C_DOM#Accessing_Elements_with_the_W3C_DOM</URL>
+        <URL>faq_notes/faq_notes.html#FAQN4_41</URL>
+      </MOREINFO>
+    </CONTENT>
+    <CONTENT TITLE="How do I modify the content of the current page?"
+             ID="updateContent" NUMID="4_15">
+      <P>
+        Using the non-standard but widely implemented 
+        <ICODE>innerHTML</ICODE> property:
+        <ICODE>&lt;div id=&quot;anID&quot;&gt;Some Content&lt;/div&gt;</ICODE> with script:
+      </P>
+      <CODE>
+        document.getElementById(&quot;anID&quot;).innerHTML = 
+        &quot;Some &lt;em&gt;new&lt;/em&gt; Content&quot;;
+      </CODE>
+      <P>
+        Where <ICODE>&quot;anID&quot;</ICODE> is the (unique on the HTML page) 
+        <ICODE>id</ICODE> attribute value of the element to modify.
+      </P>
+      <P>
 All versions of Internet Explorer exhibit problems with innerHTML, including:
-    </P>
-    <LIST TYPE="UL">
-        <LI>Fails with FRAMESET, HEAD, HTML, STYLE, SELECT, 
-OBJECT, and all TABLE-related elements.
-        </LI>
+      </P>
+      <LIST TYPE="UL">
+        <LI>Fails with FRAMESET, HEAD, HTML, STYLE, SELECT,
+            OBJECT, and all TABLE-related elements.</LI>
         <LI>Replaces consecutive whitespace characters with a single space.</LI>
         <LI>Changes attribute values and order of appearance.</LI>
         <LI>Removes quotations around attribute values.</LI>
-    </LIST>
-    <P>
-If the new content is only text and does not need to replace existing HTML, 
-it is more efficient to modify the <ICODE>data</ICODE> property of a text node.
+      </LIST>
+      <P>
+        If the new content is only text and does not need to replace existing HTML, 
+        it is more efficient to modify the <ICODE>data</ICODE> property of a text node.
+      </P>
       <CODE>
-  document.getElementById(&quot;anID&quot;).firstChild.data = &quot;Some new Text&quot;;
-</CODE>
-</P>
-<P>
-Compatibility Note: Implementations have been known to split long text 
-content among several adjacent text nodes, so replacing the data of the 
-first text node may not replace all the element's text. The <ICODE>normalize</ICODE> 
-method, where supported, will combine adjacent text nodes.
-</P>
-<P>
-Note: Make sure the element exists in the document (has been parsed) before trying to 
-reference it.
-     <MOREINFO>
-<URL>http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-FF21A306</URL>
-<URL>http://msdn.microsoft.com/en-us/library/cc304097%28VS.85%29.aspx</URL>
-<URL>http://msdn.microsoft.com/en-us/library/ms533897%28VS.85%29.aspx</URL>
-<URL>http://developer.mozilla.org/en/Whitespace_in_the_DOM</URL>
-<URL>http://developer.mozilla.org/en/docs/DOM:element.innerHTML</URL>
-<URL>http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#html-fragment-serialization-algorithm</URL> (draft)
-     </MOREINFO>
-    </P>
-   </CONTENT>
-   <CONTENT TITLE="Why does my code fail to access an element?" ID="accessElementBeforeDefined">
-     <P>
-An element can only be accessed after it exists in the document. 
-   </P>
-   <P>
-Either:
-A) include your script after the HTML element it refers to, or
-B) use the <ICODE>"load"</ICODE> event to trigger your script.
-   </P>
-   <P>
-Example A:
-<CODE>
+        document.getElementById(&quot;anID&quot;).firstChild.data = &quot;Some new Text&quot;;
+      </CODE>
+      <P>
+        Compatibility Note: Implementations have been known to split long text 
+        content among several adjacent text nodes, so replacing the data of the 
+        first text node may not replace all the element's text. The <ICODE>normalize</ICODE> 
+        method, where supported, will combine adjacent text nodes.
+      </P>
+      <P>
+        Note: Make sure the element exists in the document (has been parsed) before trying to 
+        reference it.
+      </P>
+      <MOREINFO>
+        <URL>http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-FF21A306</URL>
+        <URL>http://msdn.microsoft.com/en-us/library/cc304097%28VS.85%29.aspx</URL>
+        <URL>http://msdn.microsoft.com/en-us/library/ms533897%28VS.85%29.aspx</URL>
+        <URL>http://developer.mozilla.org/en/Whitespace_in_the_DOM</URL>
+        <URL>http://developer.mozilla.org/en/docs/DOM:element.innerHTML</URL>
+        <URL>http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#html-fragment-serialization-algorithm</URL> (draft)
+      </MOREINFO>
+    </CONTENT>
+
+    <CONTENT TITLE="Why does my code fail to access an element?" ID="accessElementBeforeDefined">
+      <P>
+        An element can only be accessed after it exists in the document. 
+      </P>
+      <P>
+        Either:
+        A) include your script after the HTML element it refers to, or
+        B) use the <ICODE>"load"</ICODE> event to trigger your script.
+      </P>
+      <P>
+        Example A:
+      </P>
+      <CODE>
 &lt;div id="snurgle"&gt;here&lt;/div&gt;
 &lt;script type="text/javascript"&gt;
 // Don't forget var.
 var snurgleEl = document.getElementById("snurgle");
 window.alert(snurgleEl.parentNode);
 &lt;/script&gt;
-</CODE>
-   </P>
-
-   <P>
-Example B:
-<CODE>
+      </CODE>
+      <P>
+        Example B:
+      </P>
+      <CODE>
 // In the HEAD.
 &lt;script type="text/javascript"&gt;
 window.onload = function(){
   var snurgleEl = document.getElementById("snurgle");
 };
 &lt;/script&gt;
-</CODE>
-</P>
-<LIST TYPE="UL" TITLE="Other problems can include:">
-<LI>invalid HTML</LI>
-<LI>two elements with the same <ICODE>name</ICODE> or <ICODE>id</ICODE></LI>
-<LI>use of an unsafe name: http://jibbering.com/names/</LI>.
-</LIST>
-   </CONTENT>
-   <CONTENT TITLE="How can I see in javascript if a web browser accepts cookies?" 
-     ID="testCookie" NUMID="4_4">
-    <P>
-Write a cookie and read it back and check if it's the same.
+      </CODE>
+
+      <LIST TYPE="UL" TITLE="Other problems can include:">
+        <LI>invalid HTML</LI>
+        <LI>two elements with the same <ICODE>name</ICODE> or <ICODE>id</ICODE></LI>
+        <LI>use of an unsafe name: http://jibbering.com/names/</LI>.
+      </LIST>
+    </CONTENT>
+    <CONTENT TITLE="How can I see in javascript if a web browser accepts cookies?" 
+             ID="testCookie" NUMID="4_4">
+      <P>
+        Write a cookie and read it back and check if it's the same.
+      </P>
       <MOREINFO>
-Additional Notes:
-<URL>http://www.ietf.org/rfc/rfc2965.txt</URL>
-<URL>http://www.galasoft-lb.ch/myjavascript/consulting/2001012701/</URL>
-<URL>http://www.cookiecentral.com/</URL>
-</MOREINFO>
-    </P>
-   </CONTENT>  
+        Additional Notes:
+        <URL>http://www.ietf.org/rfc/rfc2965.txt</URL>
+        <URL>http://www.galasoft-lb.ch/myjavascript/consulting/2001012701/</URL>
+        <URL>http://www.cookiecentral.com/</URL>
+      </MOREINFO>
+    </CONTENT>  
   </CONTENT>
   
   <CONTENT TITLE="Windows and Frames" ID="windows">
-<P>
+    <P>
 The <ICODE>window</ICODE> object (also referred to by <ICODE>self</ICODE>) is "DOM Level 0". 
 No formal standard for it exists. 
 </P>
    <CONTENT TITLE="How can I disable the back button in a web browser?" ID="disableBackButton" NUMID="4_2">
-    <P>
+      <P>
 You can't. The browser's history cannot be modified. However, you
 can use <ICODE>self.location.replace(url);</ICODE> in some browsers to replace
 the current page in the history.
+      </P>
       <MOREINFO>
       <URL>http://msdn.microsoft.com/en-us/library/ms536712%28VS.85%29.aspx</URL>
       <URL>http://docs.sun.com/source/816-6408-10/location.htm#1194240</URL>
      </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How do I access a frame's content?" 
      ID="frameRef" NUMID="4_8">
@@ -1181,19 +1181,18 @@ accessed by the <ICODE>frames</ICODE> collection.
 </P>
 <P>
 Example:
+</P>
 <CODE>
 var fwin;
 fwin = self.frames[0]; // or:
 fwin = self.frames["iframeName"];
 </CODE>
-</P>
-<P>or, from the <ICODE>IFRAME</ICODE> or <ICODE>FRAME</ICODE> element:
+<P>or, from the <ICODE>IFRAME</ICODE> or <ICODE>FRAME</ICODE> element:</P>
 <CODE>
 var iframeEl = document.getElementById("myFrame");
 var fwin = iframeEl.contentWindow; // Nonstandard, but widely supported.
 var fdoc = iframeEl.contentDocument; // DOM2 HTML Standard.
 </CODE>
-</P>
 <P>
 A global identifier <ICODE>moomin</ICODE> in the the iframe's <DFN>content window</DFN>
 is accessed as <ICODE>fwin.moomin</ICODE>.
@@ -1215,13 +1214,13 @@ can be set on the other window, which can poll for updates to that
 property using <ICODE>setInterval(checkWinName, 100);</ICODE> where <ICODE>checkWinName</ICODE> 
 is a function that polls to check the value of 
 <ICODE>self.name</ICODE>.
+</P>
 <MOREINFO>
 <URL>http://en.wikipedia.org/wiki/Same_origin_policy</URL>
 <URL>http://www-archive.mozilla.org/docs/dom/domref/dom_frame_ref5.html</URL>
 <URL>https://developer.mozilla.org/en/DOM/window.postMessage</URL>
 <URL>http://msdn.microsoft.com/en-us/library/cc197015(VS.85).aspx</URL>
 </MOREINFO>
-</P>
 
    </CONTENT>
    <CONTENT TITLE="How do I find the size of the window?" ID="getWindowSize" 
@@ -1233,13 +1232,14 @@ find the dimensions of the viewport, excepting all chrome
     </P>
     <P>
 We can consider various properties:
+    </P>
     <CODE>
   window.innerWidth
   document.clientWidth
   document.documentElement.clientWidth
   document.body.clientWidth
-</CODE>
-
+    </CODE>
+    <P>
 Of the browsers that have an <ICODE>innerWidth</ICODE> property, most 
 include scrollbar dimensions. Some versions of KHTML browsers 
 (including Safari 2) do <EM>not</EM> include scrollbar width.  
@@ -1248,18 +1248,20 @@ include scrollbar dimensions. Some versions of KHTML browsers
     <P>
 The <ICODE>window.inner*</ICODE> properties are unreliable and not 
 useful here. We don't want scrollbar dimensions included.
-<CODE>  document.clientWidth</CODE>
     </P>
+<CODE>  document.clientWidth</CODE>
     <P>
 Certain versions of KHTML, including Safari 2, have 
 <ICODE>document.clientHeight</ICODE> and <ICODE>document.clientWidth</ICODE>
 properties. Where supported, these rare properties accurately 
 return the height and width of the viewport, without including 
 scrollbar dimensions.
+    </P>
     <CODE>
   document.documentElement.clientWidth
   document.body.clientWidth
 </CODE>
+<P>
 MSHTML (Trident), Firefox (Gecko), Opera (Presto), and Safari 
 (Webkit) all support <ICODE>clientHeight</ICODE> on <ICODE>document.body</ICODE> 
 and <ICODE>document.documentElement</ICODE>. The difficulty is figuring out 
@@ -1273,16 +1275,15 @@ represents depends on the environment. The environment includes
 the browser, its version, and the rendering mode of the document. 
 In quirks mode, we'll mostly want to use <ICODE>body.clientHeight</ICODE> 
 (except for in Safari 2).
-    
-    <CODE>  document.body.clientHeight</CODE>
-    
+    </P>
+    <CODE>document.body.clientHeight</CODE>
+<P>    
 Some environments will return the viewport height. Others will 
 return <ICODE>0</ICODE>. Yet others will return the <ICODE>clientHeight</ICODE> of 
-the <ICODE>BODY</ICODE> element. 
+the <ICODE>BODY</ICODE> element.</P>
     
     <CODE>  document.documentElement.clientHeight</CODE>
-    
-This is the more "standard" property for getting the height of 
+<P>This is the more "standard" property for getting the height of 
 the viewport. It usually "works" in modern browsers in 
 <DFN>standards mode</DFN>. Notable exceptions include Safari 2 and 
 Opera  &lt;= 9.25, both of which return the <ICODE>clientHeight</ICODE> 
@@ -1319,7 +1320,7 @@ Since <ICODE>document.clientHeight</ICODE> is reliable where
 don't return the viewport dimensions from 
 <ICODE>document.body.clientHeight</ICODE> or 
 <ICODE>document.documentElement.clientHeight</ICODE>, this should be the 
-very first condition:
+very first condition:</P>
 
     <CODE>
   // Safari 2 uses document.clientWidth (default).
@@ -1328,7 +1329,7 @@ very first condition:
   }
 </CODE>
 
-The next strategy is to determine if 
+<P>The next strategy is to determine if 
 <ICODE>document.documentElement.clientHeight</ICODE> property is unreliable. 
 It is deemed "unreliable" when it is either <ICODE>0</ICODE> or taller 
 than the viewport.
@@ -1336,14 +1337,14 @@ than the viewport.
     <P>
        Determining if <ICODE>documentElement.clientHeight</ICODE> is <ICODE>0</ICODE> is easy. 
        The result is stored in a variable <ICODE>IS_BODY_ACTING_ROOT</ICODE>.
-
+    </P>
     <CODE>
   var docEl = document.documentElement,
     IS_BODY_ACTING_ROOT = docEl &amp;&amp; docEl.clientHeight === 0;
   docEl = null; 
 </CODE>
 
-To determine if <ICODE>documentElement.clientHeight</ICODE> returns 
+<P>To determine if <ICODE>documentElement.clientHeight</ICODE> returns 
 a value taller than the viewport, we need a <DFN>Capability Test.</DFN>
     </P>
     
@@ -1360,7 +1361,7 @@ We can force <ICODE>documentElement</ICODE> to be taller than the viewport
 give that <ICODE>div</ICODE> a height larger than any normal monitor, 
 and then check to see if <ICODE>documentElement.clientHeight</ICODE> is 
 that high (or "almost" that high, to account for <ICODE>documentElement</ICODE> 
-having a border). 
+having a border).</P>
 
     <CODE>
   // Used to feature test Opera returning wrong values 
@@ -1378,9 +1379,9 @@ having a border).
   }
 </CODE>
 
-We can use this function to see if we should use 
+<P>We can use this function to see if we should use 
 <ICODE>body.clientHeight</ICODE>, instead. (but only after checking if 
-<ICODE>document.clientHeight</ICODE> is supported).
+<ICODE>document.clientHeight</ICODE> is supported).</P>
 
     <CODE>
   // Safari 2 uses document.clientWidth (default).
@@ -1393,6 +1394,7 @@ We can use this function to see if we should use
       // use document.documentElement.clientHeight/Width.
   }
 </CODE>
+<P>
 The preceding strategy was developed by Garrett Smith with input 
 from John David Dalton. A complete and tested example can be found 
 in APE Library under <ICODE>APE.dom.getViewportDimensions</ICODE>. 
@@ -1400,23 +1402,22 @@ Source code:
 <URL>http://dhtmlkitchen.com/ape/build/dom/viewport-f.js</URL>.
 APE is publicly released under Academic Free License. 
 APE home: <URL>http://dhtmlkitchen.com/ape/</URL>.
-    </P>
+      </P>
     
-    <P>
-Note: The dimensions cannot be determined accurately until after 
-the document has finished loading. 
-<MOREINFO>
-<URL>http://msdn.microsoft.com/en-us/library/ms533566%28VS.85%29.aspx</URL>
-<URL>http://developer.mozilla.org/en/DOM/window.innerWidth</URL>
-<URL>http://dev.opera.com/articles/view/using-capability-detection/</URL>
-</MOREINFO>
-   </P>
-   </CONTENT>
+      <P>
+        Note: The dimensions cannot be determined accurately until after 
+        the document has finished loading.
+      </P> 
+      <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/ms533566%28VS.85%29.aspx</URL>
+      <URL>http://developer.mozilla.org/en/DOM/window.innerWidth</URL>
+      <URL>http://dev.opera.com/articles/view/using-capability-detection/</URL>
+      </MOREINFO>
+    </CONTENT>
    
-   <CONTENT TITLE="How do I check to see if a child window is open, before opening another?" 
-     ID="isWindowOpen" NUMID="4_10">
-    <P>
-     <CODE>
+    <CONTENT TITLE="How do I check to see if a child window is open, before opening another?" 
+             ID="isWindowOpen" NUMID="4_10">
+      <CODE>
   var myWin;
   function openWin(aURL) {
     if (!myWin || myWin.closed ) {
@@ -1426,24 +1427,25 @@ the document has finished loading.
       myWin.focus();
     }
   }</CODE>
-Popup windows cause usability problems and are generally best avoided. 
+<P>
+Popup windows cause usability problems and are generally best avoided.
+</P> 
 <MOREINFO>
 <URL>https://developer.mozilla.org/en/DOM:window.open</URL>
 <URL>http://msdn.microsoft.com/en-us/library/ms533574%28VS.85%29.aspx</URL>
 <URL>http://docs.sun.com/source/816-6408-10/window.htm#1201877</URL>
 <URL>http://www.useit.com/alertbox/990530.html</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="Why does framename.print() not print the correct frame in IE?" 
      ID="printFrame" NUMID="4_11">
     <P>
 IE prints the frame that has focus when you call the print
 method <ICODE>frameref.focus();frameref.print();</ICODE>
+</P>
 <MOREINFO>
 <URL>http://msdn.microsoft.com/en-us/library/ms976105.aspx</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
 
    <CONTENT TITLE="How do I close a window and why does it not work on the first one?" 
@@ -1459,18 +1461,16 @@ sure the window reference is not null and its <ICODE>closed</ICODE> property is 
 <P>
 Popup windows cause usability problems and are generally best avoided.
 </P>
-<P>
 <MOREINFO>
 <URL>http://www.useit.com/alertbox/990530.html</URL>
-<URL>#isWindowOpen </URL>
+<URL>#isWindowOpen</URL>
 <URL>http://msdn.microsoft.com/en-us/library/ms536367%28VS.85%29.aspx</URL>
 <URL>https://developer.mozilla.org/en/DOM/window.close#Description</URL>
 <URL>http://docs.sun.com/source/816-6408-10/window.htm#1201822</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="Why do I get permission denied when accessing a frame/window?" 
-     ID="permissionDenied" NUMID="4_19">
+            ID="permissionDenied" NUMID="4_19">
     <P>
 In the normal browser security model, a script may only access the 
 properties of documents served from the same domain or IP address, 
@@ -1480,11 +1480,11 @@ protocol, and port.
 Any attempt to access a property in such cases will result in a &quot;Permission
 Denied&quot; error. Signed scripts or trusted ActiveX objects can
 overcome this in limited situations.
+</P>
 <MOREINFO>
 <URL>http://msdn.microsoft.com/en-us/library/ms533028%28VS.85%29.aspx</URL>
 <URL>https://developer.mozilla.org/En/Same_origin_policy_for_JavaScript</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How do I make a 10 second delay?" ID="setTimeout" NUMID="4_20">
     <P>
@@ -1499,11 +1499,12 @@ due to implementation differences among browsers.
     <P>
       To call the function <ICODE>getSnork</ICODE>, approximately 10 seconds
       after the function <ICODE>getMoomin()</ICODE> completes, you would do this:
+    </P>
       <CODE>
   getMoomin();
   setTimeout(getSnork, 10000); 
 </CODE>
-Script execution is not stopped, and adding <ICODE>getSnufkin()</ICODE> after the
+<P>Script execution is not stopped, and adding <ICODE>getSnufkin()</ICODE> after the
 <ICODE>setTimeout</ICODE> line would immediately execute the function <ICODE>getSnufkin</ICODE>
 before <ICODE>getSnork</ICODE>.
     </P>
@@ -1515,13 +1516,13 @@ be happening during the delay, including blocking user interation.
     <P>
 Other (less event driven) hosts have different wait functions,
 such as <ICODE>WScript.Sleep()</ICODE> in the Windows Script Host.
+    </P>
 <MOREINFO>
 <URL>http://msdn.microsoft.com/en-us/library/ms536753%28VS.85%29.aspx</URL>
 <URL>http://docs.sun.com/source/816-6408-10/window.htm#1203758</URL>
 <URL>http://en.wikipedia.org/wiki/Event-driven_programming</URL>
 <URL>faq_notes/misc.html#mtSetTI</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
 
    <CONTENT TITLE="How do I change print settings for window.print()?" 
@@ -1535,11 +1536,11 @@ Print Stylesheet rules provide options.
 <P>For IE, <ICODE>ActiveX</ICODE> or Plugin ScriptX and
 Neptune from Meadroid to give you more control for Windows
 versions of Internet Explorer, Netscape, and Opera.
+    </P>
 <MOREINFO>
 <URL>http://www.meadroid.com/scriptx/</URL>
 <URL>http://msdn.microsoft.com/en-us/library/ms976105.aspx</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How do I change the confirm box to say yes/no or default to cancel?" 
      ID="changeBrowserDialog" NUMID="4_28">
@@ -1566,11 +1567,11 @@ It is not possible with client-side javascript.
 Some browsers accept the Content-Disposition header, but this 
 must be added by the server. Taking the form:-
 <ICODE>Content-Disposition: attachment; filename=filename.ext</ICODE>
+    </P>
 <MOREINFO>
 <URL>http://classicasp.aspfaq.com/general/how-do-i-prompt-a-save-as-dialog-for-an-accepted-mime-type.html</URL>
 <URL>http://support.microsoft.com/kb/q260519/</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
    <!-- Can we remove this entry? 
    http://groups.google.com/group/comp.lang.javascript/msg/c70b57d86300fa91
@@ -1597,30 +1598,31 @@ you can modify the current browser window.  You can use
 <ICODE>window.resizeTo</ICODE> or <ICODE>window.moveTo</ICODE> to resize or move a
 window respectively, but that is it.  Normally you can only
 suggest chrome changes in a <ICODE>window.open</ICODE>.
+    </P>
 <MOREINFO>
 <URL>http://msdn.microsoft.com/en-us/library/ms536651%28VS.85%29.aspx</URL>
 <URL>https://developer.mozilla.org/en/DOM:window.open</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How do I POST a form to a new window?" ID="target" NUMID="4_37">
     <P>
 Use the target attribute on the form, opening a window with
 that name and your feature string in the onsubmit handler of the
 FORM.
+    </P>
      <CODE>
   &lt;form action=&quot;&quot; method="post"
       target=&quot;wndname&quot; onsubmit=&quot;window.open('',this.target);return true;&quot;&gt;</CODE>
      <MOREINFO>
 <URL>http://www.htmlhelp.com/reference/html40/forms/form.html</URL>
      </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How do I open a new window with javascript?" ID="openWindow" NUMID="4_42">
     <P>
 New windows can be opened on browsers that support the
 <ICODE>window.open</ICODE> function and are not subject to the action of any
 pop-up blocking mechanism with code such as:-
+    </P>
      <CODE>
   var wRef;
   if(window.open){
@@ -1630,7 +1632,6 @@ pop-up blocking mechanism with code such as:-
 <URL>https://developer.mozilla.org/en/DOM:window.open</URL>
 <URL>http://www.infimum.dk/HTML/JSwindows.html</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
    </CONTENT>
   <CONTENT TITLE="Ajax and Server Communication" ID="ajaxRef">
@@ -1641,6 +1642,7 @@ is shorthand for Asynchronous JavaScript and XML. The technology is
 based on the <ICODE>XMLHttpRequest</ICODE> Object. At its simplest, 
 it is the sending/retrieving of new data from the server without 
 changing or reloading the window location.
+    </P>
 <MOREINFO>
 Mozilla Documentation:
 <URL>http://developer.mozilla.org/en/docs/XMLHttpRequest</URL>
@@ -1653,18 +1655,17 @@ Libraries and Tutorial Sites:
 <URL>http://jibbering.com/2002/4/httprequest.html</URL>
 <URL>http://www.ajaxtoolbox.com/</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How do I download a page to a variable?" ID="downloadPage" NUMID="4_38">
     <P>      
 Although <ICODE>XMLHttpRequest</ICODE> can be used to download 
 entire pages, it is often used for downloading small pieces 
 of data that can be used to update the current page.
+    </P>
      <MOREINFO>
       <URL>http://jibbering.com/2002/4/httprequest.html</URL>
       <URL>http://www.ajaxtoolbox.com/</URL>
      </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How do I get a jsp/php variable into client-side javascript?" 
      ID="getServerVariable" NUMID="4_18">
@@ -1676,11 +1677,11 @@ Certain characters of ECMAScript strings must be escaped by backslash.
 These include quote marks, backslash, and line terminators. 
 </P>
 <P>JSP Example, using Apache Commons: <ICODE>org.apache.commons.lang.StringEscapeUtils</ICODE>:
+</P>
       <CODE>
 var jsVar = "&lt;%= StringEscapeUtils.escapeJavaScript(str) %&gt;";
 </CODE>
-</P>
-<P>PHP example using <ICODE>addcslashes</ICODE>: 
+<P>PHP example using <ICODE>addcslashes</ICODE>: </P>
 <CODE>
 var jsVar = "&lt;?php echo addcslashes($str,"\\\'\"\n\r"); ?&gt;";
 </CODE>
@@ -1689,12 +1690,12 @@ var jsVar = "&lt;?php echo addcslashes($str,"\\\'\"\n\r"); ?&gt;";
       <URL>http://php.net/manual/en/function.addcslashes.php</URL>
       <URL>http://commons.apache.org/lang/</URL>
      </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How do I log-out a user when they leave my site?" 
      ID="sessionExpired" NUMID="4_29">
     <P>
 This cannot be done reliably. Here's why:
+    </P>
      <UL>
       <LI>
 The user may disable javascript so the log-out script will
@@ -1717,7 +1718,6 @@ The URL below has more information.
 <MOREINFO>
 <URL>http://groups.google.com/groups?selm=BlmZ7.55691%244x4.7344316%40news2-win.server.ntlworld.com</URL>
  </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How do I run a server side script?" ID="runServerScript" NUMID="4_34">
     <P>
@@ -1731,12 +1731,10 @@ An image will also
 &quot;swallow&quot; the data sent back by the server, so that they will
 not be visible anywhere.
 </P>
-    <P>
       <CODE>
   var dummyImage = new Image();
   dummyImage.src = &quot;scriptURL.asp?param=&quot; + varName;
 </CODE>
-    </P>
     <P>
 Mozilla, Opera 7.6+, Safari 1.2+, and Windows IE 7
 provide the <ICODE>XMLHttpRequest</ICODE> object
@@ -1744,13 +1742,13 @@ provide the <ICODE>XMLHttpRequest</ICODE> object
 effect). <ICODE>XMLHttpRequest</ICODE> can send HTTP requests to 
 the server, and provides access the <ICODE>responseText</ICODE> or <ICODE>responseXML</ICODE>
 (when the response is XML), and HTTP header information.
+</P>
 <MOREINFO>
 <URL>http://jibbering.com/2002/4/httprequest.html</URL>
 <URL>http://www.w3.org/TR/XMLHttpRequest/</URL>
 <URL>http://developer.mozilla.org/en/XMLHttpRequest</URL>
 <URL>http://msdn.microsoft.com/en-us/library/ms537505(VS.85).aspx</URL>
 </MOREINFO>
-</P>
    <CONTENT TITLE="Why are my rollovers so slow?" ID="imageCache" NUMID="4_31">
     <P>
 Images are cached by the browser depending on the headers sent by
@@ -1759,10 +1757,10 @@ for the browser to decide the image is cacheable, the browser
 will check if the image has been updated every time you change the
 src of an image (in some user settings).  To overcome this you
 must send suitable headers.
+    </P>
 <MOREINFO>
 <URL>http://www.mnot.net/cache_docs/</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
   </CONTENT>
    <CONTENT TITLE="How do I force a reload from the server/prevent caching?" 
@@ -1776,11 +1774,11 @@ element, such as the current time. For example:
 <ICODE>location.replace(location.href+'?d='+new Date().valueOf())</ICODE>
 If the <ICODE>location.href</ICODE> already contains a query String, use:
 <ICODE>location.replace(location.href+'&amp;d='+new Date().valueOf())</ICODE>
+    </P>
      <MOREINFO>
       <URL>http://www.mnot.net/cache_docs/</URL>
       <URL>http://docs.sun.com/source/816-6408-10/date.htm</URL>
      </MOREINFO>
-    </P>
    </CONTENT>
     <CONTENT 
      TITLE="Why is my Ajax page not updated properly when using an HTTP GET request in Internet Explorer?"
@@ -1790,6 +1788,7 @@ If the <ICODE>location.href</ICODE> already contains a query String, use:
      To force the browser to request the document from the server, either 
      set the <ICODE>EXPIRES</ICODE> and/or <ICODE>CACHE-CONTROL</ICODE> response header(s) 
      with a past date or use a unique query string. 
+</P>
      <CODE>
   req.open("GET", "/example.jsp?date=" + (+new Date), true); 
 </CODE>
@@ -1802,7 +1801,6 @@ to prevent caching. See <URL LINKTEXT="RFC 2616"
 <URL>http://www.mnot.net/cache_docs/#EXPIRES</URL>
 <URL>http://www.mnot.net/javascript/xmlhttprequest/cache.html </URL>
 </MOREINFO>
-</P>
    </CONTENT>
   </CONTENT>
   
@@ -1954,6 +1952,7 @@ method, or property, to see if behaves in the desired manner.
     </P>
     <P>
 Feature Test Example:
+    </P>
       <CODE>
 /** 
  * Returns the element/object the user targeted.
@@ -1971,7 +1970,6 @@ function getEventTarget(e) {
 <URL>http://developer.apple.com/internet/webcontent/objectdetection.html</URL>
 <URL>http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43</URL>
 </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How can I prevent access to a web page by using javascript?" 
      ID="preventAccess" NUMID="4_5">
@@ -1990,12 +1988,12 @@ in source form and is easily readable. With JScript, there is the
 Script Encoder (see MSDN), but this is nothing more than obfuscation.
 Attempting to disable the context menu does nothing to 
 protect your script in a Web browser. 
+    </P>
      <MOREINFO>
       Your code is likely protected under copyright laws. See: 
       <URL>http://www.wipo.int/about-ip/en/copyright.html</URL>
       <URL>http://webdesign.about.com/od/copyright/Copyright_Issues_on_the_Web_Intellectual_Property.htm</URL>
      </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="How do I suppress a context menu (right-click menu)?" 
      ID="disableRightClick" NUMID="4_27">
@@ -2008,11 +2006,13 @@ configured, making the term "right click" a misnomer, in context.
 <P>
 In browsers that allow it, a script can suppress the context menu by
 returning false from an object's <ICODE>oncontextmenu</ICODE> event handler.
+</P>
 <CODE>
 document.oncontextmenu = function() {
   return false;
 };
 </CODE>
+<P>
 Some browsers lack context menus (e.g. iphone). Browsers that have
 context menus do not always have a scriptable event for them. Some
 browsers can be configured to disallow scripts from detecting context
@@ -2022,6 +2022,7 @@ disallow scripts from suppressing the context menu (Firefox,Seamonkey).
 <P>
 Even when the context menu has been suppressed, it will still be
 possible to view/save the source code and to save images.
+</P>
 <MOREINFO>
 <URL>http://en.wikipedia.org/wiki/Context_menu</URL>
 <URL>http://kb.mozillazine.org/Ui.click_hold_context_menus</URL>
@@ -2030,7 +2031,6 @@ possible to view/save the source code and to save images.
 <URL>http://support.mozilla.com/en-US/kb/Javascript#Advanced_JavaScript_settings</URL>
 <URL>http://msdn.microsoft.com/en-us/library/ms536914%28VS.85%29.aspx</URL>
 </MOREINFO>
-</P>
 </CONTENT>
    <CONTENT TITLE="How can I access the client-side filesystem?" ID="readFile" NUMID="4_3">
     <P>
@@ -2039,11 +2039,11 @@ environment, there are options. For example, using LiveConnect to
 connect to Java with Netscape, and using the FileSystemObject in 
 IE. Check <URL LINKTEXT="Google Groups archives">http://groups.google.com/group/comp.lang.javascript/topics</URL> 
 for previous posts on the subject.
+    </P>
       <MOREINFO>
       <URL>http://msdn.microsoft.com/en-us/library/z9ty6h50%28VS.85%29.aspx</URL>
       <URL>http://www.javaworld.com/javaworld/jw-10-1998/jw-10-apptowin32.html</URL>
      </MOREINFO>
-    </P>
    </CONTENT>
    <CONTENT TITLE="I have &lt;a href=&quot;javascript:somefunction()&quot;&gt;  what ... ?" 
    ID="javascriptURI" NUMID="4_24">
@@ -2052,9 +2052,11 @@ Whatever the rest of your question, this is generally a very bad idea.
 The <ICODE>javascript:</ICODE> pseudo protocol was designed to replace the
 current document with the value that is returned from the expression. 
 For example:
+    </P>
       <CODE>
   &lt;a href=&quot;javascript:'&lt;h1&gt;' + document.lastModified + '&lt;/h1&gt;'&quot;&gt;lastModified&lt;/a&gt;
 </CODE>
+    <P>
 will result in replacing the current document with the value 
 returned from <ICODE>document.lastModified</ICODE>, wrapped in an <ICODE>&lt;h1&gt;</ICODE> 
 tag. 
@@ -2083,19 +2085,19 @@ Instead, use
 <ICODE>&lt;a href=&quot;something.html&quot; onclick=&quot;somefunction();return false&quot;&gt;</ICODE>
 where <ICODE>something.html</ICODE> is a meaningful alternative. Alternatively,
 attach the <ICODE>click</ICODE> callback using an event registry.
+    </P>
       <MOREINFO>
       <URL>example/jsuri/</URL>
       <URL LINKTEXT="Set/Navigate to a Location">http://groups.google.com/group/comp.lang.javascript/msg/f665cfca3b619692</URL>
       <URL LINKTEXT="Top Ten Web-Design Mistakes of 2002">http://www.useit.com/alertbox/20021223.html</URL>
      </MOREINFO>
-    </P>
    </CONTENT>  
   </CONTENT>
   
   <CONTENT TITLE="Comments and Suggestions" ID="comments" NUMID="5">
     <P HTMLONLY="true">
-      This FAQ uses the stylesheet <URL>faq.css</URL> and is generated
-      from the xml source <URL>index.xml</URL> using a the XSLT stylesheet
+      This FAQ uses the <URL>faq.css</URL> and is generated
+      from the XML source <URL>index.xml</URL> using the XSLT stylesheet
       <URL>index.xsl</URL><!-- which also checks the links -->.
     </P>
     <CONTENT TITLE="Why do some posts have &lt;FAQENTRY&gt; in them?" ID="FAQENTRY" NUMID="5_1">
@@ -2119,7 +2121,8 @@ above, or e-mail Thomas 'PointedEars' Lahn &lt;cljs&#64;PointedEars.de&gt; (edit
 All comments, suggestions, and especially corrections are welcome.
     </P>
    </CONTENT>
-   <!--
+   <!-- FIXME -->
+   <!-- 
    <P>
       This FAQ is (C) Copyright Contributors on behalf of the 
       newsgroup comp.lang.javascript. Upon change of the FAQ maintainer, 

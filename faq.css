@@ -13,6 +13,21 @@ a:hover {
     text-decoration: underline;
 }
 
+a[href^="http:"],
+a[href^="https:"],
+a[href^="news:"]
+{
+  padding-right: 13px;
+  background: transparent url(/media/video/img/external.png) no-repeat right center;
+}
+
+a[href^="http://PointedEars.de/"],
+a[href^="https://PointedEars.de/"]
+{
+  padding-right: 0;
+  background: none;
+}
+
 html {
   font-family: sans-serif;
   font-size: 90%;

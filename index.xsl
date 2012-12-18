@@ -10,7 +10,11 @@
 
   <xsl:variable name="checkURLs" select="false"/>
   <xsl:variable name="previous_maintainer">Garrett Smith</xsl:variable>
+  <xsl:variable name="previous_maintainer_website">http://personx.tumblr.com/</xsl:variable>  
+  
   <xsl:variable name="maintainer">Thomas 'PointedEars' Lahn</xsl:variable>
+  <xsl:variable name="maintainer_email"><![CDATA[cl&#106;&#115;&#64;&#80;o&#105;n&#116;&#101;d&#69;a&#114;s.&#100;&#101;]]></xsl:variable>
+  <xsl:variable name="maintainer_website">http://PointedEars.de</xsl:variable>
                 
   <xsl:template match="/FAQ">
     <xsl:variable name="version" select="@VERSION"/>
@@ -30,7 +34,7 @@
         <meta name="DC.creator" content="Jim Ley"/>
         <meta name="DC.publisher" content="{$maintainer}"/>
         <meta name="DC.Publisher.Address"
-              content="cl&#106;&#115;&#64;&#80;o&#105;n&#116;&#101;d&#69;a&#114;s.&#100;&#101;"/>
+              content="{$maintainer_email}"/>
         <meta name="DCTERMS.modified" content="{$updated}"/>
         <meta name="DCTERMS.audience" content="Programmers, web developers"/>
         <meta name="DC.description" content="Frequently Asked Questions about JavaScript and other ECMAScript implementations"/>
@@ -47,13 +51,16 @@
       <body>
         <h1><xsl:value-of select="TITLE"/></h1>
         
-        <p>Version <xsl:value-of select="$version"/>
+        <p><xsl:value-of select="$revision"/>
+           by <a href="{$maintainer_website}"><xsl:value-of select="$maintainer"/></a><br/>
+           Based on version <xsl:value-of select="$version"/>
            of <xsl:value-of select="$updated"/>
-           by <xsl:value-of select="$previous_maintainer"/>,<br/>
-           <xsl:value-of select="$revision"/>
-           by <xsl:value-of select="$maintainer"/></p>
+           by <a href="{$previous_maintainer_website}"><xsl:value-of select="$previous_maintainer"/></a></p>
         
-        <p><xsl:value-of select="@id"/></p>
+        <ul style="list-style: none; margin-left: 0; padding-left: 0">
+          <li><xsl:value-of select="@id" /></li>
+          <li>$Id$</li>
+        </ul>
         
         <div>
           <ul class="horizontal">
@@ -66,7 +73,7 @@
             >SVN</a></li>
           </ul>
         </div>
-      
+              
         <xsl:variable name="faq_uri">http://PointedEars.de/scripts/faq/cljs/</xsl:variable>
         <p style="clear: left; text-align: left">
           Available online at <a
@@ -74,9 +81,16 @@
           ><xsl:value-of select="$faq_uri"/></a>
         </p>
       
+        <hr/>
+      
+        <h2 id="toc">Table of contents</h2>
+      
         <div id="nav"><a href="notes/">FAQ Notes</a></div>
-        
+                
         <xsl:apply-templates select="CONTENTS" mode="toc"/>
+
+        <hr/>
+      
         <xsl:apply-templates select="CONTENTS"/>
       </body>
     </html>

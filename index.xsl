@@ -60,8 +60,8 @@
            by <a href="{$previous_maintainer_website}"><xsl:value-of select="$previous_maintainer"/></a></p>
         
         <ul style="list-style: none; margin-left: 0; padding-left: 0">
-          <li><xsl:value-of select="@id" /></li>
-          <li>$Id$</li>
+          <li><tt><xsl:value-of select="@id" /></tt></li>
+          <li><tt>$Id$</tt></li>
         </ul>
         
         <div>

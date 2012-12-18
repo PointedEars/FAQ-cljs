@@ -9,16 +9,18 @@
                 doctype-system="http://www.w3.org/TR/html4/strict.dtd"/>
 
   <xsl:variable name="checkURLs" select="false"/>
+  <xsl:variable name="previous_url">http://jibbering.com/faq/</xsl:variable>
   <xsl:variable name="previous_maintainer">Garrett Smith</xsl:variable>
   <xsl:variable name="previous_maintainer_website">http://personx.tumblr.com/</xsl:variable>  
   
   <xsl:variable name="maintainer">Thomas 'PointedEars' Lahn</xsl:variable>
   <xsl:variable name="maintainer_email"><![CDATA[cl&#106;&#115;&#64;&#80;o&#105;n&#116;&#101;d&#69;a&#114;s.&#100;&#101;]]></xsl:variable>
-  <xsl:variable name="maintainer_website">http://PointedEars.de</xsl:variable>
-                
+  <xsl:variable name="maintainer_website">http://PointedEars.de/</xsl:variable>
+  
   <xsl:template match="/FAQ">
     <xsl:variable name="version" select="@VERSION"/>
-    <xsl:variable name="revision" select="@revision"/>
+    <xsl:variable name="revision_length" select="string-length('$Revision: ')"/>
+    <xsl:variable name="revision" select="substring(@revision, $revision_length, string-length(@revision) - $revision_length - 1)"/>
     <xsl:variable name="updated" select="@DATE"/>
         
     <html lang="en">
@@ -51,9 +53,9 @@
       <body>
         <h1><xsl:value-of select="TITLE"/></h1>
         
-        <p><xsl:value-of select="$revision"/>
+        <p>Revision <xsl:value-of select="$revision"/>
            by <a href="{$maintainer_website}"><xsl:value-of select="$maintainer"/></a><br/>
-           Based on version <xsl:value-of select="$version"/>
+           Based on the <a href="{$previous_url}">comp.lang.javascript FAQ</a>, version <xsl:value-of select="$version"/>
            of <xsl:value-of select="$updated"/>
            by <a href="{$previous_maintainer_website}"><xsl:value-of select="$previous_maintainer"/></a></p>
         

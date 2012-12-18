@@ -249,7 +249,7 @@
         <xsl:if test="@ID">
           <xsl:attribute name="id"><xsl:value-of select="@ID"/></xsl:attribute>
         </xsl:if>
-        <h4><xsl:value-of select="@TITLE"/></h4>
+        <xsl:value-of select="@TITLE"/>
       </xsl:element>
     </xsl:if>
  

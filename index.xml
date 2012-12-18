@@ -2096,7 +2096,7 @@ attach the <ICODE>click</ICODE> callback using an event registry.
   
   <CONTENT TITLE="Comments and Suggestions" ID="comments" NUMID="5">
     <P HTMLONLY="true">
-      This FAQ uses the <URL>faq.css</URL> and is generated
+      This FAQ uses CSS stylesheet <URL>faq.css</URL> and is generated
       from the XML source <URL>index.xml</URL> using the XSLT stylesheet
       <URL>index.xsl</URL><!-- which also checks the links -->.
     </P>

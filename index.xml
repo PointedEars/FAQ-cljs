@@ -443,214 +443,207 @@
     
     <CONTENT TITLE="Functions" ID="functions">
       <CONTENT TITLE="What is (function(){ /*...*/ })() ?" ID="scope">
-<P>
-This is an anonymous <DFN>FunctionExpression</DFN> that is called 
-immediately after creation.
-</P>
-<P>
-Variables declared inside a function are not accessible from
-outside the function. This can be useful, for example, to hide
-implementation details or to avoid polluting the global scope. 
-<MOREINFO>
-<URL>http://yura.thinkweb2.com/named-function-expressions/</URL>
-<URL>notes/closures/</URL>
-<URL>http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/#question-about-surrounding-parentheses</URL>
-</MOREINFO>
-</P>
-</CONTENT>
-<CONTENT TITLE="What is a function statement?" ID="functionStatement">
-<P>
-The term <DFN>function statement</DFN> has been widely and wrongly used to
-describe a <ICODE>FunctionDeclaration</ICODE>. This is misleading because in ECMAScript, 
-a <ICODE>FunctionDeclaration</ICODE> is not a <DFN>Statement</DFN>; there are places in a program 
-where a <DFN>Statement</DFN> is permitted but a <ICODE>FunctionDeclaration</ICODE> is not. To add 
-to this confusion, some implementations, notably Mozillas', provide a 
-syntax extension called <DFN>function statement</DFN>. This is allowed under 
-section 16 of ECMA-262, Editions 3 and 5.
-</P>
-<P>
-Example of nonstandard <DFN>function statement</DFN>:
-<CODE>
-// Nonstandard syntax, found in GMail source code. DO NOT USE.
-try {
-  // FunctionDeclaration not allowed in Block.
-  function Fze(b,a){return b.unselectable=a}
-  /*...*/
-} catch(e) { _DumpException(e) }
-</CODE>
-</P>
-
-<P>
-Code that uses <DFN>function statement</DFN> has three known interpretations. Some 
-implementations process <ICODE>Fze</ICODE> as a <DFN>Statement</DFN>, in order. Others, including 
-JScript, evaluate <ICODE>Fze</ICODE> upon entering the execution context that it 
-appears in. Yet others, notably DMDScript and default configuration of BESEN, 
-throw a <ICODE>SyntaxError</ICODE>.
-</P>
-<P>
-For consistent behavior across implementations, <EM>do not use function
-statement</EM>; use either <ICODE>FunctionExpression</ICODE> or <ICODE>FunctionDeclaration</ICODE> instead.
-</P>
-<P>
-Example of <ICODE>FunctionExpression</ICODE> (valid):
-<CODE>
+        <P>
+          This is an anonymous <DFN>FunctionExpression</DFN> that is called 
+          immediately after creation.
+        </P>
+        <P>
+          Variables declared inside a function are not accessible from
+          outside the function. This can be useful, for example, to hide
+          implementation details or to avoid polluting the global scope.
+        </P> 
+        <MOREINFO>
+          <URL>http://yura.thinkweb2.com/named-function-expressions/</URL>
+          <URL>notes/closures/</URL>
+          <URL>http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/#question-about-surrounding-parentheses</URL>
+        </MOREINFO>
+      </CONTENT>
+      <CONTENT TITLE="What is a function statement?" ID="functionStatement">
+        <P>
+          The term <DFN>function statement</DFN> has been widely and wrongly used to
+          describe a <ICODE>FunctionDeclaration</ICODE>. This is misleading because in ECMAScript, 
+          a <ICODE>FunctionDeclaration</ICODE> is not a <DFN>Statement</DFN>; there are places in a program 
+          where a <DFN>Statement</DFN> is permitted but a <ICODE>FunctionDeclaration</ICODE> is not. To add 
+          to this confusion, some implementations, notably Mozillas', provide a 
+          syntax extension called <DFN>function statement</DFN>. This is allowed under 
+          section 16 of ECMA-262, Editions 3 and 5.
+        </P>
+        <P>
+          Example of nonstandard <DFN>function statement</DFN>:
+          <CODE>
+          // Nonstandard syntax, found in GMail source code. DO NOT USE.
+          try {
+            // FunctionDeclaration not allowed in Block.
+            function Fze(b,a){return b.unselectable=a}
+            /*...*/
+          } catch(e) { _DumpException(e) }
+          </CODE>
+        </P>
+        <P>
+          Code that uses <DFN>function statement</DFN> has three known interpretations. Some 
+          implementations process <ICODE>Fze</ICODE> as a <DFN>Statement</DFN>, in order. Others, including 
+          JScript, evaluate <ICODE>Fze</ICODE> upon entering the execution context that it 
+          appears in. Yet others, notably DMDScript and default configuration of BESEN, 
+          throw a <ICODE>SyntaxError</ICODE>.
+        </P>
+        <P>
+          For consistent behavior across implementations, <EM>do not use function
+          statement</EM>; use either <ICODE>FunctionExpression</ICODE> or <ICODE>FunctionDeclaration</ICODE> instead.
+        </P>
+        <P>
+          Example of <ICODE>FunctionExpression</ICODE> (valid):
+          <CODE>
 var Fze;
 try {
   Fze = function(b,a){return b.unselectable=a};
   /*...*/
 } catch(e) { _DumpException(e) }
-</CODE>
-Example of <ICODE>FunctionDeclaration</ICODE> (valid):
-<CODE>
+          </CODE>
+          Example of <ICODE>FunctionDeclaration</ICODE> (valid):
+          <CODE>
 // Program code
 function aa(b,a){return b.unselectable=a}
-</CODE>
-
-</P>
-
-<P>
+          </CODE>
+        </P>
 <!--
 Notable examples of the misuse of the term "function statement"
 can be seen in David Flanagan's "JavaScript: The Definitive Guide",
 Douglas Crockford's "JavaScript: The Good Parts",  MDC documentation,
 JSLint error messages.
 -->
-<MOREINFO>
-<URL>example/functionStatement.html</URL>
-<URL>https://mail.mozilla.org/pipermail/es-discuss/2008-February/005314.html</URL>
-<URL>http://groups.google.com/group/comp.lang.javascript/msg/aa9a32d0c6ae0342</URL>
-<URL>http://groups.google.com/group/comp.lang.javascript/msg/3987eac87ad27966</URL>
-<URL>http://nanto.asablo.jp/blog/2005/12/10/172622</URL> (Article in Japanese)
-</MOREINFO>
-</P>
-</CONTENT>
-</CONTENT>
+      <MOREINFO>
+        <URL>example/functionStatement.html</URL>
+        <URL>https://mail.mozilla.org/pipermail/es-discuss/2008-February/005314.html</URL>
+        <URL>http://groups.google.com/group/comp.lang.javascript/msg/aa9a32d0c6ae0342</URL>
+        <URL>http://groups.google.com/group/comp.lang.javascript/msg/3987eac87ad27966</URL>
+        <URL>http://nanto.asablo.jp/blog/2005/12/10/172622</URL> (Article in Japanese)
+      </MOREINFO>
+    </CONTENT>
+  </CONTENT>
+  
   <CONTENT TITLE="Dates" ID="dates"> 
-<P>
-ISO 8601 defines date and time formats. Some benefits include:
-</P>
-<LIST TYPE="UL">
-<LI>language-independent and unambiguous world-wide</LI>
-<LI>sortable with a trivial string comparison</LI>
-<LI>easily readable and writable by software</LI>
-<LI>compatible with standards ISO 9075 and <URL LINKTEXT="rfc 3339">http://www.ietf.org/rfc/rfc3339.txt</URL></LI>
-</LIST>
-<P>
-The ISO Extended format for common date is <ICODE>YYYY-MM-DD</ICODE>, and for time is
-<ICODE>hh:mm:ss</ICODE>.
-</P>
-
-<P>
-For an event with an offset from UTC, use <ICODE>YYYY-MM-DDThh:mm:ss&#177;hh:mm</ICODE>.
-</P>
-<P>
-Never use a local date/time format for a non-local event. Instead, use
-UTC, as in <ICODE>YYYY-MM-DDThh:mm:ssZ</ICODE> (<ICODE>Z</ICODE> is the only letter suffix).
-</P>
-<P>
-The <ICODE>T</ICODE> can be omitted where that would not cause ambiguity. For
-rfc 3339 compliance, it may be replaced by a space and for SQL,
-it <EM>must</EM> be replaced by a single space. 
-</P>
-<P>
-Year <ICODE>0000</ICODE> is unrecognized by some formats (XML Schema, <ICODE>xs:date</ICODE>).
- <MOREINFO>
+    <P>
+      ISO 8601 defines date and time formats. Some benefits include:
+    </P>
+    <LIST TYPE="UL">
+      <LI>language-independent and unambiguous world-wide</LI>
+      <LI>sortable with a trivial string comparison</LI>
+      <LI>easily readable and writable by software</LI>
+      <LI>compatible with standards ISO 9075 and <URL LINKTEXT="rfc 3339">http://www.ietf.org/rfc/rfc3339.txt</URL></LI>
+    </LIST>
+    <P>
+      The ISO Extended format for common date is <ICODE>YYYY-MM-DD</ICODE>, and for time is
+      <ICODE>hh:mm:ss</ICODE>.
+    </P>
+    <P>
+      For an event with an offset from UTC, use <ICODE>YYYY-MM-DDThh:mm:ss&#177;hh:mm</ICODE>.
+    </P>
+    <P>
+      Never use a local date/time format for a non-local event. Instead, use
+      UTC, as in <ICODE>YYYY-MM-DDThh:mm:ssZ</ICODE> (<ICODE>Z</ICODE> is the only letter suffix).
+    </P>
+    <P>
+      The <ICODE>T</ICODE> can be omitted where that would not cause ambiguity. For
+      rfc 3339 compliance, it may be replaced by a space and for SQL,
+      it <EM>must</EM> be replaced by a single space. 
+    </P>
+    <P>
+      Year <ICODE>0000</ICODE> is unrecognized by some formats (XML Schema, <ICODE>xs:date</ICODE>).
+    </P>   
+    <MOREINFO>
       <URL LINKTEXT="ECMA-262 Date.prototype, s. 15.9">#onlineResources</URL>
       <URL LINKTEXT="A summary of the international standard date and time notation, by Markus Kuhn"
->http://www.cl.cam.ac.uk/~mgk25/iso-time.html</URL>
+           >http://www.cl.cam.ac.uk/~mgk25/iso-time.html</URL>
       <URL>http://en.wikipedia.org/wiki/ISO_8601</URL>
       <URL LINKTEXT="ISO 8601:2004(E)">res/ISO_8601-2004_E.pdf</URL>
       <URL LINKTEXT="W3C QA Tip: Use international date format (ISO)">http://www.w3.org/QA/Tips/iso-date</URL>
-      <URL LINKTEXT="RFC 3339, Date and Time on the Internet: Timestamps
-">http://www.ietf.org/rfc/rfc3339.txt</URL>
+      <URL LINKTEXT="RFC 3339, Date and Time on the Internet: Timestamps"
+           >http://www.ietf.org/rfc/rfc3339.txt</URL>
       <URL>http://www.w3.org/TR/xmlschema-2/#dateTime</URL>
-     </MOREINFO>
-</P>   
+   </MOREINFO>
 
-    <CONTENT TITLE="How do I format a Date object with javascript?" 
-     ID="formatDate" NUMID="4_30">
-    <P>
-A local <ICODE>Date</ICODE> object where <ICODE>0 &lt;= year &lt;= 9999</ICODE> can be 
-formatted to a common ISO 8601 format <ICODE>YYYY-MM-DD</ICODE> with:-
-    <CODE>
-  /** Formats a Date to YYYY-MM-DD (local time), compatible with both 
-   *  ISO 8601 and ISO/IEC 9075-2:2003 (E) (SQL 'date' type).
-   *  @param {Date} dateInRange year 0000 to 9999.
-   *  @throws {RangeError} if the year is not in range
-   */
-  function formatDate(dateInRange) {
-     var year = dateInRange.getFullYear(),
-         isInRange = year &gt;= 0 &amp;&amp; year &lt;= 9999, yyyy, mm, dd;
-     if(!isInRange) {
-       throw RangeError("formatDate: year must be 0000-9999");
-     }
-     yyyy = ("000" + year).slice(-4);
-     mm = ("0" + (dateInRange.getMonth() + 1)).slice(-2);
-     dd = ("0" + (dateInRange.getDate())).slice(-2);
-     return yyyy + "-" + mm + "-" + dd;
-  }
-  </CODE>
-     <MOREINFO>
-      <URL>http://www.merlyn.demon.co.uk/js-date9.htm</URL>
-     </MOREINFO>
-   </P>
-</CONTENT>
-   <CONTENT TITLE="How can I create a Date object from a String?" ID="parseDate">
-       <P>
-An Extended ISO 8601 local Date format <ICODE>YYYY-MM-DD</ICODE> can be parsed to a 
-Date with the following:-
-<CODE>
-  /**Parses string formatted as YYYY-MM-DD to a Date object.
-   * If the supplied string does not match the format, an 
-   * invalid Date (value NaN) is returned.
-   * @param {string} dateStringInRange format YYYY-MM-DD, with year in
-   * range of 0000-9999, inclusive.
-   * @return {Date} Date object representing the string.
-   */
-  function parseISO8601(dateStringInRange) {
-    var isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/,
-        date = new Date(NaN), month,
-        parts = isoExp.exec(dateStringInRange);
+   <CONTENT TITLE="How do I format a Date object with javascript?" ID="formatDate" NUMID="4_30">
+      <P>
+        A local <ICODE>Date</ICODE> object where <ICODE>0 &lt;= year &lt;= 9999</ICODE> can be 
+        formatted to a common ISO 8601 format <ICODE>YYYY-MM-DD</ICODE> with:-
+        <CODE>
+/** Formats a Date to YYYY-MM-DD (local time), compatible with both 
+ *  ISO 8601 and ISO/IEC 9075-2:2003 (E) (SQL 'date' type).
+ *  @param {Date} dateInRange year 0000 to 9999.
+ *  @throws {RangeError} if the year is not in range
+ */
+function formatDate(dateInRange) {
+   var year = dateInRange.getFullYear(),
+       isInRange = year &gt;= 0 &amp;&amp; year &lt;= 9999, yyyy, mm, dd;
+   if(!isInRange) {
+     throw RangeError("formatDate: year must be 0000-9999");
+   }
+   yyyy = ("000" + year).slice(-4);
+   mm = ("0" + (dateInRange.getMonth() + 1)).slice(-2);
+   dd = ("0" + (dateInRange.getDate())).slice(-2);
+   return yyyy + "-" + mm + "-" + dd;
+}
+        </CODE>
+        <MOREINFO>
+          <URL>http://www.merlyn.demon.co.uk/js-date9.htm</URL>
+        </MOREINFO>
+      </P>
+    </CONTENT>
+    <CONTENT TITLE="How can I create a Date object from a String?" ID="parseDate">
+      <P>
+        An Extended ISO 8601 local Date format <ICODE>YYYY-MM-DD</ICODE> can be parsed to a 
+        Date with the following:
+        <CODE>
+/**Parses string formatted as YYYY-MM-DD to a Date object.
+ * If the supplied string does not match the format, an 
+ * invalid Date (value NaN) is returned.
+ * @param {string} dateStringInRange format YYYY-MM-DD, with year in
+ * range of 0000-9999, inclusive.
+ * @return {Date} Date object representing the string.
+ */
+function parseISO8601(dateStringInRange) {
+  var isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/,
+      date = new Date(NaN), month,
+      parts = isoExp.exec(dateStringInRange);
 
-    if(parts) {
-      month = +parts[2];
-      date.setFullYear(parts[1], month - 1, parts[3]);
-      if(month != date.getMonth() + 1) {
-        date.setTime(NaN);
-      }
+  if(parts) {
+    month = +parts[2];
+    date.setFullYear(parts[1], month - 1, parts[3]);
+    if(month != date.getMonth() + 1) {
+      date.setTime(NaN);
     }
-    return date;
-  }</CODE> 
-</P>
-   </CONTENT>
+  }
+  return date;
+}</CODE> 
+      </P>
+    </CONTENT>
   </CONTENT>
 
   <CONTENT TITLE="Numbers" ID="numbers"> 
-   <CONTENT TITLE="How do I format a Number as a String with exactly 2 decimal places?" 
-     ID="formatNumber" NUMID="4_6">
-    <P>
-When formatting money for example, to format 6.57634 to 6.58, 6.7 to 
-6.50, and 6 to 6.00?
-    </P>
-    <P>
-Rounding of x.xx5 is unreliable, as most numbers are not represented 
-exactly. See also: 
-<URL LINKTEXT="Why does simple decimal arithmetic give strange results?">#binaryNumbers</URL>
-    </P>
-    <P>
-The statement <ICODE>n = Math.round(n * 100)/100</ICODE> converts <ICODE>n</ICODE> to a <ICODE>Number</ICODE> value
-close to a multiple of <ICODE>0.01</ICODE>. However, there are some problems.
-Converting the number to a string <ICODE>(n + "")</ICODE>, does not give 
-trailing zeroes. Rounding numbers that are very close to <ICODE>x.5</ICODE>, for example, 
-<ICODE>Math.round(0.49999999999999992)</ICODE> results <ICODE>1</ICODE>.      
-    </P>
-    <P>
-ECMA-262 3rd Edition introduced <ICODE>Number.prototype.toFixed</ICODE>. 
-There are bugs in JScript 5.8 and below with certain numbers, for example 
-<ICODE>0.007.toFixed(2)</ICODE> incorrectly results <ICODE>0.00</ICODE>.
-    </P>
-     <P>
-      <CODE>
+    <CONTENT TITLE="How do I format a Number as a String with exactly 2 decimal places?" ID="formatNumber" NUMID="4_6">
+      <P>
+        When formatting money for example, to format 6.57634 to 6.58, 6.7 to 
+        6.50, and 6 to 6.00?
+      </P>
+      <P>
+        Rounding of x.xx5 is unreliable, as most numbers are not represented 
+        exactly. See also: 
+        <URL LINKTEXT="Why does simple decimal arithmetic give strange results?">#binaryNumbers</URL>
+      </P>
+      <P>
+        The statement <ICODE>n = Math.round(n * 100)/100</ICODE> converts <ICODE>n</ICODE> to a <ICODE>Number</ICODE> value
+        close to a multiple of <ICODE>0.01</ICODE>. However, there are some problems.
+        Converting the number to a string <ICODE>(n + "")</ICODE>, does not give 
+        trailing zeroes. Rounding numbers that are very close to <ICODE>x.5</ICODE>, for example, 
+        <ICODE>Math.round(0.49999999999999992)</ICODE> results <ICODE>1</ICODE>.      
+      </P>
+      <P>
+        ECMA-262 3rd Edition introduced <ICODE>Number.prototype.toFixed</ICODE>. 
+        There are bugs in JScript 5.8 and below with certain numbers, for example 
+        <ICODE>0.007.toFixed(2)</ICODE> incorrectly results <ICODE>0.00</ICODE>.
+      </P>
+      <P>
+        <CODE>
 var numberToFixed = 
 (function() {
   return toFixedString;
@@ -699,59 +692,58 @@ document.writeln([
   "numberToFixed(0.0000000006, 0) =&gt; " + numberToFixed(0.0000000006, 0)
 ].join("\n"));
 </CODE>
-     <MOREINFO>
-      <URL>http://www.merlyn.demon.co.uk/js-round.htm</URL>
-      <URL>http://msdn.microsoft.com/en-us/library/sstyff0z%28VS.85%29.aspx</URL>
-     </MOREINFO>
-    </P>
-   </CONTENT>
-   <CONTENT TITLE="Why does simple decimal arithmetic give strange results?" 
-     ID="binaryNumbers" NUMID="4_7">
-    <P>
-For example, <ICODE>5 * 1.015</ICODE> does not give exactly 
-<ICODE>5.075</ICODE> and <ICODE>0.06+0.01</ICODE> does 
-not give exactly <ICODE>0.07</ICODE> in javascript. 
-    </P>
-    <P>
-ECMAScript numbers are represented in binary as IEEE-754 (IEC 559)
-Doubles, with a resolution of 53 bits, giving an accuracy of
-15-16 decimal digits; integers up to just over <ICODE>9e15</ICODE> are 
-precise, but few decimal fractions are.  Given this, arithmetic 
-is as exact as possible, but no more.  Operations on integers 
-are exact if the true result and all intermediates are integers 
-within that range.
-    </P>
-    <P>
-In particular, non-integer results should not normally be
-compared for equality; and non-integer computed results
-commonly need rounding; see <URL 
-LINKTEXT="How do I format a Number as a String with exactly 2 decimal places?"
->#formatNumber</URL>
-     <MOREINFO>
-      <URL>http://msdn.microsoft.com/en-us/library/7wkd9z69%28VS.85%29.aspx</URL>
-      <URL>http://www.merlyn.demon.co.uk/js-misc0.htm#DW4</URL>
-     </MOREINFO>
-    </P>
-    <P>
-Otherwise, use <ICODE>Math.round</ICODE> on the results of expressions which 
-should be of integer value.
-    </P>
-   </CONTENT>
-   <CONTENT TITLE="Why does K = parseInt('09') set K to 0?" ID="parseIntBase" NUMID="4_12">
-    <P>
-Method <ICODE>parseInt</ICODE> generally needs a second parameter, <ICODE>radix</ICODE>, 
-for the base (from 2 to 36).
-    </P>
-    <P>
-If <ICODE>radix</ICODE> is omitted, the base is determined by the contents of 
-the string. Any string beginning with <ICODE>'0x'</ICODE> or <ICODE>'0X'</ICODE> represents a 
-hexadecimal number. A string beginning with a leading 0 may be parsed as 
-octal (as if <ICODE>raxix</ICODE> were 8), in ECMA-262 Ed 3 (octal digits are <ICODE>0-7</ICODE>). 
-If string <ICODE>'09'</ICODE> is converted to <ICODE>0</ICODE>. 
-    </P>
-    <P>
-To force use of a particular base, use the <ICODE>radix</ICODE> 
-parameter: <ICODE>parseInt("09", base)</ICODE>. 
+      </P>
+      <MOREINFO>
+        <URL>http://www.merlyn.demon.co.uk/js-round.htm</URL>
+        <URL>http://msdn.microsoft.com/en-us/library/sstyff0z%28VS.85%29.aspx</URL>
+      </MOREINFO>
+    </CONTENT>
+    <CONTENT TITLE="Why does simple decimal arithmetic give strange results?" ID="binaryNumbers" NUMID="4_7">
+      <P>
+        For example, <ICODE>5 * 1.015</ICODE> does not give exactly 
+        <ICODE>5.075</ICODE> and <ICODE>0.06+0.01</ICODE> does 
+        not give exactly <ICODE>0.07</ICODE> in javascript. 
+      </P>
+      <P>
+        ECMAScript numbers are represented in binary as IEEE-754 (IEC 559)
+        Doubles, with a resolution of 53 bits, giving an accuracy of
+        15-16 decimal digits; integers up to just over <ICODE>9e15</ICODE> are 
+        precise, but few decimal fractions are.  Given this, arithmetic 
+        is as exact as possible, but no more.  Operations on integers 
+        are exact if the true result and all intermediates are integers 
+        within that range.
+      </P>
+      <P>
+        In particular, non-integer results should not normally be
+        compared for equality; and non-integer computed results
+        commonly need rounding; see <URL 
+        LINKTEXT="How do I format a Number as a String with exactly 2 decimal places?"
+        >#formatNumber</URL>
+      </P>
+      <MOREINFO>
+        <URL>http://msdn.microsoft.com/en-us/library/7wkd9z69%28VS.85%29.aspx</URL>
+        <URL>http://www.merlyn.demon.co.uk/js-misc0.htm#DW4</URL>
+      </MOREINFO>
+      <P>
+        Otherwise, use <ICODE>Math.round</ICODE> on the results of expressions which 
+        should be of integer value.
+      </P>
+    </CONTENT>
+    <CONTENT TITLE="Why does K = parseInt('09') set K to 0?" ID="parseIntBase" NUMID="4_12">
+      <P>
+        Method <ICODE>parseInt</ICODE> generally needs a second parameter, <ICODE>radix</ICODE>, 
+        for the base (from 2 to 36).
+      </P>
+      <P>
+        If <ICODE>radix</ICODE> is omitted, the base is determined by the contents of 
+        the string. Any string beginning with <ICODE>'0x'</ICODE> or <ICODE>'0X'</ICODE> represents a 
+        hexadecimal number. A string beginning with a leading 0 may be parsed as 
+        octal (as if <ICODE>raxix</ICODE> were 8), in ECMA-262 Ed 3 (octal digits are <ICODE>0-7</ICODE>). 
+        If string <ICODE>'09'</ICODE> is converted to <ICODE>0</ICODE>. 
+      </P>
+      <P>
+        To force use of a particular base, use the <ICODE>radix</ICODE> 
+        parameter: <ICODE>parseInt("09", base)</ICODE>. 
      
      <!-- [omit]  
      If base 10 is desired,
@@ -762,69 +754,66 @@ var j = +s;     // Convert to number. Result: -9.1
 var n = j|0;    // Chop off decimal (convert ToInt32). Result: -9
 </ICODE> 
       [/omit] -->
-    </P>
-    <P>
-     <MOREINFO>
-      <URL>http://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Functions/parseInt</URL>
-      <URL>http://msdn.microsoft.com/en-us/library/x53yedee%28VS.85%29.aspx</URL>
-      <URL>http://docs.sun.com/source/816-6408-10/toplev.htm#1064173</URL>
-      <URL>notes/type-conversion/#tcPrIntRx</URL>
-     </MOREINFO>
-    </P>
-   </CONTENT> 
-   <CONTENT TITLE="Why does 1+1 equal 11? or How do I convert a string to a number?" ID="typeConvert">
-    <P>
-Variables are not typed; their values are. The conversion between a
-string and a number happens automatically. 
-</P>
-<P>
-The addition operator (<ICODE>+</ICODE>) performs concatenation if either operand is a 
-string, thus <ICODE>"1" + 1</ICODE> results <ICODE>"11"</ICODE>. To perform addition, you might need 
-to first convert the string to a number. For example <ICODE>+varname</ICODE> or 
-<ICODE>Number(varname)</ICODE> or <ICODE>parseInt(varname, 10)</ICODE> or 
-<ICODE>parseFloat(varname)</ICODE>. Form control values are strings, as is the result 
-from a <ICODE>prompt</ICODE> dialog. Convert these to numbers before performing 
-addition: <ICODE>+'1' + 1</ICODE> results <ICODE>2</ICODE>.
+      </P>
       <MOREINFO>
-Additional Notes: <URL>notes/type-conversion/</URL>
-      <URL>http://msdn.microsoft.com/en-us/library/67defydd%28VS.85%29.aspx</URL>
-     </MOREINFO>
-    </P>
-   </CONTENT>
-   <CONTENT TITLE="How do I generate a random integer from 1 to n?" 
-     ID="randomNumber" NUMID="4_22">
-    <P>
-     <ICODE>Math.random()</ICODE> returns a value <ICODE>R</ICODE> such that <ICODE>0 &lt;= R &lt; 1.0</ICODE>; therefore:
-     <CODE>
-  // positive integer expected
-  function getRandomNumber(n) { 
-    return Math.floor(n * Math.random());
-  }
-</CODE>
-- gives an evenly distributed random integer in the range from 
-      <ICODE>0</ICODE> to <ICODE>n - 1</ICODE> inclusive; use <ICODE>getRandomNumber(n)+1</ICODE> for <ICODE>1</ICODE> to <ICODE>n</ICODE>.
+        <URL>http://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Functions/parseInt</URL>
+        <URL>http://msdn.microsoft.com/en-us/library/x53yedee%28VS.85%29.aspx</URL>
+        <URL>http://docs.sun.com/source/816-6408-10/toplev.htm#1064173</URL>
+        <URL>notes/type-conversion/#tcPrIntRx</URL>
+      </MOREINFO>
+    </CONTENT> 
+    <CONTENT TITLE="Why does 1+1 equal 11? or How do I convert a string to a number?" ID="typeConvert">
+      <P>
+        Variables are not typed; their values are. The conversion between a
+        string and a number happens automatically. 
+      </P>
+      <P>
+        The addition operator (<ICODE>+</ICODE>) performs concatenation if either operand is a 
+        string, thus <ICODE>"1" + 1</ICODE> results <ICODE>"11"</ICODE>. To perform addition, you might need 
+        to first convert the string to a number. For example <ICODE>+varname</ICODE> or 
+        <ICODE>Number(varname)</ICODE> or <ICODE>parseInt(varname, 10)</ICODE> or 
+        <ICODE>parseFloat(varname)</ICODE>. Form control values are strings, as is the result 
+        from a <ICODE>prompt</ICODE> dialog. Convert these to numbers before performing 
+        addition: <ICODE>+'1' + 1</ICODE> results <ICODE>2</ICODE>.
+      </P>
       <MOREINFO>
-      <URL>http://msdn.microsoft.com/en-us/library/41336409%28VS.85%29.aspx</URL>
-      <URL>http://docs.sun.com/source/816-6408-10/math.htm</URL>
+        <URL LINKTEXT="Additional Notes">notes/type-conversion/</URL>
+        <URL>http://msdn.microsoft.com/en-us/library/67defydd%28VS.85%29.aspx</URL>
+      </MOREINFO>
+    </CONTENT>
+    <CONTENT TITLE="How do I generate a random integer from 1 to n?" ID="randomNumber" NUMID="4_22">
+      <P>
+        <ICODE>Math.random()</ICODE> returns a value <ICODE>R</ICODE> such that <ICODE>0 &lt;= R &lt; 1.0</ICODE>; therefore:
+        <CODE>
+// positive integer expected
+function getRandomNumber(n) { 
+  return Math.floor(n * Math.random());
+}
+        </CODE>
+        - gives an evenly distributed random integer in the range from 
+        <ICODE>0</ICODE> to <ICODE>n - 1</ICODE> inclusive; use <ICODE>getRandomNumber(n)+1</ICODE> for <ICODE>1</ICODE> to <ICODE>n</ICODE>.
+    </P>
+      <MOREINFO>
+        <URL>http://msdn.microsoft.com/en-us/library/41336409%28VS.85%29.aspx</URL>
+        <URL>http://docs.sun.com/source/816-6408-10/math.htm</URL>
 How to Deal and Shuffle, see in: <URL>http://www.merlyn.demon.co.uk/js-randm.htm</URL>
-     </MOREINFO>
-    </P>
-   </CONTENT>
- </CONTENT>
+      </MOREINFO>
+    </CONTENT>
+  </CONTENT>
    
- <CONTENT TITLE="Objects" ID="objects">
- <CONTENT TITLE="What is a native object?" ID="nativeObject">
-<P>
-A <DFN>native object</DFN> is any object whose semantics are fully defined by
-ECMA-262.
-</P>
-<P>
-Some <DFN>native objects</DFN> are <DFN>built-in</DFN>; others, such as <DFN>user-defined</DFN> objects, 
-may be constructed during the execution of an ECMAScript program.
-</P>
-<P>
-Example:
-<CODE>
+  <CONTENT TITLE="Objects" ID="objects">
+    <CONTENT TITLE="What is a native object?" ID="nativeObject">
+      <P>
+        A <DFN>native object</DFN> is any object whose semantics are fully defined by
+        ECMA-262.
+      </P>
+      <P>
+        Some <DFN>native objects</DFN> are <DFN>built-in</DFN>; others, such as <DFN>user-defined</DFN> objects, 
+        may be constructed during the execution of an ECMAScript program.
+      </P>
+      <P>
+        Example:
+        <CODE>
 // Native built-in objects:
 var m = Math, // Built-in Math object.
     slice = Array.prototype.slice, // Built-in native method.
@@ -833,15 +822,15 @@ var m = Math, // Built-in Math object.
     d = new Date(),
     a = [],
     e = new Error("My Message.");
-    </CODE>
-See also:
-<MOREINFO>
-<URL>http://dmitrysoshnikov.com/ecmascript/chapter-7-2-oop-ecmascript-implementation/</URL>
-</MOREINFO>
-</P>
- </CONTENT>
- <CONTENT TITLE="What is a built-in object?" ID="builtInObject">
- <P>
+        </CODE>
+      </P>
+      See also:
+      <MOREINFO>
+        <URL>http://dmitrysoshnikov.com/ecmascript/chapter-7-2-oop-ecmascript-implementation/</URL>
+      </MOREINFO>
+    </CONTENT>
+  <CONTENT TITLE="What is a built-in object?" ID="builtInObject">
+  <P>
  A <DFN>built-in</DFN> object is any object supplied by an ECMAScript 
  implementation, independent of the host environment, that is present 
  at the start of the execution of an ECMAScript program.

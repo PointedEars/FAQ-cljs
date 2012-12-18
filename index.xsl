@@ -17,8 +17,8 @@
   <xsl:variable name="maintainer_email"><![CDATA[cl&#106;&#115;&#64;&#80;o&#105;n&#116;&#101;d&#69;a&#114;s.&#100;&#101;]]></xsl:variable>
   <xsl:variable name="maintainer_website">http://PointedEars.de/</xsl:variable>
   
+  <xsl:variable name="version" select="/FAQ/@VERSION"/>
   <xsl:template match="/FAQ">
-    <xsl:variable name="version" select="@VERSION"/>
     <xsl:variable name="revision_length" select="string-length('$Revision: ')"/>
     <xsl:variable name="revision" select="substring(@revision, $revision_length, string-length(@revision) - $revision_length - 1)"/>
     <xsl:variable name="updated" select="@DATE"/>
@@ -141,9 +141,18 @@
         <xsl:value-of select="@TITLE"/>
       </xsl:element>
       
-      <xsl:apply-templates select="CONTENT" mode="subsection">
-        <xsl:with-param name="section" select="position()"/>
-      </xsl:apply-templates>
+      <xsl:for-each select="*">
+        <xsl:choose>
+          <xsl:when test="local-name(.) = 'CONTENT'">
+            <xsl:apply-templates select="." mode="subsection">
+              <xsl:with-param name="section" select="position()"/>
+            </xsl:apply-templates>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates select="."/>
+          </xsl:otherwise>
+        </xsl:choose>        
+      </xsl:for-each>
     </div>
   </xsl:template>
   

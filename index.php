@@ -19,6 +19,7 @@ header('Cache-Control: max-age=0, s-maxage=0, must-revalidate, proxy-revalidate'
 header('Expires: ' . gmdate('D, d M Y H:i:s', time() /*+ 86400*/) . ' GMT');
 
 $doc = new DOMDocument();
+$doc->substituteEntities = true;
 $xsl = new XSLTProcessor();
 
 $doc->load('index.xsl');

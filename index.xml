@@ -1,6 +1,5 @@
 <!DOCTYPE FAQ [
-  <!-- FIXME: is not used for transformation -->
-  <!ENTITY trade    "&#8482;"><!-- trade mark sign, U+2122 ISOnum -->
+  <!ENTITY trade "&#8482;"><!-- trade mark sign, U+2122 ISOnum -->
 ]>
 <FAQ VERSION="32.2" DATE="2010-10-08" revision="$Revision$" id="$Id$">
   <TITLE>FAQ for comp.lang.javascript</TITLE>
@@ -160,7 +159,7 @@
         <P>
           <URL LINKTEXT="ECMA-262">http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
           is the international standard that current language implementations
-          (JavaScript&#8482;, JScript etc.) are based on.
+          (JavaScript&trade;, JScript etc.) are based on.
         </P>
         <P>
           <URL LINKTEXT="ECMA-262">http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>

@@ -261,7 +261,7 @@
     </xsl:variable>
         
     <xsl:element name="{$type}">
-      <xsl:if test="not(@TITLE and @ID)">
+      <xsl:if test="not(@TITLE) and @ID">
         <xsl:attribute name="id"><xsl:value-of select="@ID"/></xsl:attribute>
       </xsl:if>
 

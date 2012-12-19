@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Things not to attempt in a browser" ID="doNotTry">
+   <CONTENT TITLE="How do I detect Opera/Safari/IE?" ID="detectBrowser" NUMID="4_26">
+     <P>
+The short answer: <EM>Don't do that</EM>.
+     </P>
+     <P>
+The <ICODE>navigator</ICODE> <DFN>host object</DFN> contains properties which 
+may identify the browser and version. These properties are historically 
+inaccurate. Some browsers allow the user to set <ICODE>navigator.userAgent</ICODE> to any value. For 
+example, Firefox, (type <ICODE>about:config</ICODE> and search <ICODE>useragent</ICODE> 
+or Safari, <ICODE>Develop &gt; User Agent &gt; Other...</ICODE>, IE, via Registry. 
+    </P>
+    <P>
+Other browsers, such as Opera, provide a list of user agents 
+for the user to select from. There are also at least 25 other 
+javascript capable browsers, with multiple versions, each 
+with their own string. 
+    </P>
+    <P>
+Browser detection is unreliable, at best. It usually causes 
+forward-compatibility and maintenance problems. It is unrelated to the 
+problem or incompatiblity it is trying to solve and obscures the 
+problems it is used for, where it is used.
+    </P>
+    <P>
+Object detection is checking that the object in question exists.
+<URL LINKTEXT="Capability detection"
+>http://dev.opera.com/articles/view/using-capability-detection/</URL
+             > goes one step further to actually test the object, 
+method, or property, to see if behaves in the desired manner. 
+    </P>
+    <P>
+Feature Test Example:
+    </P>
+      <CODE>
+/** 
+ * Returns the element/object the user targeted.
+ * If neither DOM nor IE event model is supported, returns undefined. 
+ * @throws TypeError if the event is not an object.
+ */
+function getEventTarget(e) {
+  e = e || window.event;
+  // First check for the existence of standard "target" property.
+  return e.target || e.srcElement;
+}</CODE>
+<MOREINFO>
+<URL>notes/detect-browser/</URL>
+<URL>http://dev.opera.com/articles/view/using-capability-detection/</URL>
+<URL>http://developer.apple.com/internet/webcontent/objectdetection.html</URL>
+<URL>http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43</URL>
+</MOREINFO>
+   </CONTENT>
+   <CONTENT TITLE="How can I prevent access to a web page by using javascript?" 
+     ID="preventAccess" NUMID="4_5">
+    <P>
+In practice you can't. While you could create a suitable
+encryption system with a password in the page, the level of
+support you need to do this means it's always simpler to do it
+server-side. Anything that &quot;protects&quot; a page 
+other than the current one is definitely flawed.
+    </P>
+   </CONTENT>
+   <CONTENT TITLE="How do I protect my javascript code?" ID="hideSource" NUMID="4_1">
+    <P>
+With clientside javascript you can't as your code is distributed 
+in source form and is easily readable. With JScript, there is the 
+Script Encoder (see MSDN), but this is nothing more than obfuscation.
+Attempting to disable the context menu does nothing to 
+protect your script in a Web browser. 
+    </P>
+     <MOREINFO>
+      Your code is likely protected under copyright laws. See: 
+      <URL>http://www.wipo.int/about-ip/en/copyright.html</URL>
+      <URL>http://webdesign.about.com/od/copyright/Copyright_Issues_on_the_Web_Intellectual_Property.htm</URL>
+     </MOREINFO>
+   </CONTENT>
+   <CONTENT TITLE="How do I suppress a context menu (right-click menu)?" 
+     ID="disableRightClick" NUMID="4_27">
+    <P>
+A context menu, often triggered by right-click, can be requested by the 
+user in a few ways. For example, on windows, shift + F10 and on macs, 
+click-and-hold. Other input devices exist and mouse buttons can be 
+configured, making the term "right click" a misnomer, in context.
+</P>
+<P>
+In browsers that allow it, a script can suppress the context menu by
+returning false from an object's <ICODE>oncontextmenu</ICODE> event handler.
+</P>
+<CODE>
+document.oncontextmenu = function() {
+  return false;
+};
+</CODE>
+<P>
+Some browsers lack context menus (e.g. iphone). Browsers that have
+context menus do not always have a scriptable event for them. Some
+browsers can be configured to disallow scripts from detecting context
+menu events (IE, Opera); others may fire the event but be configured to 
+disallow scripts from suppressing the context menu (Firefox,Seamonkey).
+</P>
+<P>
+Even when the context menu has been suppressed, it will still be
+possible to view/save the source code and to save images.
+</P>
+<MOREINFO>
+<URL>http://en.wikipedia.org/wiki/Context_menu</URL>
+<URL>http://kb.mozillazine.org/Ui.click_hold_context_menus</URL>
+<URL>http://support.microsoft.com/kb/823057</URL>
+<URL>http://stackoverflow.com/questions/1870880/opera-custom-context-menu-picking-up-the-right-click/1902730#1902730</URL>
+<URL>http://support.mozilla.com/en-US/kb/Javascript#Advanced_JavaScript_settings</URL>
+<URL>http://msdn.microsoft.com/en-us/library/ms536914%28VS.85%29.aspx</URL>
+</MOREINFO>
+</CONTENT>
+   <CONTENT TITLE="How can I access the client-side filesystem?" ID="readFile" NUMID="4_3">
+    <P>
+Security means that by default you can't. In a more restricted 
+environment, there are options. For example, using LiveConnect to 
+connect to Java with Netscape, and using the FileSystemObject in 
+IE. Check <URL LINKTEXT="Google Groups archives">http://groups.google.com/group/comp.lang.javascript/topics</URL> 
+for previous posts on the subject.
+    </P>
+      <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/z9ty6h50%28VS.85%29.aspx</URL>
+      <URL>http://www.javaworld.com/javaworld/jw-10-1998/jw-10-apptowin32.html</URL>
+     </MOREINFO>
+   </CONTENT>
+   <CONTENT TITLE="I have &lt;a href=&quot;javascript:somefunction()&quot;&gt;  what ... ?" 
+   ID="javascriptURI" NUMID="4_24">
+    <P>
+Whatever the rest of your question, this is generally a very bad idea. 
+The <ICODE>javascript:</ICODE> pseudo protocol was designed to replace the
+current document with the value that is returned from the expression. 
+For example:
+    </P>
+      <CODE>
+  &lt;a href=&quot;javascript:'&lt;h1&gt;' + document.lastModified + '&lt;/h1&gt;'&quot;&gt;lastModified&lt;/a&gt;
+</CODE>
+    <P>
+will result in replacing the current document with the value 
+returned from <ICODE>document.lastModified</ICODE>, wrapped in an <ICODE>&lt;h1&gt;</ICODE> 
+tag. 
+    </P>
+    <P>
+When the expression used evaluates to an <ICODE>undefined</ICODE> value
+(as some function calls do), the contents of the current page are not 
+replaced. Regardless, some browsers (notably IE6) interpret this as 
+navigation and will enter into a 'navigation' state where GIF 
+animations and plugins (such as movies) will stop and navigational
+features such as <ICODE>META</ICODE> refresh, assignment to <ICODE>location.href</ICODE>, and image 
+swaps fail.
+    </P>
+    <P>
+It is also possible for IE to be configured such that it supports 
+javascript but not the <ICODE>javascript:</ICODE> protocol. This results 
+in the user seeing a protocol error for <ICODE>javascript:</ICODE> URIs.
+    </P>
+    <P>
+The <ICODE>javascript:</ICODE> pseudo protocol creates accessibility and 
+usability problems. It provides no fallback for when the script is not 
+supported.
+    </P>
+    <P>
+Instead, use
+<ICODE>&lt;a href=&quot;something.html&quot; onclick=&quot;somefunction();return false&quot;&gt;</ICODE>
+where <ICODE>something.html</ICODE> is a meaningful alternative. Alternatively,
+attach the <ICODE>click</ICODE> callback using an event registry.
+    </P>
+      <MOREINFO>
+      <URL>example/jsuri/</URL>
+      <URL LINKTEXT="Set/Navigate to a Location">http://groups.google.com/group/comp.lang.javascript/msg/f665cfca3b619692</URL>
+      <URL LINKTEXT="Top Ten Web-Design Mistakes of 2002">http://www.useit.com/alertbox/20021223.html</URL>
+     </MOREINFO>
+   </CONTENT>  
+  </CONTENT>

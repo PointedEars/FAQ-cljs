@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Language Overview" ID="tips" NUMID="2">
+  <CONTENT TITLE="What is ECMAScript?" ID="ecma" NUMID="2_6">
+    <P>
+      <URL LINKTEXT="ECMA-262">http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
+      is the international standard that current language implementations
+      (JavaScript&trade;, JScript etc.) are based on.
+    </P>
+    <P>
+      <URL LINKTEXT="ECMA-262">http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
+      defines the language Syntax, Types, Keywords, Operators, and built-in
+      objects. The ECMAScript specification is the reference to determine the
+      expected behavior of a program. ECMAScript does not define any host 
+      objects, such as <ICODE>document</ICODE>, <ICODE>window</ICODE>, or
+      <ICODE>ActiveXObject</ICODE>. 
+    </P>
+    <P>
+      ECMA-327 defines the Compact Profile of ECMAScript by 
+      describing the features from ECMA 262 that may be omitted in some 
+      resource-constrained environments.
+      <URL>http://www.ecma-international.org/publications/standards/Ecma-327.htm</URL>
+    </P>
+    <P>
+      The most widely supported edition of ECMA-262 is the 3rd edition (1999). 
+      There is fair support for this edition in JScript 5.5+ (buggy) and good 
+      support JavaScript 1.5.
+    </P>
+    <P>
+      The term "javascript" is used as a common name for all dialects of ECMAScript.
+    </P>
+  </CONTENT>
+  <CONTENT TITLE="What is JScript?" ID="jScript" NUMID="2_7">
+    <P>
+      JScript is Microsoft's implementation of ECMAScript.
+    </P>
+    <P>
+      Questions that are specific to Microsoft's JScript may also
+      be appropriately asked at:
+      <NEWSGROUP>microsoft.public.scripting.jscript</NEWSGROUP>.    
+    </P>
+  </CONTENT>
+  <CONTENT TITLE="What is the Document Object Model (DOM)?" ID="dom" NUMID="2_9">
+    <P>
+      The <DFN>Document Object Model</DFN> (DOM) is a interface-based model for <ICODE>Document</ICODE> 
+      objects. The DOM allows scripts to dynamically access and update a 
+      document's content, style, and event handlers. 
+    </P>
+    <P>
+      The DOM is <EM>not</EM> part of the ECMAScript programming language.
+    </P>
+    <P>
+      Official DOM standards are defined by the World Wide Web Consortium.
+      Scriptable browsers also have <DFN>proprietary</DFN> DOM features (<URL
+      LINKTEXT="MSDN">http://msdn.microsoft.com/en-us/library/ms533050(VS.85).aspx</URL>, <URL 
+      LINKTEXT="MDC">https://developer.mozilla.org/en/DOM_Client_Object_Cross-Reference</URL>),
+      such as <ICODE>document.writeln()</ICODE>.
+    </P>
+    <P>
+      Also see the section on <URL LINKTEXT="DOM and Forms">#domRef</URL>.
+    </P>
+    <MOREINFO>
+      <URL LINKTEXT="c.l.js DOM Resources">#onlineResources</URL>
+      <URL LINKTEXT="W3C DOM FAQ">http://www.w3.org/DOM/faq.html</URL>
+      <URL LINKTEXT="W3C DOM ">http://www.w3.org/DOM/</URL>
+      <URL LINKTEXT="MDC: What is the DOM?">https://developer.mozilla.org/en/Gecko_DOM_Reference/Introduction#What_is_the_DOM.3F</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="Internationalisation and Localisation in javascript" ID="localization" NUMID="2_10">
+    <P>
+      <DFN>Internationalisation</DFN> means using one form which is everywhere both
+      acceptable and understood.  Any international standard not supported by
+      default can be coded for.
+    </P>
+    <P>
+      For example, there is an International Standard for numeric Gregorian 
+      date format; but none for decimal and thousands separators.
+    </P>
+    <P>
+      <DFN>Localisation</DFN> is the process of adapting software for a specific region 
+      or language by adding locale-specific components and translating text. It 
+      cannot work well in general, because it requires a knowledge of all 
+      preferences and the ability to choose the right one, in an environment 
+      where many systems are inappropriately set anyway.
+    </P>
+    <P>
+      ECMAScript has a few <DFN>localisation</DFN> features. The various 
+      <ICODE>toString()</ICODE> methods are all implementation dependent, 
+      but tend to use either UK or US settings (not necessarily correctly).
+      ECMAScript Ed. 3 introduced some capabilities, including the 
+      <ICODE>toLocaleString()</ICODE>method which should create a string 
+      based on the host's locale.
+    </P>
+    <P>
+      ECMAScript 5th Edition introduces limited ISO 8601 capabilities with 
+      <ICODE>Date.prototype.toISOString()</ICODE> and new behavior for <ICODE>Date.parse()</ICODE>.
+    </P>
+  </CONTENT>
+  <CONTENT TITLE="What does the future hold for ECMAScript?" ID="futureEcmaScript" NUMID="2_12">
+    <P>
+      The 5th edition of ECMAScript was approved on 2009-12-04. There is some 
+      support in implementations released before approval date (JScript 5.8, 
+      JavaScript 1.8, JavaScriptCore). 
+      http://www.ecma-international.org/publications/standards/Ecma-262.htm
+    </P>
+    <MOREINFO>
+      <URL>http://www.ecma-international.org/publications/standards/Ecma-262.htm</URL>
+    </MOREINFO>
+  </CONTENT>
+</CONTENT>

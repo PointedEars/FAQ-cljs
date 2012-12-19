@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Comments and Suggestions" ID="comments" NUMID="5">
+    <P HTMLONLY="true">
+      This FAQ uses the CSS stylesheet <URL>faq.css</URL> and is generated
+      from the XML source <URL>index.xml</URL> using the XSLT stylesheet
+      <URL>index.xsl</URL><!-- which also checks the links -->.
+    </P>
+    <CONTENT TITLE="Why do some posts have &lt;FAQENTRY&gt; in them?" ID="FAQENTRY" NUMID="5_1">
+      <P>
+        If a poster feels that the question they are answering should be
+        covered in the FAQ, placing &lt;FAQENTRY&gt; in the post lets the FAQ
+        robot collect the messages for easy review and inclusion. A Draft Proposal
+        for the FAQ is requested and appreciated.
+      </P>
+    <P>
+The &lt;FAQENTRY&gt; should not be used in posts except in
+conjunction with a suggestion/proposal for this FAQ. It should
+also not be literally quoted in replies, instead it should be
+partly obscured as, e.g. &lt;FAQ**TRY&gt; or similar.
+    </P>
+   </CONTENT>
+   <CONTENT TITLE="How do I make a suggestion?" NUMID="5_2" ID="makeSuggestion">
+    <P>
+To make a suggestion to this FAQ, use either the FAQENTRY method
+above, or e-mail Thomas 'PointedEars' Lahn &lt;cljs&#64;PointedEars.de&gt; (editor).
+All comments, suggestions, and especially corrections are welcome.
+    </P>
+   </CONTENT>
+   <!-- FIXME -->
+   <!-- 
+   <P>
+      This FAQ is (C) Copyright Contributors on behalf of the 
+      newsgroup comp.lang.javascript. Upon change of the FAQ maintainer, 
+      the copyright will automatically pass over to the new maintainer. 
+   </P>
+   -->
+  </CONTENT>

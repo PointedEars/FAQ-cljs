@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Meta-FAQ meta-questions" ID="meta" NUMID="1">
+  <P>
+    This is the <EM>comp.lang.javascript</EM> meta-FAQ, <VER/>.  The latest
+    version is available at <URL>http://jibbering.com/faq/</URL> in HTML form.
+  </P> 
+  <P>
+    Each day, one section of the FAQ is posted for review and questions,
+    and as a reminder that the FAQ is available.
+  </P>
+  <P>
+    For additional explanation and detail relating to some aspects 
+    of the FAQ, please see the 
+    <URL LINKTEXT="FAQ Notes">notes/</URL>. 
+    It has been provided separately to avoid increasing the size of
+    the FAQ to a point where it would be unreasonable to post it to
+    the group.
+  </P>
+  <P>
+    Code examples in this FAQ use <URL LINKTEXT="JSDoc Toolkit"
+    >http://jsdoctoolkit.org/</URL> comments.
+  </P>
+  
+  <CONTENT TITLE="Which newsgroups deal with javascript?" ID="newsgroups" NUMID="2_1">
+    <P>
+      The official Big 8 Usenet newsgroup dealing with javascript is
+      <NEWSGROUP>comp.lang.javascript</NEWSGROUP>.
+      Some "language" hierarchies also have *.comp.lang.javascript groups.
+    </P>
+    <P>
+      c.l.js is an unmoderated newsgroup.
+    </P>
+  </CONTENT>
+  
+  <CONTENT TITLE="What questions are on-topic for comp.lang.javascript?" ID="appropriateQuestions" NUMID="2_2">
+    <P>
+      The comp.lang.javascript newsgroup deals with ECMAScript
+      languages, so any questions about JavaScript or JScript are
+      welcome. However, the majority of questions sent to this group
+      relates to javascript in a web browser. If you are experiencing
+      issues with a particular browser, or the host is not a browser
+      at all, please make this information clear.
+    </P>
+    <P>
+      Javascript and Java are two completely different languages.
+      Java questions should be asked in one of the comp.lang.java.*
+      newsgroups; they are not appropriate for c.l.js (as Java and
+      javascript are distinct programming languages with only
+      superficial similarities due to sharing a C-like syntax and
+      some of the characters in their names).
+    </P>
+    <P>
+      Questions dealing with other scripting languages, such as
+      VBScript, PerlScript or CGI scripting are also off-topic,
+      as are HTML-only or CSS-only questions.
+    </P>
+    <!--
+      <P>
+        Questions about the design of various javascript libraries are 
+        appropriate; questions on how to <EM>use</EM> such libraries
+        are not. Check <URL LINKTEXT="c.l.js FAQ Resources"
+        >http://jibbering.comindex.html#libraryResources</URL> or search the web.
+      </P>
+    -->
+    <P>
+      Questions that are specific to Microsoft's JScript may also
+      be appropriately asked at:
+      <NEWSGROUP>microsoft.public.scripting.jscript</NEWSGROUP>      
+    </P>
+    <P>
+      The comp.lang.javascript newsgroup charter is included in
+      <URL>faq_notes/cljs_charter.html</URL>.
+    </P>
+  </CONTENT>
+ 
+  <CONTENT TITLE="What should I do before posting to comp.lang.javascript?" ID="posting" NUMID="2_3">
+    <P>
+      Before posting to c.l.js, you should read this document.
+      You should also check the <URL LINKTEXT="Resources section">#onlineResources</URL>.
+    </P>
+    <LIST TYPE="UL" TITLE="How to Ask a Question" ID="ask">
+      <LI>State your question clearly and concisely.</LI>
+      <LI>Use the Subject: line to show the type of problem you have but
+          include the question in the body as well.</LI>
+      <LI>For a more detailed explanation of formatting, see
+          &quot;<URL LINKTEXT="Posting Questions and Replies to comp.lang.javascript">notes/posting/</URL>&quot;.</LI>
+    </LIST>
+
+    <LIST TYPE="UL" TITLE="Replying" ID="reply">
+      <LI>Quote only relevant parts of earlier messages, and add your
+          comments below each quoted section
+          (<URL LINKTEXT="FYI28/RFC1855">http://www.ietf.org/rfc/rfc1855.txt</URL>).</LI>
+      <LI>Link to specific sections of the FAQ that are relevant.</LI>
+      <LI>Avoid being unnecessarily rude, but do not complain about other rude posts.</LI>
+      <LI>Don't quote signatures.</LI>
+    </LIST>
+
+    <LIST TYPE="UL" TITLE="Posting Code" ID="postCode">
+      <LI>
+        Remove everything that does not contribute to the problem (images, 
+        markup, other scripts, etc).
+      </LI>
+      <LI>Validate the HTML and CSS <URL>http://validator.w3.org/</URL>,
+          <URL>http://jigsaw.w3.org/css-validator/</URL>.</LI>
+      <LI>Make sure the code is executable as transmitted.</LI> 
+      <LI>Format lines to 72 characters; indent with 2-4 spaces (not tabs).</LI>
+      <LI>State what you expect the code to do.</LI>
+      <LI>Mention the platforms, browsers, and versions.</LI>
+      <LI>See also the <URL LINKTEXT="FAQ section on debugging">#debugging</URL>.</LI>
+      <LI>Post in plain-text only. Do not encode it. Do not attach files.</LI>
+      <LI>If the code is more than about 100 lines, provide a URL in addition.</LI>
+      <LI>Do not multi-post; cross-post if necessary
+          (<URL LINKTEXT="Wikipedia description">http://en.wikipedia.org/wiki/Cross-post</URL>).</LI>
+    </LIST>
+    <LIST TYPE="UL" TITLE="What Not to Post" ID="doNotPost">
+      <LI>Do not post job postings. Job postings should go to
+          an appropriate regional jobs group.</LI>
+      <LI>Do not post copyright material without permission
+          from the copyright holder.</LI>
+    </LIST>
+    <P>
+      Relevant announcements are welcome, but no more often than once
+      per major release, as a short link to the product's webpage.
+    </P>
+  </CONTENT>
+  
+  <CONTENT TITLE="Why was my post not answered?" ID="noAnswer" NUMID="2_4">
+    <P>This could be for several reasons:</P>
+    <UL>
+      <LI>It was a variation of a frequently asked question and was
+          therefore ignored by everyone.</LI>
+      <LI>Nobody knows the answer.</LI>
+      <LI>The person with the answer has not seen the post.</LI>
+      <LI>It might not be possible to do what you want to do but perhaps
+          readers of c.l.js are reluctant to answer your post in the negative
+          when they are not convinced that it cannot be done.</LI>
+      <LI>The question was not asked clearly enough, or did not included
+          enough information to be answered.</LI>
+      <LI>The questioner did not realise the need to read the group, for a
+          few days, to see the answers posted there.</LI>
+      <LI>You ignored the <URL LINKTEXT="section on posting">#posting</URL></LI>
+    </UL>
+
+    <p>If it is not one of these, then after a few days consider
+       reposting after checking
+       <URL>http://groups.google.com/group/comp.lang.javascript/topics</URL>
+       for replies. Make sure the post is phrased well, and everything
+       needed to answer is correct, and the subject is appropriate.</p>
+  </CONTENT>
+</CONTENT>

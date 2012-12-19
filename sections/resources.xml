@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Javascript Resources" ID="ecmascriptResources" NUMID="3">
+  <CONTENT TITLE="What books are recommended for javascript?" ID="books" NUMID="3_1">
+    <P>
+      Most javascript books have been found to contain so many technical 
+      errors that consensus recommendations have not emerged from the group.
+    </P>
+    <P>
+      The following books have been considered to have value by some
+      individuals on c.l.js. The reviews of these books are provided: 
+    </P>
+    <LIST TYPE="UL">
+      <LI><EM>&quot;JavaScript: The Definitive Guide,&quot;</EM> 5th Edition, by David Flanagan 
+        <UL>
+          <LI>Published: 2006-08</LI>
+          <LI>Pages: 1018</LI>
+          <LI>Errata: <URL>http://oreilly.com/catalog/9780596101992/errata/</URL></LI>
+          <LI>Discussed in:   
+            <UL>
+              <LI>
+                <URL LINKTEXT="FAQ Update 9.85 Dated 2007-08-31"
+          >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/7283898f77fd2a66/9252aa024e058dea#c5f145ae807c918e</URL>
+              </LI>
+            </UL>
+          </LI>
+        </UL>
+      </LI>
+      <LI>
+        <EM>"JavaScript, The Good Parts,"</EM> 1st Edition, by Douglas Crockford
+        <UL>
+            <LI>Published: 2008-05</LI>
+            <LI>Pages: 170</LI>
+            <LI>Errata: <URL>http://oreilly.com/catalog/9780596517748/errata/</URL></LI>
+            <LI>Discussed in:
+                <UL> 
+                  <LI>
+                      <URL LINKTEXT="Crockford's 'The Good Parts': a short review"
+                    >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/d084d2109f7b4ec7#</URL>
+                    </LI>
+                  <LI>
+                      <URL LINKTEXT="FunctionExpression's and memory consumptions"
+                    >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/db1e49ab113aa05c/3987eac87ad27966#3987eac87ad27966</URL>
+                    </LI>
+                    <LI>
+                      <URL LINKTEXT="FAQ Topic - What books are recommended for javascript? (2008-12-02)"
+                      >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/6a41f7835ee728de/da5ccfc65e2df64a#da5ccfc65e2df64a</URL>
+                    </LI>
+                    <LI>
+                       <URL LINKTEXT="Augmenting functions"
+      >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/3a08fb741525ab6d/</URL>
+                    </LI>    
+      
+                    <LI>
+                       <URL LINKTEXT="Crockford's JavaScript, The Good Parts (a book review)."
+      >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/bf26be6e63494ee2/acb733a1c35f6ce5#ee9e4ee29e658d5d</URL>
+                    </LI>
+                    <LI>
+                       <URL LINKTEXT="Closures Explained"
+      >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/df602506ee48b400/e65e00f5cad07676#e65e00f5cad07676</URL>
+                    </LI>
+                    <LI>
+                       <URL LINKTEXT="Javascript library development"
+      >http://groups.google.com/group/comp.lang.javascript/browse_thread/thread/acadf1b22b219433/4f69a95607d0b3ae#4f69a95607d0b3ae</URL>
+                    </LI>
+                  </UL></LI>
+        </UL>
+      </LI>
+    </LIST>
+  </CONTENT>
+  
+  <CONTENT TITLE="What online resources are available?" ID="onlineResources" NUMID="3_2">
+    <LIST TITLE="ECMAScript" TYPE="DL" ID="ecmaResources">
+      <DT>The Official ECMAScript Specification</DT>
+      <DD><URL>[ECMA-262] http://www.ecma-international.org/publications/standards/Ecma-262-arch.htm</URL></DD>
+
+      <DT>[ISO16262] ISO/IEC 16262, Second Edition 2002-06-01 : ISO Standard matching
+          ECMA-262 3rd Edition, with corrections.</DT>
+      <DD><URL>http://standards.iso.org/ittf/PubliclyAvailableStandards/c033835_ISO_IEC_16262_2002(E).zip</URL></DD>
+      
+      <DT>[MS-ES3]: Internet Explorer ECMA-262 ECMAScript Language Specification Standards Support</DT>
+      <DD><URL>http://msdn.microsoft.com/en-us/library/ff520996%28VS.85%29.aspx</URL></DD>
+      <DD><URL>res/%5BMS-ES3%5D.pdf</URL> (local alias)</DD>
+
+      <DT>[MS-ES3EX]: Microsoft JScript Extensions to the ECMAScript Language Specification Third Edition</DT>
+      <DD><URL>http://msdn.microsoft.com/en-us/library/ff521046%28VS.85%29.aspx</URL></DD>
+      <DD><URL>res/%5BMS-ES3EX%5D.pdf</URL> (local alias)</DD>
+      
+      <DT>ECMAScript on Wikipedia</DT>
+      <DD><URL>http://en.wikipedia.org/wiki/ECMAScript</URL></DD>
+    </LIST>
+
+    <LIST TITLE="W3C DOM" TYPE="DL" ID="domResources">
+      <DT>DOM Level 1 ECMAScript Binding</DT> 
+      <DD><URL>http://www.w3.org/TR/REC-DOM-Level-1/ecma-script-language-binding.html</URL></DD>
+
+      <DT>DOM Level 2 ECMAScript Binding</DT>
+      <DD><URL>http://www.w3.org/TR/DOM-Level-2-HTML/ecma-script-binding.html</URL></DD>
+      
+      <DT>DOM Level 2 Events</DT>
+      <DD><URL>http://www.w3.org/TR/DOM-Level-2-Events/events.html</URL></DD>
+      
+      <DT>DOM Level 2 Style</DT>
+      <DD><URL>http://www.w3.org/TR/DOM-Level-2-Style/</URL></DD>
+      
+      <DT>DOM Level 3 ECMAScript Binding</DT>
+      <DD><URL>http://www.w3.org/TR/DOM-Level-3-Core/ecma-script-binding.html</URL></DD>
+    </LIST>
+
+    <LIST TITLE="Browser Documentation" TYPE="DL" ID="browserResources">
+      <DT>Mozilla</DT>
+      <DD>JavaScript: <URL>http://developer.mozilla.org/en/docs/JavaScript</URL></DD>
+      <DD>Gecko DOM Reference: <URL>http://developer.mozilla.org/en/docs/Gecko_DOM_Reference</URL></DD>
+      
+      <DT>Microsoft</DT> 
+      <DD>HTML and DHTML Reference: <URL>http://msdn.microsoft.com/en-us/library/ms533050.aspx</URL></DD>
+      <DD>JScript Language Reference:<URL>http://msdn.microsoft.com/en-us/library/hbxc2t98%28VS.85%29.aspx</URL></DD>   
+      <DD>Scripting: <URL>http://msdn.microsoft.com/en-us/library/ms950396.aspx</URL></DD>
+      
+      <DT>Opera</DT>
+      <DD>Web Specifications Support: <URL>http://www.opera.com/docs/specs/#ecmascript</URL></DD>
+      
+      <DD>JavaScript Support: <URL>http://www.opera.com/docs/specs/js/</URL></DD>
+      <DD>ECMAScript Support: <URL>http://www.opera.com/docs/specs/js/ecma</URL></DD>
+      
+      <DT>BlackBerry JavaScript Reference</DT>
+      <DD><URL>http://docs.blackberry.com/en/developers/deliverables/11849/</URL></DD>
+
+      <DT>ICab InScript</DT>
+      <DD><URL>http://www.muchsoft.com/inscript/</URL></DD>
+
+      <DT>Apple Safari</DT>
+      <DD>Web Content Guide: <URL>http://developer.apple.com/safari/library/documentation/AppleApplications/Reference/SafariWebContent/Introduction/Introduction.html</URL></DD>
+
+      <DT>Webkit</DT> 
+      <DD>Project Site: <URL>http://webkit.org/</URL></DD>
+      <DD>Wiki: <URL>http://trac.webkit.org/wiki</URL></DD>
+      <DD>DOM Reference: <URL>http://developer.apple.com/Mac/library/documentation/AppleApplications/Reference/WebKitDOMRef/index.html#//apple_ref/doc/uid/TP40006089</URL></DD>
+
+      <DT>Netscape 4 Client-Side JavaScript Reference</DT>
+      <DD><URL>http://docs.sun.com/source/816-6408-10/</URL></DD>
+  
+      <DT>Archived documentation for MSIE 3.x</DT>
+      <DD><URL>http://members.tripod.com/%7Ehousten/download/</URL></DD>
+    </LIST>
+
+    <LIST TITLE="Standalone ECMAScript Implementations" TYPE="DL" ID="standaloneImplementations">
+      <DT>Rhino: An open-source implementation of JavaScript written in Java</DT>
+      <DD><URL>http://www.mozilla.org/rhino/</URL></DD>
+      
+      <DT>Besen IDE: ECMAScript Edition 5 with IDE</DT>
+      <DD><URL>http://besen.sourceforge.net/</URL></DD>
+      
+      <DT>V8: Google's open source JavaScript engine</DT>
+      <DD><URL>http://code.google.com/p/v8/</URL></DD>
+      
+      <DT>SpiderMonkey: Mozilla's C implementation of JavaScript</DT>
+      <DD><URL>http://www.mozilla.org/js/spidermonkey/</URL></DD>
+      
+      <DT>Digital Mars DMD Script, console and MS Active Script implementation of ECMAScript</DT>
+      <DD><URL>http://www.digitalmars.com/dscript/</URL></DD>
+    </LIST>
+    
+    <LIST TITLE="Other ECMAScript Implementations" TYPE="DL" ID="nonBrowserResources">
+      <DT>Developing Dashboard Widgets: Apple Developer Connection</DT>
+      <DD><URL>http://developer.apple.com/macosx/dashboard.html</URL></DD>
+      
+      <DT>Whitebeam Apache Module: Server Side JavaScript in Apache</DT>
+      <DD><URL>http://www.whitebeam.org/</URL></DD>  
+    </LIST>
+  </CONTENT>
+  
+  <CONTENT TITLE="Javascript Libraries" ID="libraryResources"> 
+    <P>
+      No javascript libraries are endorsed by this group. If you want help 
+      with using a library, visit that library's discussion group instead.
+    </P> 
+  </CONTENT>
+</CONTENT>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="DOM and Forms" ID="domRef">
+  <CONTENT TITLE="How do I get the value of a form control?" 
+           ID="formControlAccess" NUMID="4_13">
+    <P>
+      In HTML documents, a form may be referred to as a property of the 
+      <ICODE>document.forms</ICODE> collection, either by its ordinal index or by name 
+      (if the <ICODE>form</ICODE> has a name). A <ICODE>form</ICODE>'s controls may be similarly referenced 
+      from its <ICODE>elements</ICODE> collection:
+    </P>
+    <CODE>
+var frm = document.forms[0];
+var control = frm.elements[&quot;elementname&quot;];
+    </CODE>
+    <P>
+      Once a reference to a control is obtained, its (string) <ICODE>value</ICODE> 
+      property can be read:-
+    </P>
+    <CODE>
+var value = control.value;
+value = +control.value; //string to number.
+    </CODE>
+    Some exceptions would be: 
+    <P>
+      First Exception: Where the control is a <ICODE>SELECT</ICODE> element, and 
+      support for older browsers, such as NN4, is required:
+    </P>
+    <CODE>
+var value = control.options[control.selectedIndex].value;
+    </CODE>
+    <P>
+      Second Exception: Where several controls share the same name,
+      such as radio buttons. These are made available as collections
+      and require additional handling. For more information, see:-
+    </P>
+    <MOREINFO>
+      <URL>notes/form-access/</URL>
+      <URL LINKTEXT="Unsafe Names for HTML Form Controls">names/</URL>
+    </MOREINFO>
+    <P>
+      Third Exception: File inputs. Most current browsers do not allow
+      reading of <ICODE>type="file"</ICODE> input elements in a way that is useful.
+    </P>
+  </CONTENT>
+  <CONTENT TITLE="My element is named myselect[], how do I access it?" ID="propertyAccess" NUMID="4_25">
+    <P>
+Form controls with any &quot;illegal&quot; characters can be accessed with
+<ICODE>formref.elements[&quot;myselect[]&quot;]</ICODE> - The bracket characters,
+amongst others, are illegal in ID attributes and javascript
+identifiers, so you should try to avoid them as browsers may
+handle them incorrectly.
+    </P>
+    <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/ms537449%28VS.85%29.aspx</URL>
+      <URL>https://developer.mozilla.org/en/DOM/form</URL>
+      <URL>notes/form-access/</URL>
+    </MOREINFO>
+  </CONTENT>  
+  <CONTENT TITLE="Why doesn't the global variable &quot;divId&quot; always refer to the element with id=&quot;divId&quot;?"
+           ID="globalPollution" NUMID="4_41">
+    <P>
+      Microsoft introduced a shortcut that can be used to reference
+      elements which include an <ICODE>id</ICODE> attribute where the 
+      <ICODE>id</ICODE> becomes a globally-accessible property. Some browsers reproduce 
+      this behavior. Some, most notably Gecko-based browsers (Netscape and Mozilla),
+      do so only in "quirks" mode. The best approach is the <ICODE>document.getElementById</ICODE>
+      method, which is part of the W3C DOM standard and implemented
+      in modern browsers (including IE from version 5.0). So an
+      element with <ICODE>id=&quot;foo&quot;</ICODE> can be referenced
+      with:-
+    </P>
+    <CODE>
+var el = document.getElementById(&quot;foo&quot;);
+    </CODE>
+    <P>
+      Note: make sure not to use the same <ICODE>id</ICODE> twice in the same document 
+      and do not give an element a <ICODE>name</ICODE> that matches an <ICODE>id</ICODE> 
+      of another in the same document or it will trigger bugs in MSIE &lt;= 7 with 
+      <ICODE>document.getElementsByName</ICODE> and <ICODE>document.getElementById</ICODE>.
+    </P>
+    <MOREINFO>
+      <URL>https://developer.mozilla.org/en/Using_Web_Standards_in_your_Web_Pages/Using_the_W3C_DOM#Accessing_Elements_with_the_W3C_DOM</URL>
+      <URL>faq_notes/faq_notes.html#FAQN4_41</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="How do I modify the content of the current page?"
+           ID="updateContent" NUMID="4_15">
+    <P>
+      Using the non-standard but widely implemented 
+      <ICODE>innerHTML</ICODE> property:
+      <ICODE>&lt;div id=&quot;anID&quot;&gt;Some Content&lt;/div&gt;</ICODE> with script:
+    </P>
+    <CODE>
+document.getElementById(&quot;anID&quot;).innerHTML = 
+  &quot;Some &lt;em&gt;new&lt;/em&gt; Content&quot;;
+    </CODE>
+    <P>
+      Where <ICODE>&quot;anID&quot;</ICODE> is the (unique on the HTML page) 
+      <ICODE>id</ICODE> attribute value of the element to modify.
+    </P>
+    <P>
+      All versions of Internet Explorer exhibit problems with innerHTML, including:
+    </P>
+    <LIST TYPE="UL">
+      <LI>Fails with FRAMESET, HEAD, HTML, STYLE, SELECT,
+          OBJECT, and all TABLE-related elements.</LI>
+      <LI>Replaces consecutive whitespace characters with a single space.</LI>
+      <LI>Changes attribute values and order of appearance.</LI>
+      <LI>Removes quotations around attribute values.</LI>
+    </LIST>
+    <P>
+      If the new content is only text and does not need to replace existing HTML, 
+      it is more efficient to modify the <ICODE>data</ICODE> property of a text node.
+    </P>
+    <CODE>
+document.getElementById(&quot;anID&quot;).firstChild.data = &quot;Some new Text&quot;;
+    </CODE>
+    <P>
+      Compatibility Note: Implementations have been known to split long text 
+      content among several adjacent text nodes, so replacing the data of the 
+      first text node may not replace all the element's text. The <ICODE>normalize</ICODE> 
+      method, where supported, will combine adjacent text nodes.
+    </P>
+    <P>
+      Note: Make sure the element exists in the document (has been parsed) before trying to 
+      reference it.
+    </P>
+    <MOREINFO>
+      <URL>http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-FF21A306</URL>
+      <URL>http://msdn.microsoft.com/en-us/library/cc304097%28VS.85%29.aspx</URL>
+      <URL>http://msdn.microsoft.com/en-us/library/ms533897%28VS.85%29.aspx</URL>
+      <URL>http://developer.mozilla.org/en/Whitespace_in_the_DOM</URL>
+      <URL>http://developer.mozilla.org/en/docs/DOM:element.innerHTML</URL>
+      <URL>http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#html-fragment-serialization-algorithm</URL> (draft)
+    </MOREINFO>
+  </CONTENT>
+
+  <CONTENT TITLE="Why does my code fail to access an element?" ID="accessElementBeforeDefined">
+    <P>
+      An element can only be accessed after it exists in the document. 
+    </P>
+    <P>
+      Either:
+      A) include your script after the HTML element it refers to, or
+      B) use the <ICODE>"load"</ICODE> event to trigger your script.
+    </P>
+    <P>
+      Example A:
+    </P>
+    <CODE>
+&lt;div id="snurgle"&gt;here&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+// Don't forget var.
+var snurgleEl = document.getElementById("snurgle");
+window.alert(snurgleEl.parentNode);
+&lt;/script&gt;
+    </CODE>
+    <P>
+      Example B:
+    </P>
+    <CODE>
+// In the HEAD.
+&lt;script type="text/javascript"&gt;
+window.onload = function(){
+  var snurgleEl = document.getElementById("snurgle");
+};
+&lt;/script&gt;
+    </CODE>
+
+    <LIST TYPE="UL" TITLE="Other problems can include:">
+      <LI>invalid HTML</LI>
+      <LI>two elements with the same <ICODE>name</ICODE> or <ICODE>id</ICODE></LI>
+      <LI>use of an unsafe name: http://jibbering.com/names/</LI>.
+    </LIST>
+  </CONTENT>
+  <CONTENT TITLE="How can I see in javascript if a web browser accepts cookies?" 
+           ID="testCookie" NUMID="4_4">
+    <P>
+      Write a cookie and read it back and check if it's the same.
+    </P>
+    <MOREINFO>
+      Additional Notes:
+      <URL>http://www.ietf.org/rfc/rfc2965.txt</URL>
+      <URL>http://www.galasoft-lb.ch/myjavascript/consulting/2001012701/</URL>
+      <URL>http://www.cookiecentral.com/</URL>
+    </MOREINFO>
+  </CONTENT>  
+</CONTENT>

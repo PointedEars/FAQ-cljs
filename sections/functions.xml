@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Functions" ID="functions">
+  <CONTENT TITLE="What is (function(){ /*...*/ })() ?" ID="scope">
+    <P>
+      This is an anonymous <DFN>FunctionExpression</DFN> that is called 
+      immediately after creation.
+    </P>
+    <P>
+      Variables declared inside a function are not accessible from
+      outside the function. This can be useful, for example, to hide
+      implementation details or to avoid polluting the global scope.
+    </P> 
+    <MOREINFO>
+      <URL>http://yura.thinkweb2.com/named-function-expressions/</URL>
+      <URL>notes/closures/</URL>
+      <URL>http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/#question-about-surrounding-parentheses</URL>
+    </MOREINFO>
+  </CONTENT>
+
+  <CONTENT TITLE="What is a function statement?" ID="functionStatement">
+    <P>
+      The term <DFN>function statement</DFN> has been widely and wrongly used to
+      describe a <ICODE>FunctionDeclaration</ICODE>. This is misleading because in ECMAScript, 
+      a <ICODE>FunctionDeclaration</ICODE> is not a <DFN>Statement</DFN>; there are places in a program 
+      where a <DFN>Statement</DFN> is permitted but a <ICODE>FunctionDeclaration</ICODE> is not. To add 
+      to this confusion, some implementations, notably Mozillas', provide a 
+      syntax extension called <DFN>function statement</DFN>. This is allowed under 
+      section 16 of ECMA-262, Editions 3 and 5.
+    </P>
+    <P>
+      Example of nonstandard <DFN>function statement</DFN>:
+    </P>
+    <CODE>
+// Nonstandard syntax, found in GMail source code. DO NOT USE.
+try {
+  // FunctionDeclaration not allowed in Block.
+  function Fze(b,a){return b.unselectable=a}
+  /*...*/
+} catch(e) { _DumpException(e) }
+    </CODE>
+    <P>
+      Code that uses <DFN>function statement</DFN> has three known interpretations. Some 
+      implementations process <ICODE>Fze</ICODE> as a <DFN>Statement</DFN>, in order. Others, including 
+      JScript, evaluate <ICODE>Fze</ICODE> upon entering the execution context that it 
+      appears in. Yet others, notably DMDScript and default configuration of BESEN, 
+      throw a <ICODE>SyntaxError</ICODE>.
+    </P>
+    <P>
+      For consistent behavior across implementations, <EM>do not use function
+      statement</EM>; use either <ICODE>FunctionExpression</ICODE> or <ICODE>FunctionDeclaration</ICODE> instead.
+    </P>
+    <P>
+      Example of <ICODE>FunctionExpression</ICODE> (valid):
+    </P>
+    <CODE>
+var Fze;
+try {
+  Fze = function(b,a){return b.unselectable=a};
+  /*...*/
+} catch(e) { _DumpException(e) }
+    </CODE>
+    Example of <ICODE>FunctionDeclaration</ICODE> (valid):
+    <CODE>
+// Program code
+function aa(b,a){return b.unselectable=a}
+    </CODE>
+<!--
+Notable examples of the misuse of the term "function statement"
+can be seen in David Flanagan's "JavaScript: The Definitive Guide",
+Douglas Crockford's "JavaScript: The Good Parts",  MDC documentation,
+JSLint error messages.
+-->
+    <MOREINFO>
+      <URL>example/functionStatement.html</URL>
+      <URL>https://mail.mozilla.org/pipermail/es-discuss/2008-February/005314.html</URL>
+      <URL>http://groups.google.com/group/comp.lang.javascript/msg/aa9a32d0c6ae0342</URL>
+      <URL>http://groups.google.com/group/comp.lang.javascript/msg/3987eac87ad27966</URL>
+      <URL>http://nanto.asablo.jp/blog/2005/12/10/172622</URL> (Article in Japanese)
+    </MOREINFO>
+  </CONTENT>
+</CONTENT>

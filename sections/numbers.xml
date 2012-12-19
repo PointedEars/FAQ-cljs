@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Numbers" ID="numbers"> 
+  <CONTENT TITLE="How do I format a Number as a String with exactly 2 decimal places?" ID="formatNumber" NUMID="4_6">
+    <P>
+      When formatting money for example, to format 6.57634 to 6.58, 6.7 to 
+      6.50, and 6 to 6.00?
+    </P>
+    <P>
+      Rounding of x.xx5 is unreliable, as most numbers are not represented 
+      exactly. See also: 
+      <URL LINKTEXT="Why does simple decimal arithmetic give strange results?">#binaryNumbers</URL>
+    </P>
+    <P>
+      The statement <ICODE>n = Math.round(n * 100)/100</ICODE> converts <ICODE>n</ICODE> to a <ICODE>Number</ICODE> value
+      close to a multiple of <ICODE>0.01</ICODE>. However, there are some problems.
+      Converting the number to a string <ICODE>(n + "")</ICODE>, does not give 
+      trailing zeroes. Rounding numbers that are very close to <ICODE>x.5</ICODE>, for example, 
+      <ICODE>Math.round(0.49999999999999992)</ICODE> results <ICODE>1</ICODE>.      
+    </P>
+    <P>
+      ECMA-262 3rd Edition introduced <ICODE>Number.prototype.toFixed</ICODE>. 
+      There are bugs in JScript 5.8 and below with certain numbers, for example 
+      <ICODE>0.007.toFixed(2)</ICODE> incorrectly results <ICODE>0.00</ICODE>.
+    </P>
+    <CODE>
+var numberToFixed = 
+(function() {
+  return toFixedString;
+  
+  function toFixedString(n, digits) {
+    var unsigned = toUnsignedString(Math.abs(n), digits);
+    return (n &lt; 0 ? "-" : "") + unsigned;
+  }
+  
+  function toUnsignedString(m, digits) {
+    var t, s = Math.round(m * Math.pow(10, digits)) + "",
+        start, end;
+    if (/\D/.test(s)) { 
+      return "" + m;
+    }
+    s = padLeft(s, 1 + digits, "0");
+    start = s.substring(0, t = (s.length - digits));
+    end = s.substring(t);
+    if(end) {
+      end = "." + end;
+    }
+    return start + end; // avoid "0."
+  }
+  /** 
+   * @param {string} input: input value converted to string.
+   * @param {number} size: desired length of output.
+   * @param {string} ch: single character to prefix to s.
+   */
+  function padLeft(input, size, ch) {
+    var s = input + "";
+    while(s.length &lt; size) {
+      s = ch + s;
+    }
+    return s;
+  }
+})();
+
+// Test results 
+document.writeln([
+  "numberToFixed(9e-3, 12) =&gt; " + numberToFixed(9e-3, 12),
+  "numberToFixed(1.255, 2) =&gt; " + numberToFixed(1.255, 2),
+  "numberToFixed(1.355, 2) =&gt; " + numberToFixed(1.355, 2),
+  "numberToFixed(0.1255, 3) =&gt; " + numberToFixed(0.1255, 3),
+  "numberToFixed(0.07, 2)   =&gt; " + numberToFixed(0.07, 2),
+  "numberToFixed(0.0000000006, 1) =&gt; " + numberToFixed(0.0000000006, 1),
+  "numberToFixed(0.0000000006, 0) =&gt; " + numberToFixed(0.0000000006, 0)
+].join("\n"));
+    </CODE>
+    <MOREINFO>
+      <URL>http://www.merlyn.demon.co.uk/js-round.htm</URL>
+      <URL>http://msdn.microsoft.com/en-us/library/sstyff0z%28VS.85%29.aspx</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="Why does simple decimal arithmetic give strange results?" ID="binaryNumbers" NUMID="4_7">
+    <P>
+      For example, <ICODE>5 * 1.015</ICODE> does not give exactly 
+      <ICODE>5.075</ICODE> and <ICODE>0.06+0.01</ICODE> does 
+      not give exactly <ICODE>0.07</ICODE> in javascript. 
+    </P>
+    <P>
+      ECMAScript numbers are represented in binary as IEEE-754 (IEC 559)
+      Doubles, with a resolution of 53 bits, giving an accuracy of
+      15-16 decimal digits; integers up to just over <ICODE>9e15</ICODE> are 
+      precise, but few decimal fractions are.  Given this, arithmetic 
+      is as exact as possible, but no more.  Operations on integers 
+      are exact if the true result and all intermediates are integers 
+      within that range.
+    </P>
+    <P>
+      In particular, non-integer results should not normally be
+      compared for equality; and non-integer computed results
+      commonly need rounding; see <URL 
+      LINKTEXT="How do I format a Number as a String with exactly 2 decimal places?"
+      >#formatNumber</URL>
+    </P>
+    <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/7wkd9z69%28VS.85%29.aspx</URL>
+      <URL>http://www.merlyn.demon.co.uk/js-misc0.htm#DW4</URL>
+    </MOREINFO>
+    <P>
+      Otherwise, use <ICODE>Math.round</ICODE> on the results of expressions which 
+      should be of integer value.
+    </P>
+  </CONTENT>
+  <CONTENT TITLE="Why does K = parseInt('09') set K to 0?" ID="parseIntBase" NUMID="4_12">
+    <P>
+      Method <ICODE>parseInt</ICODE> generally needs a second parameter, <ICODE>radix</ICODE>, 
+      for the base (from 2 to 36).
+    </P>
+    <P>
+      If <ICODE>radix</ICODE> is omitted, the base is determined by the contents of 
+      the string. Any string beginning with <ICODE>'0x'</ICODE> or <ICODE>'0X'</ICODE> represents a 
+      hexadecimal number. A string beginning with a leading 0 may be parsed as 
+      octal (as if <ICODE>raxix</ICODE> were 8), in ECMA-262 Ed 3 (octal digits are <ICODE>0-7</ICODE>). 
+      If string <ICODE>'09'</ICODE> is converted to <ICODE>0</ICODE>. 
+    </P>
+    <P>
+      To force use of a particular base, use the <ICODE>radix</ICODE> 
+      parameter: <ICODE>parseInt("09", base)</ICODE>. 
+     
+     <!-- [omit]  
+     If base 10 is desired,
+     the unary <ICODE>+</ICODE> operator can be an option. Example:
+    <ICODE>
+var s = '-09.1'; // Input string.
+var j = +s;     // Convert to number. Result: -9.1
+var n = j|0;    // Chop off decimal (convert ToInt32). Result: -9
+</ICODE> 
+    [/omit] -->
+    </P>
+    <MOREINFO>
+      <URL>http://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Functions/parseInt</URL>
+      <URL>http://msdn.microsoft.com/en-us/library/x53yedee%28VS.85%29.aspx</URL>
+      <URL>http://docs.sun.com/source/816-6408-10/toplev.htm#1064173</URL>
+      <URL>notes/type-conversion/#tcPrIntRx</URL>
+    </MOREINFO>
+  </CONTENT> 
+  <CONTENT TITLE="Why does 1+1 equal 11? or How do I convert a string to a number?" ID="typeConvert">
+    <P>
+      Variables are not typed; their values are. The conversion between a
+      string and a number happens automatically. 
+    </P>
+    <P>
+      The addition operator (<ICODE>+</ICODE>) performs concatenation if either operand is a 
+      string, thus <ICODE>"1" + 1</ICODE> results <ICODE>"11"</ICODE>. To perform addition, you might need 
+      to first convert the string to a number. For example <ICODE>+varname</ICODE> or 
+      <ICODE>Number(varname)</ICODE> or <ICODE>parseInt(varname, 10)</ICODE> or 
+      <ICODE>parseFloat(varname)</ICODE>. Form control values are strings, as is the result 
+      from a <ICODE>prompt</ICODE> dialog. Convert these to numbers before performing 
+      addition: <ICODE>+'1' + 1</ICODE> results <ICODE>2</ICODE>.
+    </P>
+    <MOREINFO>
+      <URL LINKTEXT="Additional Notes">notes/type-conversion/</URL>
+      <URL>http://msdn.microsoft.com/en-us/library/67defydd%28VS.85%29.aspx</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="How do I generate a random integer from 1 to n?" ID="randomNumber" NUMID="4_22">
+    <P>
+      <ICODE>Math.random()</ICODE> returns a value <ICODE>R</ICODE> such that <ICODE>0 &lt;= R &lt; 1.0</ICODE>; therefore:
+    </P>
+    <CODE>
+// positive integer expected
+function getRandomNumber(n) { 
+  return Math.floor(n * Math.random());
+}
+    </CODE>
+    - gives an evenly distributed random integer in the range from 
+    <ICODE>0</ICODE> to <ICODE>n - 1</ICODE> inclusive; use <ICODE>getRandomNumber(n)+1</ICODE> for <ICODE>1</ICODE> to <ICODE>n</ICODE>.
+    <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/41336409%28VS.85%29.aspx</URL>
+      <URL>http://docs.sun.com/source/816-6408-10/math.htm</URL>
+      How to Deal and Shuffle, see in: <URL>http://www.merlyn.demon.co.uk/js-randm.htm</URL>
+    </MOREINFO>
+  </CONTENT>
+</CONTENT>

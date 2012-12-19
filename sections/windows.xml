@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Windows and Frames" ID="windows">
+  <P>
+    The <ICODE>window</ICODE> object (also referred to by <ICODE>self</ICODE>) is "DOM Level 0". 
+    No formal standard for it exists. 
+  </P>
+  <CONTENT TITLE="How can I disable the back button in a web browser?" ID="disableBackButton" NUMID="4_2">
+    <P>
+      You can't. The browser's history cannot be modified. However, you
+      can use <ICODE>self.location.replace(url);</ICODE> in some browsers to replace
+      the current page in the history.
+    </P>
+    <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/ms536712%28VS.85%29.aspx</URL>
+      <URL>http://docs.sun.com/source/816-6408-10/location.htm#1194240</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="How do I access a frame's content?" 
+           ID="frameRef" NUMID="4_8">
+    <P>
+      To reference another frame on the <EM>same domain</EM>:
+    </P>
+    <P>
+      The <DFN>content window</DFN> of a <ICODE>FRAME</ICODE> or <ICODE>IFRAME</ICODE> can be 
+      accessed by the <ICODE>frames</ICODE> collection.
+    </P>
+    <P>
+      Example:
+    </P>
+    <CODE>
+var fwin;
+fwin = self.frames[0]; // or:
+fwin = self.frames["iframeName"];
+    </CODE>
+    <P>or, from the <ICODE>IFRAME</ICODE> or <ICODE>FRAME</ICODE> element:</P>
+    <CODE>
+var iframeEl = document.getElementById("myFrame");
+var fwin = iframeEl.contentWindow; // Nonstandard, but widely supported.
+var fdoc = iframeEl.contentDocument; // DOM2 HTML Standard.
+    </CODE>
+    <P>
+      A global identifier <ICODE>moomin</ICODE> in the the iframe's <DFN>content window</DFN>
+      is accessed as <ICODE>fwin.moomin</ICODE>.
+    </P>
+    <P>
+      To communicate between frames on <EM>different</EM> domains:
+    </P>
+    <P>
+      Where supported, (IE8, Firefox 3, Opera 9, Safari 4), use
+      <ICODE>window.postMessage( message[, port], otherDomain);</ICODE>.
+    </P>
+    <P>
+      Example: 
+      <URL>http://jibbering.com/faq/example/postMessage.html</URL> 
+    </P>
+    <P>
+      Where <ICODE>window.postMessage</ICODE> is not supported, the <ICODE>window.name</ICODE> property 
+      can be set on the other window, which can poll for updates to that 
+      property using <ICODE>setInterval(checkWinName, 100);</ICODE> where <ICODE>checkWinName</ICODE> 
+      is a function that polls to check the value of 
+      <ICODE>self.name</ICODE>.
+    </P>
+    <MOREINFO>
+      <URL>http://en.wikipedia.org/wiki/Same_origin_policy</URL>
+      <URL>http://www-archive.mozilla.org/docs/dom/domref/dom_frame_ref5.html</URL>
+      <URL>https://developer.mozilla.org/en/DOM/window.postMessage</URL>
+      <URL>http://msdn.microsoft.com/en-us/library/cc197015(VS.85).aspx</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="How do I find the size of the window?" ID="getWindowSize" 
+           NUMID="4_9">
+    <P>
+      Here is a detailed explanation of a cross-browser strategy to 
+      find the dimensions of the viewport, excepting all chrome 
+      (excludes scrollbars, etc).
+    </P>
+    <P>
+      We can consider various properties:
+    </P>
+    <CODE>
+window.innerWidth
+document.clientWidth
+document.documentElement.clientWidth
+document.body.clientWidth
+    </CODE>
+    <P>
+      Of the browsers that have an <ICODE>innerWidth</ICODE> property, most 
+      include scrollbar dimensions. Some versions of KHTML browsers 
+      (including Safari 2) do <EM>not</EM> include scrollbar width.  
+    </P>
+
+    <P>
+      The <ICODE>window.inner*</ICODE> properties are unreliable and not 
+      useful here. We don't want scrollbar dimensions included.
+    </P>
+<CODE>  document.clientWidth</CODE>
+    <P>
+      Certain versions of KHTML, including Safari 2, have 
+      <ICODE>document.clientHeight</ICODE> and <ICODE>document.clientWidth</ICODE>
+      properties. Where supported, these rare properties accurately 
+      return the height and width of the viewport, without including 
+      scrollbar dimensions.
+    </P>
+    <CODE>
+document.documentElement.clientWidth
+document.body.clientWidth
+    </CODE>
+    <P>
+      MSHTML (Trident), Firefox (Gecko), Opera (Presto), and Safari 
+      (Webkit) all support <ICODE>clientHeight</ICODE> on <ICODE>document.body</ICODE> 
+      and <ICODE>document.documentElement</ICODE>. The difficulty is figuring out 
+      which one is reliable. In other words which object to get the 
+      <ICODE>clientHeight</ICODE> property from:<ICODE>documentElement</ICODE> or <ICODE>body</ICODE>? 
+    </P>
+
+    <P>
+      What the number returned from either of these properties 
+      represents depends on the environment. The environment includes 
+      the browser, its version, and the rendering mode of the document. 
+      In quirks mode, we'll mostly want to use <ICODE>body.clientHeight</ICODE> 
+      (except for in Safari 2).
+    </P>
+    <CODE>document.body.clientHeight</CODE>
+    <P>    
+      Some environments will return the viewport height. Others will 
+      return <ICODE>0</ICODE>. Yet others will return the <ICODE>clientHeight</ICODE> of 
+      the <ICODE>BODY</ICODE> element.
+    </P>
+    <CODE>  document.documentElement.clientHeight</CODE>
+    <P>
+      This is the more "standard" property for getting the height of 
+      the viewport. It usually "works" in modern browsers in 
+      <DFN>standards mode</DFN>. Notable exceptions include Safari 2 and 
+      Opera  &lt;= 9.25, both of which return the <ICODE>clientHeight</ICODE> 
+      of the <ICODE>html</ICODE> <EM>element</EM>. (Oddly, Opera &lt;= 9.25 
+      in standards mode returns the width of the viewport for 
+      <ICODE>documentElement.clientWidth</ICODE>). 
+    </P>
+    <P>
+      With the exception of Safari 2, <ICODE>body.clientHeight</ICODE> is reliable 
+      where <ICODE>documentElement.clientHeight</ICODE> is found to be unreliable. 
+      For example, in Safari 3+, Opera, and Mozilla, all in quirks mode, 
+      <ICODE>document.documentElement.clientHeight</ICODE> returns the <ICODE>clientHeight</ICODE> 
+      of the <ICODE>html</ICODE> element (this may seem unsurprising but 
+      it is not what we want).
+    </P>
+    <P>
+      Conversely, <ICODE>document.body.clientHeight</ICODE> will return 
+      the height of the viewport in most cases where 
+      <ICODE>document.documentElement.clientHeight</ICODE> does not. An exception
+      to that is Safari 2, where <ICODE>documentElement.clientHeight</ICODE>
+      and <ICODE>body.clientHeight</ICODE> both return the height of their 
+      corresponding element (not what we want).
+    </P>
+    <P>
+      By using a combination of <DFN>Feature Testing</DFN> and <DFN>Capability Testing</DFN>, 
+      the dimensions of the viewport can be strategically retrieved 
+      from  the property that works in the environment the script is 
+      running in. The trick is determining which property will give us 
+      the value we want.
+    </P>
+    <P>
+      Since <ICODE>document.clientHeight</ICODE> is reliable where 
+      (rarely) supported, and since browsers that support this property 
+      don't return the viewport dimensions from 
+      <ICODE>document.body.clientHeight</ICODE> or 
+      <ICODE>document.documentElement.clientHeight</ICODE>, this should be the 
+      very first condition:
+    </P>
+    <CODE>
+// Safari 2 uses document.clientWidth (default).
+if(typeof document.clientWidth == "number") {
+   // use document.clientWidth.
+}
+    </CODE>
+    <P>
+      The next strategy is to determine if 
+      <ICODE>document.documentElement.clientHeight</ICODE> property is unreliable. 
+      It is deemed "unreliable" when it is either <ICODE>0</ICODE> or taller 
+      than the viewport.
+    </P>
+    <P>
+       Determining if <ICODE>documentElement.clientHeight</ICODE> is <ICODE>0</ICODE> is easy. 
+       The result is stored in a variable <ICODE>IS_BODY_ACTING_ROOT</ICODE>.
+    </P>
+    <CODE>
+var docEl = document.documentElement,
+  IS_BODY_ACTING_ROOT = docEl &amp;&amp; docEl.clientHeight === 0;
+docEl = null; 
+    </CODE>
+    <P>
+      To determine if <ICODE>documentElement.clientHeight</ICODE> returns 
+      a value taller than the viewport, we need a <DFN>Capability Test.</DFN>
+    </P>
+    <P>
+      If we can force <ICODE>documentElement</ICODE> to be very tall 
+      (taller than a normal viewport) we can then check to see if 
+      <ICODE>documentElement.clientHeight</ICODE> returns that "very tall" number. 
+      If it does, then it is unreliable.
+    </P>
+    <P>
+      We can force <ICODE>documentElement</ICODE> to be taller than the viewport 
+      (or any "normal" viewport) by adding a <ICODE>div</ICODE> to the <ICODE>body</ICODE>,
+      give that <ICODE>div</ICODE> a height larger than any normal monitor, 
+      and then check to see if <ICODE>documentElement.clientHeight</ICODE> is 
+      that high (or "almost" that high, to account for <ICODE>documentElement</ICODE> 
+      having a border).
+    </P>
+    <CODE>
+// Used to feature test Opera returning wrong values 
+// for documentElement.clientHeight. 
+// The results of this function should be cached, 
+// so it does not need to be called more than once.
+function isDocumentElementHeightOff(){ 
+    var d = document,
+        div = d.createElement('div');
+    div.style.height = "2500px";
+    d.body.insertBefore(div, d.body.firstChild);
+    var r = d.documentElement.clientHeight &gt; 2400;
+    d.body.removeChild(div);
+    return r;
+}
+    </CODE>
+    <P>
+      We can use this function to see if we should use 
+      <ICODE>body.clientHeight</ICODE>, instead. (but only after checking if 
+      <ICODE>document.clientHeight</ICODE> is supported).
+    </P>
+    <CODE>
+// Safari 2 uses document.clientWidth (default).
+if(typeof document.clientWidth == "number") {
+   // use document.clientHeight/Width.
+}
+else if(IS_BODY_ACTING_ROOT || isDocumentElementHeightOff()) {
+    // use document.body.clientHeight/Width.
+} else {
+    // use document.documentElement.clientHeight/Width.
+}
+    </CODE>
+    <P>
+      The preceding strategy was developed by Garrett Smith with input 
+      from John David Dalton. A complete and tested example can be found 
+      in APE Library under <ICODE>APE.dom.getViewportDimensions</ICODE>. 
+      Source code:
+      <URL>http://dhtmlkitchen.com/ape/build/dom/viewport-f.js</URL>.
+      APE is publicly released under Academic Free License. 
+      APE home: <URL>http://dhtmlkitchen.com/ape/</URL>.
+    </P>    
+    <P>
+      Note: The dimensions cannot be determined accurately until after 
+      the document has finished loading.
+    </P> 
+    <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/ms533566%28VS.85%29.aspx</URL>
+      <URL>http://developer.mozilla.org/en/DOM/window.innerWidth</URL>
+      <URL>http://dev.opera.com/articles/view/using-capability-detection/</URL>
+    </MOREINFO>
+  </CONTENT>
+   
+  <CONTENT TITLE="How do I check to see if a child window is open, before opening another?" 
+           ID="isWindowOpen" NUMID="4_10">
+    <CODE>
+var myWin;
+function openWin(aURL) {
+  if (!myWin || myWin.closed ) {
+    myWin = window.open(aURL,'myWin');
+  } else {
+    myWin.location.href = aURL;
+    myWin.focus();
+  }
+}
+    </CODE>
+    <P>
+      Popup windows cause usability problems and are generally best avoided.
+    </P> 
+    <MOREINFO>
+      <URL>https://developer.mozilla.org/en/DOM:window.open</URL>
+      <URL>http://msdn.microsoft.com/en-us/library/ms533574%28VS.85%29.aspx</URL>
+      <URL>http://docs.sun.com/source/816-6408-10/window.htm#1201877</URL>
+      <URL>http://www.useit.com/alertbox/990530.html</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="Why does framename.print() not print the correct frame in IE?" 
+           ID="printFrame" NUMID="4_11">
+    <P>
+      IE prints the frame that has focus when you call the print
+      method <ICODE>frameref.focus();frameref.print();</ICODE>
+    </P>
+    <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/ms976105.aspx</URL>
+    </MOREINFO>
+  </CONTENT>
+
+  <CONTENT TITLE="How do I close a window and why does it not work on the first one?" 
+           ID="windowClose" NUMID="4_14">
+    <P>
+      If a window was opened by javascript, then it can be closed
+      without confirmation by using <ICODE>windowRef.close()</ICODE>. 
+    </P>
+    <P>
+      Before calling <ICODE>windowRef.close()</ICODE> (or other <ICODE>window</ICODE> methods), make
+      sure the window reference is not null and its <ICODE>closed</ICODE> property is <ICODE>false</ICODE>. 
+    </P>
+    <P>
+      Popup windows cause usability problems and are generally best avoided.
+    </P>
+    <MOREINFO>
+      <URL>http://www.useit.com/alertbox/990530.html</URL>
+      <URL>#isWindowOpen</URL>
+      <URL>http://msdn.microsoft.com/en-us/library/ms536367%28VS.85%29.aspx</URL>
+      <URL>https://developer.mozilla.org/en/DOM/window.close#Description</URL>
+      <URL>http://docs.sun.com/source/816-6408-10/window.htm#1201822</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="Why do I get permission denied when accessing a frame/window?" 
+           ID="permissionDenied" NUMID="4_19">
+    <P>
+      In the normal browser security model, a script may only access the 
+      properties of documents served from the same domain or IP address, 
+      protocol, and port. 
+    </P>
+    <P>
+      Any attempt to access a property in such cases will result in a &quot;Permission
+      Denied&quot; error. Signed scripts or trusted ActiveX objects can
+      overcome this in limited situations.
+    </P>
+    <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/ms533028%28VS.85%29.aspx</URL>
+      <URL>https://developer.mozilla.org/En/Same_origin_policy_for_JavaScript</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="How do I make a 10 second delay?" ID="setTimeout" NUMID="4_20">
+    <P>
+      There is no built-in way to pause execution in javascript such
+      as a sleep function, but hosts usually provide a method of some
+      form. Web browsers are designed for event driven programming and
+      only provide the <ICODE>setTimeout</ICODE> and <ICODE>setInterval</ICODE> functions
+      to facilitate timed delays. The delay before calling <ICODE>getSnork</ICODE> may
+      exceed the second parameter to <ICODE>setTimeout</ICODE> and <ICODE>setInterval</ICODE>
+      due to implementation differences among browsers.
+    </P>
+    <P>
+      To call the function <ICODE>getSnork</ICODE>, approximately 10 seconds
+      after the function <ICODE>getMoomin()</ICODE> completes, you would do this:
+    </P>
+    <CODE>
+getMoomin();
+setTimeout(getSnork, 10000); 
+    </CODE>
+    <P>
+      Script execution is not stopped, and adding <ICODE>getSnufkin()</ICODE> after the
+      <ICODE>setTimeout</ICODE> line would immediately execute the function <ICODE>getSnufkin</ICODE>
+      before <ICODE>getSnork</ICODE>.
+    </P>
+    <P>
+      Achieving delays through running a loop of some sort for a pre-defined 
+      period is a bad strategy, as that will inhibit whatever was supposed to 
+      be happening during the delay, including blocking user interation.
+    </P>
+    <P>
+      Other (less event driven) hosts have different wait functions,
+      such as <ICODE>WScript.Sleep()</ICODE> in the Windows Script Host.
+    </P>
+    <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/ms536753%28VS.85%29.aspx</URL>
+      <URL>http://docs.sun.com/source/816-6408-10/window.htm#1203758</URL>
+      <URL>http://en.wikipedia.org/wiki/Event-driven_programming</URL>
+      <URL>faq_notes/misc.html#mtSetTI</URL>
+    </MOREINFO>
+   </CONTENT>
+
+  <CONTENT TITLE="How do I change print settings for window.print()?" 
+           ID="printSettings" NUMID="4_23">
+    <P>
+      In a normal security environment, you can't change anything.  
+    </P>
+    <P>
+      Print Stylesheet rules provide options. 
+    </P>
+    <P>
+      For IE, <ICODE>ActiveX</ICODE> or Plugin ScriptX and
+      Neptune from Meadroid to give you more control for Windows
+      versions of Internet Explorer, Netscape, and Opera.
+    </P>
+    <MOREINFO>
+      <URL>http://www.meadroid.com/scriptx/</URL>
+      <URL>http://msdn.microsoft.com/en-us/library/ms976105.aspx</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="How do I change the confirm box to say yes/no or default to cancel?" 
+            ID="changeBrowserDialog" NUMID="4_28">
+    <P>
+      The buttons on a confirm box cannot be changed, nor can a default
+      button be specified. 
+    </P>
+    <P>
+      Change the question to a statement so that "OK" is suitable as the
+      default response.
+    </P>
+    <P>
+      Example:
+      "Would you like us to charge your credit card?" (wrong)
+      "We will now charge your credit card." (right). 
+    </P>
+  </CONTENT>
+  <CONTENT TITLE="How do I prompt a &quot;Save As&quot; dialog for an accepted mime type?"
+           ID="fileDownload" NUMID="4_33">
+    <P>
+      It is not possible with client-side javascript.
+    </P>
+    <P>
+      Some browsers accept the Content-Disposition header, but this 
+      must be added by the server. Taking the form:-
+      <ICODE>Content-Disposition: attachment; filename=filename.ext</ICODE>
+    </P>
+    <MOREINFO>
+      <URL>http://classicasp.aspfaq.com/general/how-do-i-prompt-a-save-as-dialog-for-an-accepted-mime-type.html</URL>
+      <URL>http://support.microsoft.com/kb/q260519/</URL>
+    </MOREINFO>
+  </CONTENT>
+   <!-- Can we remove this entry? 
+   http://groups.google.com/group/comp.lang.javascript/msg/c70b57d86300fa91
+   
+   CONTENT TITLE="I have window.status=&quot;Moomin&quot;; why doesn't the statusbar change?"
+    ID="returnValue" NUMID="4_35">
+    <P>
+When changing the status in an event (e.g. <ICODE>onmouseover</ICODE>) you
+should return true from the event.  Also a number of browsers
+require a short delay before setting the status to overcome their
+default behaviour with the statusbar. 
+<ICODE>onevent=&quot;setTimeout('window.status=\'Moomin\'',15);&quot;</ICODE>
+    </P>
+    <P>
+Many browsers are configured, by default, to disallow scripts from setting
+the status bar text. Some browsers don't have such a bar, or don't have it by default.
+    </P>
+   </CONTENT-->
+   
+  <CONTENT TITLE="How do I modify the current browser window?" ID="modifyChrome" NUMID="4_36">
+    <P>
+      In a default security environment you are very limited in how much
+      you can modify the current browser window.  You can use
+      <ICODE>window.resizeTo</ICODE> or <ICODE>window.moveTo</ICODE> to resize or move a
+      window respectively, but that is it.  Normally you can only
+      suggest chrome changes in a <ICODE>window.open</ICODE>.
+    </P>
+    <MOREINFO>
+      <URL>http://msdn.microsoft.com/en-us/library/ms536651%28VS.85%29.aspx</URL>
+      <URL>https://developer.mozilla.org/en/DOM:window.open</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="How do I POST a form to a new window?" ID="target" NUMID="4_37">
+    <P>
+      Use the target attribute on the form, opening a window with
+      that name and your feature string in the onsubmit handler of the
+      FORM.
+    </P>
+    <CODE>
+&lt;form action=&quot;&quot; method="post"
+    target=&quot;wndname&quot; onsubmit=&quot;window.open('',this.target);return true;&quot;&gt;
+    </CODE>
+    <MOREINFO>
+      <URL>http://www.htmlhelp.com/reference/html40/forms/form.html</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="How do I open a new window with javascript?" ID="openWindow" NUMID="4_42">
+    <P>
+      New windows can be opened on browsers that support the
+      <ICODE>window.open</ICODE> function and are not subject to the action of any
+      pop-up blocking mechanism with code such as:-
+    </P>
+    <CODE>
+var wRef;
+if(window.open){
+  wRef = window.open("http://example.com/page.html","windowName");
+}
+    </CODE>
+    <MOREINFO>
+      <URL>https://developer.mozilla.org/en/DOM:window.open</URL>
+      <URL>http://www.infimum.dk/HTML/JSwindows.html</URL>
+    </MOREINFO>
+  </CONTENT>
+</CONTENT>

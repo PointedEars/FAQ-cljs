@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Debugging" ID="debugging">
+     <CONTENT TITLE="How do I get my browser to report javascript errors?" 
+     ID="javascriptErrors" NUMID="4_43">
+     <P>
+There are debugging tools for many browsers. Learn to use them all.
+     </P>
+   <LIST TYPE="DL">
+     <DT>Windows</DT>
+     <DD>
+<URL LINKTEXT="Fiddler">http://www.fiddlertool.com/fiddler/</URL>. 
+Fiddler is an HTTP Debugging proxy (it won't find script 
+errors). Fiddler logs HTTP activity, like Firebug's Net 
+tab, but can be attached to any browser running on Windows. 
+     </DD>
+     <DT>Windows IE</DT>
+     <DD>Microsoft Script Editor. Included with Visual Studio or Microsoft 
+Word 2003 (discontinued in Office 2007).
+To enable,
+<ICODE>Tools</ICODE>, <ICODE>Internet Options</ICODE>, <ICODE>Advanced</ICODE>, and uncheck 
+<ICODE>Disable Script Debugging</ICODE>. After enabling Script Debugging, 
+a <ICODE>Script Debugger</ICODE> option will appear in the <ICODE>View</ICODE> menu.</DD>
+
+<DD><URL LINKTEXT="IETester">http://www.my-debugbar.com/wiki/IETester/HomePage</URL> for testing IE 5.5- IE8.</DD>
+<DD><URL LINKTEXT="CompanionJS">http://www.my-debugbar.com/wiki/CompanionJS/HomePage</URL> <ICODE>console</ICODE> for IE.</DD>
+     <DD>
+<EM>Note:</EM> For debugging scripts in IE, the Microsoft Script <EM>Editor</EM> 
+is recommended. However, if not available, the <URL LINKTEXT="Microsoft Script Debugger"
+>http://www.microsoft.com/downloads/details.aspx?FamilyId=2F465BE0-94FD-4569-B3C4-DFFDF19CCD99&amp;displaylang=en</URL> may be somewhat helpful.
+     </DD>
+     <DD>
+<URL LINKTEXT="Internet Explorer Developer Toolbar"
+   >http://www.microsoft.com/downloads/details.aspx?FamilyID=e59c3964-672d-4511-bb3e-2d5e1db91038&amp;displaylang=en</URL>
+     </DD>
+     <DD>
+To report errors: Wait until a little yellow
+triangle appears at the left end of the status bar, double click
+on it and, when the error dialog box appears, check the &quot;Always
+show errors&quot; checkbox it contains. 
+
+Or, <ICODE>Internet Options</ICODE>, <ICODE>Advanced</ICODE>, deselect <ICODE>"Disable Script Debugging"</ICODE>,
+select <ICODE>"Display a notification ..."</ICODE>.
+     </DD>
+     <DT>Firefox</DT>
+     <DD>
+     <ICODE>Tools &gt; Error console</ICODE> (<ICODE>Ctrl</ICODE> + <ICODE>Shift</ICODE> + <ICODE>j</ICODE>).
+     </DD>
+     <DD>
+<URL LINKTEXT="Firebug">http://getfirebug.com/</URL>
+     </DD>
+     <DD>
+<URL LINKTEXT="YSlow">https://addons.mozilla.org/en-US/firefox/addon/5369</URL>. 
+YSlow analyzes web pages and tells you why they're slow 
+based on Yahoo's rules for high performance web sites. 
+     </DD>
+     <DD>
+<URL LINKTEXT="Lori">https://addons.mozilla.org/en-US/firefox/addon/1743</URL> 
+<DFN>Lori</DFN> or Life-of-request info, is useful for troubleshooting 
+server response and page load time. 
+     </DD>
+     <DD>
+<URL LINKTEXT="Web Developer Toolbar">https://addons.mozilla.org/en-US/firefox/addon/60</URL>.
+     </DD>
+     <DD>
+<URL LINKTEXT="Cookie Watcher">https://addons.mozilla.org/en-US/firefox/addon/1201</URL>.
+     </DD>
+     <DD>
+<URL LINKTEXT="XPather">https://addons.mozilla.org/en-US/firefox/addon/1192</URL>. 
+XPath generator, editor and inspector. 
+     </DD>
+     <DT>Opera</DT>    
+     <DD>
+Tools &gt; Advanced &gt; Error console
+     </DD>
+     <DD>
+<URL LINKTEXT="Introduction to Opera Dragonfly"
+       >http://dev.opera.com/articles/view/introduction-to-opera-dragonfly/</URL>
+     </DD>
+     <DT>Safari</DT>
+     <DD>
+To display the <ICODE>Develop</ICODE> menu in Safari 3.1 or higher, select 
+the checkbox labeled "Show Develop menu in menu bar" in 
+Safari's <ICODE>Advanced</ICODE> Preferences panel.
+     </DD>
+     <DD>
+<URL LINKTEXT="Safari Web Inspector">http://trac.webkit.org/wiki/Web%20Inspector </URL>
+     </DD>
+     <DT>Chrome</DT>
+     <DD>
+JavaScript Console: click the <ICODE>Page</ICODE> menu icon and select 
+<ICODE>Developer &gt; JavaScript Console</ICODE>. From here, you'll be 
+able to view errors in the JavaScript execution, and enter 
+additional javascript commands to execute.
+     </DD>
+     <DD>
+JavaScript Debugger: available as <ICODE>Page</ICODE> menu icon &gt; <ICODE>Developer</ICODE> 
+&gt; Debug JavaScript, the debugger provides a command prompt from which you 
+can set breakpoints, backtrace, and more. Type <ICODE>help</ICODE> at the debugger 
+command line to get started.    
+     </DD>
+     <DD>
+      <UL>
+        <LI><URL LINKTEXT="Google Chrome Script Debugging"
+        >http://www.google.com/chrome/intl/en/webmasters-faq.html#jsexec</URL></LI>
+        <LI><URL LINKTEXT="Developer Tools for Google Chrome"
+        >http://blog.chromium.org/2009/06/developer-tools-for-google-chrome.html</URL></LI>
+        <LI><URL LINKTEXT="Tools for Eclipse Users">http://blog.chromium.org/2009/08/google-chrome-developer-tools-for.html</URL></LI>
+        </UL>
+     </DD>
+     <DT>Mac IE</DT>
+     <DD>
+Use the Preferences dialog.
+     </DD>
+    </LIST>
+   </CONTENT>
+  </CONTENT>

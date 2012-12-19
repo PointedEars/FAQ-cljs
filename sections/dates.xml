@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Dates" ID="dates"> 
+  <P>
+    ISO 8601 defines date and time formats. Some benefits include:
+  </P>
+  <LIST TYPE="UL">
+    <LI>language-independent and unambiguous world-wide</LI>
+    <LI>sortable with a trivial string comparison</LI>
+    <LI>easily readable and writable by software</LI>
+    <LI>compatible with standards ISO 9075 and <URL LINKTEXT="rfc 3339">http://www.ietf.org/rfc/rfc3339.txt</URL></LI>
+  </LIST>
+  <P>
+    The ISO Extended format for common date is <ICODE>YYYY-MM-DD</ICODE>, and for time is
+    <ICODE>hh:mm:ss</ICODE>.
+  </P>
+  <P>
+    For an event with an offset from UTC, use <ICODE>YYYY-MM-DDThh:mm:ss&#177;hh:mm</ICODE>.
+  </P>
+  <P>
+    Never use a local date/time format for a non-local event. Instead, use
+    UTC, as in <ICODE>YYYY-MM-DDThh:mm:ssZ</ICODE> (<ICODE>Z</ICODE> is the only letter suffix).
+  </P>
+  <P>
+    The <ICODE>T</ICODE> can be omitted where that would not cause ambiguity. For
+    rfc 3339 compliance, it may be replaced by a space and for SQL,
+    it <EM>must</EM> be replaced by a single space. 
+  </P>
+  <P>
+    Year <ICODE>0000</ICODE> is unrecognized by some formats (XML Schema, <ICODE>xs:date</ICODE>).
+  </P>   
+  <MOREINFO>
+    <URL LINKTEXT="ECMA-262 Date.prototype, s. 15.9">#onlineResources</URL>
+    <URL LINKTEXT="A summary of the international standard date and time notation, by Markus Kuhn"
+         >http://www.cl.cam.ac.uk/~mgk25/iso-time.html</URL>
+    <URL>http://en.wikipedia.org/wiki/ISO_8601</URL>
+    <URL LINKTEXT="ISO 8601:2004(E)">res/ISO_8601-2004_E.pdf</URL>
+    <URL LINKTEXT="W3C QA Tip: Use international date format (ISO)">http://www.w3.org/QA/Tips/iso-date</URL>
+    <URL LINKTEXT="RFC 3339, Date and Time on the Internet: Timestamps"
+         >http://www.ietf.org/rfc/rfc3339.txt</URL>
+    <URL>http://www.w3.org/TR/xmlschema-2/#dateTime</URL>
+ </MOREINFO>
+
+ <CONTENT TITLE="How do I format a Date object with javascript?" ID="formatDate" NUMID="4_30">
+    <P>
+      A local <ICODE>Date</ICODE> object where <ICODE>0 &lt;= year &lt;= 9999</ICODE> can be 
+      formatted to a common ISO 8601 format <ICODE>YYYY-MM-DD</ICODE> with:-
+    </P>
+    <CODE>
+/** Formats a Date to YYYY-MM-DD (local time), compatible with both 
+ *  ISO 8601 and ISO/IEC 9075-2:2003 (E) (SQL 'date' type).
+ *  @param {Date} dateInRange year 0000 to 9999.
+ *  @throws {RangeError} if the year is not in range
+ */
+function formatDate(dateInRange) {
+   var year = dateInRange.getFullYear(),
+       isInRange = year &gt;= 0 &amp;&amp; year &lt;= 9999, yyyy, mm, dd;
+   if(!isInRange) {
+     throw RangeError("formatDate: year must be 0000-9999");
+   }
+   yyyy = ("000" + year).slice(-4);
+   mm = ("0" + (dateInRange.getMonth() + 1)).slice(-2);
+   dd = ("0" + (dateInRange.getDate())).slice(-2);
+   return yyyy + "-" + mm + "-" + dd;
+}
+    </CODE>
+    <MOREINFO>
+      <URL>http://www.merlyn.demon.co.uk/js-date9.htm</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="How can I create a Date object from a String?" ID="parseDate">
+    <P>
+      An Extended ISO 8601 local Date format <ICODE>YYYY-MM-DD</ICODE> can be parsed to a 
+      Date with the following:
+    </P>
+    <CODE>
+/**Parses string formatted as YYYY-MM-DD to a Date object.
+ * If the supplied string does not match the format, an 
+ * invalid Date (value NaN) is returned.
+ * @param {string} dateStringInRange format YYYY-MM-DD, with year in
+ * range of 0000-9999, inclusive.
+ * @return {Date} Date object representing the string.
+ */
+function parseISO8601(dateStringInRange) {
+  var isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/,
+      date = new Date(NaN), month,
+      parts = isoExp.exec(dateStringInRange);
+
+  if(parts) {
+    month = +parts[2];
+    date.setFullYear(parts[1], month - 1, parts[3]);
+    if(month != date.getMonth() + 1) {
+      date.setTime(NaN);
+    }
+  }
+  return date;
+}
+    </CODE> 
+  </CONTENT>
+</CONTENT>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Strings and RegExp" ID="strings">
+  <CONTENT TITLE="How do I trim whitespace?" ID="trimString" NUMID="4_16">
+    <P>
+      ECMAScript 5 defines <ICODE>String.prototype.trim</ICODE>. Where not supported,
+      it can be added as a function that uses a <DFN>regular expression</DFN>:
+    </P>
+    <CODE>
+if(!String.prototype.trim) {
+  String.prototype.trim = function() {
+    return String(this).replace(/^\s+|\s+$/g, "");
+  };
+} 
+    </CODE>
+    <P>
+      Implementations are inconsistent with <ICODE>\s</ICODE>. For example, 
+      some implementations, notably JScript 5.8 and Safari 2, do not match <ICODE>\xA0</ICODE> 
+      (no-break space), among others.</P>
+    <P>
+      A more consistent approach would be to create a character class 
+      that defines the characters to trim.
+    </P>
+    <MOREINFO>
+      <URL>https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/RegExp</URL>
+      <URL>http://thinkweb2.com/projects/prototype/whitespace-deviations/</URL>
+      <URL>https://developer.mozilla.org/en/Firefox_3.1_for_developers</URL>
+      <URL>http://docs.sun.com/source/816-6408-10/regexp.htm</URL>
+      <URL>http://msdn.microsoft.com/en-us/library/6wzad2b2%28VS.85%29.aspx</URL>
+      <URL>http://groups.google.com/group/comp.lang.javascript/browse_frm/thread/c7010139217600c3/31092c5eb99625d0?#31092c5eb99625d0</URL>
+    <URL>http://unicode.org/Public/UNIDATA/PropList.txt</URL>
+    </MOREINFO>
+  </CONTENT>  
+</CONTENT>

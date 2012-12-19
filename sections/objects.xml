@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTENT TITLE="Objects" ID="objects">
+  <CONTENT TITLE="What is a native object?" ID="nativeObject">
+    <P>
+      A <DFN>native object</DFN> is any object whose semantics are fully defined by
+      ECMA-262.
+    </P>
+    <P>
+      Some <DFN>native objects</DFN> are <DFN>built-in</DFN>; others, such as <DFN>user-defined</DFN> objects, 
+      may be constructed during the execution of an ECMAScript program.
+    </P>
+    <P>
+      Example:
+    </P>
+    <CODE>
+// Native built-in objects:
+var m = Math, // Built-in Math object.
+    slice = Array.prototype.slice, // Built-in native method.
+    o = {}, // Native user-defined object.
+    f = function(){}, // Native user-defined function.
+    d = new Date(),
+    a = [],
+    e = new Error("My Message.");
+    </CODE>
+    See also:
+    <MOREINFO>
+      <URL>http://dmitrysoshnikov.com/ecmascript/chapter-7-2-oop-ecmascript-implementation/</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="What is a built-in object?" ID="builtInObject">
+    <P>
+      A <DFN>built-in</DFN> object is any object supplied by an ECMAScript 
+      implementation, independent of the host environment, that is present 
+      at the start of the execution of an ECMAScript program.
+    </P>
+    <P>
+      ECMA-262 3rd Edition defines the following <DFN>built-in</DFN> objects:
+    </P>
+    <LIST TYPE="DL" ID="builtInsList">
+      <DT>Objects</DT>
+      <DD><EM>global</EM>, Math</DD>
+       
+      <DT>Constructors</DT>
+      <DD>Object, Function, Array, String, Boolean, Number, Date, RegExp</DD>
+   
+      <DT>Errors</DT>
+      <DD>Error, Date, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, URIError</DD>
+        
+      <DT>Functions</DT>
+      <DD>eval, parseInt, parseFloat, isNaN, isFinite, decodeURI,
+          decodeURIComponent, encodeURI, encodeURIComponent</DD>
+    </LIST>
+    <P>
+      ECMA-262 Edition 5 defines also the built-in object <ICODE>JSON</ICODE>.
+    </P>
+    <P>
+      Nonstandard <DFN>built-in</DFN> objects may include <ICODE>RuntimeObject</ICODE>,
+      <ICODE>String.prototype.link</ICODE>, <ICODE>CollectGarbage</ICODE>, and more.
+    </P>
+  </CONTENT>
+
+  <CONTENT TITLE="What is a host object?" ID="hostObject" NUMID="2_8">
+    <P>
+      A <DFN>host object</DFN> is any object supplied by the host environment to
+      complete the execution environment of ECMAScript. 
+    </P>
+    <P>
+      A <DFN>host object</DFN> is not part of the ECMAScript implementation, but is 
+      exposed to the ECMAScript implementation.
+    </P>
+    <P>
+      A <DFN>host object</DFN> may be implemented as a native ECMAScript object, however 
+      this is not required. For example, Internet Explorer implements many 
+      scriptable DOM objects as ActiveX Objects, often resulting in unexpected errors. 
+    </P>
+    <P>
+      Availability and behavior of a host object depends on the host environment.
+    </P>
+    <P>
+    For example, in a browser, <ICODE>XMLHttpRequest</ICODE> might be available, with or
+    without standard or proprietary features or events. Windows Script Host object model 
+    has the <ICODE>WScript</ICODE> object available.
+    </P>
+    <P> 
+     For information on a particular host object, consult the pertinent
+     documentation available for the implementation(s). For web browsers,
+     this usually includes the w3c specifications as well as documentation
+     for that browser.
+     See also:
+    </P>
+
+    <MOREINFO>
+      <URL>notes/code-guidelines/#hostObjects</URL>
+      <URL>http://peter.michaux.ca/articles/feature-detection-state-of-the-art-browser-scripting</URL>
+    </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="When should I use eval?" ID="eval" NUMID="4_40">
+    <P>
+The <ICODE>eval</ICODE> function should <EM>only</EM> be used when it is necessary to
+evaluate a string supplied or composed at run-time; the string
+can be anything from a simple (but unpredictable) expression such
+as <ICODE>"12 * 2.54"</ICODE> to a substantial piece of javascript code.
+</P>
+<P>
+When <ICODE>eval( '{"key" : 42}' )</ICODE> is called, <ICODE>{</ICODE> is interpreted as a block of
+code instead of an object literal. Hence, the Grouping Operator (parentheses) 
+is used to force <ICODE>eval</ICODE> to interpret the JSON as an object literal:
+<ICODE>eval( '({"key" : 42})' );</ICODE>.
+  </P>
+   <MOREINFO>
+     <URL>http://json.org/</URL>
+     <URL LINKTEXT="How do I access a property of an object using a string?"
+     >#propertyAccessAgain</URL>
+     <URL>notes/square-brackets/</URL>
+   </MOREINFO>
+  </CONTENT>
+  <CONTENT TITLE="How do I access a property of an object using a string?" ID="propertyAccessAgain" NUMID="4_39">
+    <P>
+      There are two ways to access properties: dot notation and square bracket 
+      notation. What you are looking for is the square bracket notation in 
+      which the dot, and the identifier to its right, are replaced with a set 
+      of square brackets containing a string. The value of the string matches 
+      the identifier. For example:-
+    </P>
+    <CODE>
+//dot notation
+var bodyElement = document.body;
+
+//square bracket notation, using an expression
+var bodyElement = document[&quot;bo&quot;+&quot;dy&quot;];
+    </CODE>
+    <MOREINFO>
+      <URL>notes/square-brackets/</URL>
+    </MOREINFO>
+  </CONTENT>
+</CONTENT>

@@ -141,17 +141,18 @@
         <xsl:value-of select="@TITLE"/>
       </xsl:element>
       
+      <!-- introduction; TODO: use separate element -->
       <xsl:for-each select="*">
-        <xsl:choose>
-          <xsl:when test="local-name(.) = 'CONTENT'">
-            <xsl:apply-templates select="." mode="subsection">
-              <xsl:with-param name="section" select="position()"/>
-            </xsl:apply-templates>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:apply-templates select="."/>
-          </xsl:otherwise>
-        </xsl:choose>        
+        <xsl:if test="local-name(.) != 'CONTENT'">
+          <xsl:apply-templates select="."/>
+        </xsl:if>
+      </xsl:for-each>
+
+      <xsl:variable name="section" select="position()"/>
+      <xsl:for-each select="CONTENT">
+        <xsl:apply-templates select="." mode="subsection">
+          <xsl:with-param name="section" select="concat($section, '.', position())"/>
+        </xsl:apply-templates>
       </xsl:for-each>
     </div>
   </xsl:template>
@@ -171,8 +172,8 @@
         <xsl:call-template name="getOldId">
           <xsl:with-param name="node" select="."/>
         </xsl:call-template>
-        <xsl:value-of select="$section"/>.<xsl:value-of select="position()"/>
-          <xsl:text> </xsl:text><xsl:value-of select="@TITLE"/>
+        <xsl:value-of select="$section"/><xsl:text> </xsl:text>
+        <xsl:value-of select="@TITLE"/>
       </xsl:element>    
       
       <xsl:apply-templates />
@@ -273,6 +274,7 @@
   
   <xsl:template match="P">
     <xsl:copy>
+      <!-- NOTE: do not copy invalid attributes -->
       <xsl:apply-templates select="@*[local-name() != 'HTMLONLY']"/>
       <xsl:apply-templates/>
     </xsl:copy>

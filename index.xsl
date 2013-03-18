@@ -68,7 +68,7 @@
           <ul class="horizontal">
             <li><a
               href="http://PointedEars.de/websvn/log.php?repname=FAQs&amp;path=%2Ftrunk%2Fcljs%2F&amp;isdir=1&amp;showchanges=1"
-            >Change&nbsp;log</a></li>
+            >Changelog</a></li>
             <li><a
               href="http://PointedEars.de/websvn/listing.php?repname=FAQs&amp;path=%2Ftrunk%2Fcljs%2F"
               title="Subversion repository browser"

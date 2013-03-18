@@ -2,75 +2,106 @@
 <CONTENT TITLE="Numbers" ID="numbers"> 
   <CONTENT TITLE="How do I format a Number as a String with exactly 2 decimal places?" ID="formatNumber" NUMID="4_6">
     <P>
-      When formatting money for example, to format 6.57634 to 6.58, 6.7 to 
-      6.50, and 6 to 6.00?
+      (For example: When formatting currency, how to format
+      <code>6.57634</code> as <code>"6.58"</code>,
+      <code>6.5</code> as <code>"6.50"</code>, and <code>6</code>
+      as <code>"6.00"</code>?)
     </P>
     <P>
-      Rounding of x.xx5 is unreliable, as most numbers are not represented 
-      exactly. See also: 
-      <URL LINKTEXT="Why does simple decimal arithmetic give strange results?">#binaryNumbers</URL>
+      Rounding of x.xx5 is unreliable, as most numbers are not
+      represented exactly. See also: 
+      <URL LINKTEXT="Why does simple decimal arithmetic give strange results?"
+           >#binaryNumbers</URL>
     </P>
     <P>
-      The statement <ICODE>n = Math.round(n * 100)/100</ICODE> converts <ICODE>n</ICODE> to a <ICODE>Number</ICODE> value
-      close to a multiple of <ICODE>0.01</ICODE>. However, there are some problems.
-      Converting the number to a string <ICODE>(n + "")</ICODE>, does not give 
-      trailing zeroes. Rounding numbers that are very close to <ICODE>x.5</ICODE>, for example, 
-      <ICODE>Math.round(0.49999999999999992)</ICODE> results <ICODE>1</ICODE>.      
+      The statement <code>n = Math.round(n * 100) / 100</code>
+      converts <code>n</code> to a <code>Number</code> value close
+      to a multiple of <code>0.01</code>. However, there are
+      problems.  Converting the <code>Number</code> value
+      <code>n</code> to a <code>String</code> value
+      (<code>n.toString()</code>), does not give trailing zeroes.
+      Rounding numbers that are very close to <code>x.5</code>,
+      for example, <code>Math.round(0.49999999999999992)</code>
+      returns <code>1</code>.      
     </P>
     <P>
-      ECMA-262 3rd Edition introduced <ICODE>Number.prototype.toFixed</ICODE>. 
-      There are bugs in JScript 5.8 and below with certain numbers, for example 
-      <ICODE>0.007.toFixed(2)</ICODE> incorrectly results <ICODE>0.00</ICODE>.
+      ECMA-262 Edition 3 introduced <code>Number.prototype.toFixed()</code>. 
+      However, there are bugs in JScript 5.8 and below with certain
+      values; for example, <code>0.007.toFixed(2)</code> incorrectly
+      returns <code>"0.00"</code>.
     </P>
-    <CODE>
-var numberToFixed = 
-(function() {
-  return toFixedString;
-  
-  function toFixedString(n, digits) {
-    var unsigned = toUnsignedString(Math.abs(n), digits);
-    return (n &lt; 0 ? "-" : "") + unsigned;
+    <CODE><![CDATA[
+var numberToFixed = (function () { 
+  /** 
+   * @param {string} input
+   *   Input value to be converted to string.
+   * @param {number} size
+   *   Desired length of output.
+   * @param {string} ch
+   *   Single character to prefix to <var>s</var>.
+   * @return {string}
+   */
+  function padLeft (input, size, ch)
+  {
+    var s = input.toString();
+    
+    while (s.length < size)
+    {
+      s = ch + s;
+    }
+    
+    return s;
   }
   
-  function toUnsignedString(m, digits) {
-    var t, s = Math.round(m * Math.pow(10, digits)) + "",
+  function toUnsignedString (m, digits)
+  {
+    var t,
+        s = Math.round(m * Math.pow(10, digits)).toString(),
         start, end;
-    if (/\D/.test(s)) { 
-      return "" + m;
+        
+    if (/\D/.test(s))
+    { 
+      return m.toString();
     }
+    
     s = padLeft(s, 1 + digits, "0");
     start = s.substring(0, t = (s.length - digits));
     end = s.substring(t);
-    if(end) {
+    
+    if (end)
+    {
       end = "." + end;
     }
-    return start + end; // avoid "0."
-  }
-  /** 
-   * @param {string} input: input value converted to string.
-   * @param {number} size: desired length of output.
-   * @param {string} ch: single character to prefix to s.
+    
+    /* avoid "0." */
+    return start + end;
+  }  
+
+  /**
+   * @param {number} n
+   *   Number to be formatted
+   * @param {number} digits
+   *   Number of decimal digits
+   * @return {string}
+   *   The formatted string 
    */
-  function padLeft(input, size, ch) {
-    var s = input + "";
-    while(s.length &lt; size) {
-      s = ch + s;
-    }
-    return s;
-  }
+  return function (n, digits) {
+    var unsigned = toUnsignedString(Math.abs(n), digits);
+    return (n < 0 ? "-" : "") + unsigned;
+  };  
 })();
 
 // Test results 
 document.writeln([
-  "numberToFixed(9e-3, 12) =&gt; " + numberToFixed(9e-3, 12),
-  "numberToFixed(1.255, 2) =&gt; " + numberToFixed(1.255, 2),
-  "numberToFixed(1.355, 2) =&gt; " + numberToFixed(1.355, 2),
-  "numberToFixed(0.1255, 3) =&gt; " + numberToFixed(0.1255, 3),
-  "numberToFixed(0.07, 2)   =&gt; " + numberToFixed(0.07, 2),
-  "numberToFixed(0.0000000006, 1) =&gt; " + numberToFixed(0.0000000006, 1),
-  "numberToFixed(0.0000000006, 0) =&gt; " + numberToFixed(0.0000000006, 0)
+  "numberToFixed(9e-3, 12) => " + numberToFixed(9e-3, 12),
+  "numberToFixed(1.255, 2) => " + numberToFixed(1.255, 2),
+  "numberToFixed(1.355, 2) => " + numberToFixed(1.355, 2),
+  "numberToFixed(0.1255, 3) => " + numberToFixed(0.1255, 3),
+  "numberToFixed(0.07, 2)   => " + numberToFixed(0.07, 2),
+  "numberToFixed(0.0000000006, 1) => " + numberToFixed(0.0000000006, 1),
+  "numberToFixed(0.0000000006, 0) => " + numberToFixed(0.0000000006, 0)
 ].join("\n"));
-    </CODE>
+    ]]></CODE>
     <MOREINFO>
       <URL>http://www.merlyn.demon.co.uk/js-round.htm</URL>
       <URL>http://msdn.microsoft.com/en-us/library/sstyff0z%28VS.85%29.aspx</URL>

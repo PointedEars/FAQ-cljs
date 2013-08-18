@@ -26,7 +26,11 @@
       support JavaScript 1.5.
     </P>
     <P>
-      The term "javascript" is used as a common name for all dialects of ECMAScript.
+      <em>For historical reasons, the term “javascript” is used herein
+      as a shorthand for “ECMAScript-based programming languages”.
+      Note that not all uses of that term here are correct.  For example,
+      there are instances where using “DOM” instead would have been correct.
+      This will be fixed in a later revision.</em>
     </P>
   </CONTENT>
   <CONTENT TITLE="What is JScript?" ID="jScript" NUMID="2_7">

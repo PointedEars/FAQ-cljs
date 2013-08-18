@@ -3,12 +3,22 @@
 $encoding = 'UTF-8';
 header("Content-Type: text/html" . ($encoding ? "; charset=$encoding" : ""));
 
-$modi = max(array(
-  @filemtime(__FILE__),
-  @filemtime('index.xml'),
-  @filemtime('index.xsl'),
-  @filemtime('faq.css'),
-));
+$modi = max(
+  array_map('filemtime',
+    array_diff(
+      array_merge(
+        scandir(__DIR__),
+        array_map(
+          function ($e) {
+            return 'sections' . DIRECTORY_SEPARATOR . $e;
+          },
+          scandir('sections')
+        )
+      ),
+      array('.', '..')
+    )
+  )
+);
 
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $modi) . ' GMT');
 

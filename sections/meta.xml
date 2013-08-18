@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONTENT TITLE="Meta-FAQ meta-questions" ID="meta" NUMID="1">
   <P>
-    This is the <EM>comp.lang.javascript</EM> meta-FAQ, <VER/>.  The latest
-    version is available at <URL>http://jibbering.com/faq/</URL> in HTML form.
+    This is the meta-FAQ for comp.lang.javascript.  The latest
+    version is available at <URL>http://PointedEars.de/faq/</URL> in HTML form.
   </P> 
   <P>
-    Each day, one section of the FAQ is posted for review and questions,
-    and as a reminder that the FAQ is available.
+    Each day, one section of the <em>original</em> comp.lang.javascript FAQ, <VER/>,
+    is posted for review and questions, and as a reminder that the FAQ
+    is available.
   </P>
   <P>
     For additional explanation and detail relating to some aspects 
@@ -18,8 +19,16 @@
   </P>
   <P>
     Code examples in this FAQ use <URL LINKTEXT="JSDoc Toolkit"
-    >http://jsdoctoolkit.org/</URL> comments.
+    >https://code.google.com/p/jsdoc-toolkit/</URL> comments.
   </P>
+  
+  <CONTENT TITLE="Why this FAQ?" ID="newsgroups" NUMID="2_0">
+    <P>
+      This document is work in progress, intended to replace
+      the comp.lang.javascript FAQ that has gone unmaintained
+      since 2010-10-08 CE.
+    </P>
+  </CONTENT>
   
   <CONTENT TITLE="Which newsgroups deal with javascript?" ID="newsgroups" NUMID="2_1">
     <P>

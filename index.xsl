@@ -53,8 +53,8 @@
       <body>
         <h1><xsl:value-of select="TITLE"/></h1>
         
-        <p>Revision <xsl:value-of select="$revision"/>
-           by <a href="{$maintainer_website}"><xsl:value-of select="$maintainer"/></a><br/>
+        <p><!-- Revision <xsl:value-of select="$revision"/>
+            -->by <a href="{$maintainer_website}"><xsl:value-of select="$maintainer"/></a><br/>
            Based on the <a href="{$previous_url}">comp.lang.javascript FAQ</a>, version <xsl:value-of select="$version"/>
            of <xsl:value-of select="$updated"/>
            by <a href="{$previous_maintainer_website}"><xsl:value-of select="$previous_maintainer"/></a></p>

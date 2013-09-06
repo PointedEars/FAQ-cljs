@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONTENT TITLE="Debugging" ID="debugging">
-     <CONTENT TITLE="How do I get my browser to report javascript errors?" 
+     <CONTENT TITLE="How do I get my browser to report script errors?" 
      ID="javascriptErrors" NUMID="4_43">
      <P>
 There are debugging tools for many browsers. Learn to use them all.
      </P>
    <LIST TYPE="DL">
+     <DT>General</DT>
+     <DD><URL LINKTEXT="Secrets of the Browser Developer Tools">http://devtoolsecrets.com/</URL></DD>
      <DT>Windows</DT>
      <DD>
 <URL LINKTEXT="Fiddler">http://www.fiddlertool.com/fiddler/</URL>. 

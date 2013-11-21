@@ -54,10 +54,10 @@
         <h1><xsl:value-of select="TITLE"/></h1>
         
         <p><!-- Revision <xsl:value-of select="$revision"/>
-            -->by <a href="{$maintainer_website}"><xsl:value-of select="$maintainer"/></a><br/>
+            -->by <a href="{$maintainer_website}"><xsl:value-of select="$maintainer"/></a> and contributors<br/>
            Based on the <a href="{$previous_url}">comp.lang.javascript FAQ</a>, version <xsl:value-of select="$version"/>
-           of <xsl:value-of select="$updated"/>
-           by <a href="{$previous_maintainer_website}"><xsl:value-of select="$previous_maintainer"/></a></p>
+           of <xsl:value-of select="$updated"/>,
+           by <a href="{$previous_maintainer_website}"><xsl:value-of select="$previous_maintainer"/></a> and contributors.</p>
         
         <ul style="list-style: none; margin-left: 0; padding-left: 0">
           <li><tt><xsl:value-of select="@id" /></tt></li>

@@ -70,10 +70,10 @@
         <div>
           <ul class="horizontal">
             <li><a
-              href="http://PointedEars.de/websvn/log.php?repname=FAQs&amp;path=%2Ftrunk%2Fcljs%2F&amp;isdir=1&amp;showchanges=1"
+              href="http://PointedEars.de/wsvn/FAQs/trunk/cljs/?op=log&isdir=1&showchanges=1"
             >Changelog</a></li>
             <li><a
-              href="http://PointedEars.de/websvn/listing.php?repname=FAQs&amp;path=%2Ftrunk%2Fcljs%2F"
+              href="http://PointedEars.de/wsvn/FAQs/trunk/cljs/"
               title="Subversion repository browser"
             >SVN</a></li>
           </ul>

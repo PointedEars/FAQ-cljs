@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CONTENT TITLE="Comments and Suggestions" ID="comments" NUMID="5">
+<CONTENT TITLE="Comments and Suggestions" ID="comments" NUMID="14">
     <P HTMLONLY="true">
       This FAQ uses the CSS stylesheet <URL>faq.css</URL> and is generated
       from the XML source <URL>index.xml</URL> using the XSLT stylesheet
@@ -23,9 +23,21 @@ partly obscured as, e.g. &lt;FAQ**TRY&gt; or similar.
     <P>
 To make a suggestion to this FAQ, use either the FAQENTRY method
 above, or e-mail Thomas 'PointedEars' Lahn &lt;cljs&#64;PointedEars.de&gt; (editor).
-All comments, suggestions, and especially corrections are welcome.
+All comments, suggestions, and especially corrections are welcome, and will be credited, where it is due, below.
     </P>
    </CONTENT>
+  
+    <CONTENT TITLE="Contributors" ID="contributors">
+      <p>(non-exhaustive, in alphabetical order; see <a
+          href="http://PointedEars.de/websvn/log.php?repname=FAQs&amp;path=%2Ftrunk%2Fcljs%2F&amp;isdir=1&amp;showchanges=1"
+          >changelog</a> for details)</p>
+      <ul>
+        <li><a href="http://3-magi.net/">Christoph Michael Becker</a> &lt;<a href="mailto:cmbecker69@arcor.de">cmbecker69@arcor.de</a>&gt;</li>
+        <li><a href="http://weppipakki.com/">Osmo Saarikumpu</a> &lt;<a href="mailto:osmo@weppipakki.com">osmo@weppipakki.com</a>&gt;</li>
+        <li><a href="http://personx.tumblr.com/">Garrett Smith</a> &lt;<a href="mailto:dhtmlkitchen@gmail.com">dhtmlkitchen@gmail.com</a>&gt;</li>
+      </ul>
+    </CONTENT>
+    
    <!-- FIXME -->
    <!-- 
    <P>

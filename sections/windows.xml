@@ -242,9 +242,9 @@ else if(IS_BODY_ACTING_ROOT || isDocumentElementHeightOff()) {
       from John David Dalton. A complete and tested example can be found 
       in APE Library under <ICODE>APE.dom.getViewportDimensions</ICODE>. 
       Source code:
-      <URL>http://dhtmlkitchen.com/ape/build/dom/viewport-f.js</URL>.
+      <URL>http://wayback.archive.org/web/20110814142717/http://dhtmlkitchen.com/ape/build/dom/viewport-f.js</URL>.
       APE is publicly released under Academic Free License. 
-      APE home: <URL>http://dhtmlkitchen.com/ape/</URL>.
+      APE home: <URL>http://wayback.archive.org/web/20110628160010/http://www.dhtmlkitchen.com/ape/</URL>.
     </P>    
     <P>
       Note: The dimensions cannot be determined accurately until after 

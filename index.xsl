@@ -70,7 +70,7 @@
         <div>
           <ul class="horizontal">
             <li><a
-              href="http://PointedEars.de/wsvn/FAQs/trunk/cljs/?op=log&isdir=1&showchanges=1"
+              href="http://PointedEars.de/wsvn/FAQs/trunk/cljs/?op=log&amp;isdir=1&amp;showchanges=1"
             >Changelog</a></li>
             <li><a
               href="http://PointedEars.de/wsvn/FAQs/trunk/cljs/"

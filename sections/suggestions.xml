@@ -22,19 +22,22 @@ partly obscured as, e.g. &lt;FAQ**TRY&gt; or similar.
    <CONTENT TITLE="How do I make a suggestion?" NUMID="5_2" ID="makeSuggestion">
     <P>
 To make a suggestion to this FAQ, use either the FAQENTRY method
-above, or e-mail Thomas 'PointedEars' Lahn &lt;cljs&#64;PointedEars.de&gt; (editor).
+above, or send e-mail to Thomas 'PointedEars' Lahn
+&lt;&#99;l&#106;s&#64;P&#111;i&#110;&#116;&#101;&#100;Ea&#114;&#115;&#46;&#100;&#101;&gt;
+(editor).
 All comments, suggestions, and especially corrections are welcome, and will be credited, where it is due, below.
     </P>
    </CONTENT>
   
     <CONTENT TITLE="Contributors" ID="contributors">
       <p>(non-exhaustive, in alphabetical order; see <a
-          href="http://PointedEars.de/websvn/log.php?repname=FAQs&amp;path=%2Ftrunk%2Fcljs%2F&amp;isdir=1&amp;showchanges=1"
+          href="http://PointedEars.de/wsvn/FAQs/trunk/cljs/?op=log&amp;isdir=1&amp;showchanges=1"
           >changelog</a> for details)</p>
       <ul>
-        <li><a href="http://3-magi.net/">Christoph Michael Becker</a> &lt;<a href="mailto:cmbecker69@arcor.de">cmbecker69@arcor.de</a>&gt;</li>
-        <li><a href="http://weppipakki.com/">Osmo Saarikumpu</a> &lt;<a href="mailto:osmo@weppipakki.com">osmo@weppipakki.com</a>&gt;</li>
-        <li><a href="http://personx.tumblr.com/">Garrett Smith</a> &lt;<a href="mailto:dhtmlkitchen@gmail.com">dhtmlkitchen@gmail.com</a>&gt;</li>
+        <li>Andrew Poulos &lt;<a href="mailto:&#97;p&#95;pr&#111;g&#64;&#104;&#111;&#116;m&#97;i&#108;.com">ap&#95;pro&#103;&#64;h&#111;t&#109;&#97;il&#46;&#99;&#111;m</a>&gt;</li>
+        <li><a href="http://3-magi.net/">Christoph Michael Becker</a> &lt;<a href="mailto:&#99;m&#98;&#101;cke&#114;69@&#97;rco&#114;&#46;&#100;&#101;">&#99;&#109;be&#99;&#107;er&#54;9&#64;arco&#114;&#46;d&#101;</a>&gt;</li>
+        <li><a href="http://weppipakki.com/">Osmo Saarikumpu</a> &lt;<a href="mailto:o&#115;m&#111;@&#119;&#101;&#112;&#112;ipak&#107;&#105;&#46;c&#111;&#109;">osmo&#64;we&#112;&#112;i&#112;&#97;k&#107;i.c&#111;m</a>&gt;</li>
+        <li><a href="http://personx.tumblr.com/">Garrett Smith</a> &lt;<a href="mailto:&#100;h&#116;&#109;&#108;k&#105;&#116;&#99;h&#101;n&#64;g&#109;a&#105;&#108;&#46;com">d&#104;&#116;&#109;&#108;k&#105;t&#99;h&#101;n&#64;gma&#105;&#108;&#46;&#99;o&#109;</a>&gt;</li>
       </ul>
     </CONTENT>
     

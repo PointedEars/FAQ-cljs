@@ -2,13 +2,14 @@
 <CONTENT TITLE="Strings and RegExp" ID="strings">
   <CONTENT TITLE="How do I trim whitespace?" ID="trimString" NUMID="4_16">
     <P>
-      ECMAScript 5 defines <ICODE>String.prototype.trim</ICODE>. Where not supported,
-      it can be added as a function that uses a <DFN>regular expression</DFN>:
+      ECMAScript Edition 5 specifies <ICODE>String.prototype.trim()</ICODE>. Where not implemented,
+      it can be defined as a method that uses a <DFN>regular expression</DFN>:
     </P>
     <CODE>
-if(!String.prototype.trim) {
-  String.prototype.trim = function() {
-    return String(this).replace(/^\s+|\s+$/g, "");
+if (typeof String.prototype.trim != "function")
+{
+  String.prototype.trim = function () {
+    return this.replace(/^\s+/, "").replace(/\s+$/, "");
   };
 } 
     </CODE>
@@ -18,8 +19,26 @@ if(!String.prototype.trim) {
       (no-break space), among others.</P>
     <P>
       A more consistent approach would be to create a character class 
-      that defines the characters to trim.
+      that defines the characters to trim.  For example, the following
+      method trims exactly the characters that should be trimmed by
+      a conforming implemenation of ECMAScript Ed. 5.1 (<i>WhiteSpace</i>
+      and <i>LineTerminator</i>):      
     </P>
+    <CODE>
+if (typeof String.prototype.trim != "function")
+{
+  String.prototype.trim = (function () {
+    var sWhiteSpace = "[\\u0009\\u000A-\\u000D\\u0020\\u00A0"
+      + "\\uFEFF\\u2028\\u2029]";
+    var _prefix = new RegExp("^" + sWhiteSpace + "+");
+    var _suffix = new RegExp(sWhiteSpace + "+$");
+  
+    return function () {
+      return this.replace(_prefix, "").replace(_suffix, "");
+    };
+  }());
+}
+    </CODE>
     <MOREINFO>
       <URL>https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/RegExp</URL>
       <URL>http://thinkweb2.com/projects/prototype/whitespace-deviations/</URL>

@@ -36,4 +36,17 @@ $doc->load('index.xsl');
 $xsl->importStyleSheet($doc);
 
 $doc->load('index.xml');
-echo $xsl->transformToXML($doc);
+
+if (isset($_GET['xml']))
+{
+  $chapter = 1;
+  $section = 1;
+
+  $xpath = new DOMXPath($doc);
+  $xpath->evaluate("./CONTENT[{$chapter}]/CONTENT[{$section}]",
+    $doc->documentElement);
+}
+else
+{
+  echo $xsl->transformToXML($doc);
+}

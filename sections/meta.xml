@@ -3,7 +3,7 @@
   <P>
     This is the meta-FAQ for comp.lang.javascript.  The latest
     version is available at <URL>http://PointedEars.de/faq/</URL> in HTML form.
-  </P> 
+  </P>
 <!--
   <P>
     Each day, one section of the <em>original</em> comp.lang.javascript FAQ, <VER/>,
@@ -12,9 +12,9 @@
   </P>
  -->
   <P>
-    For additional explanation and detail relating to some aspects 
-    of the FAQ, please see the 
-    <URL LINKTEXT="FAQ Notes">notes/</URL>. 
+    For additional explanation and detail relating to some aspects
+    of the FAQ, please see the
+    <URL LINKTEXT="FAQ Notes">notes/</URL>.
     It has been provided separately to avoid increasing the size of
     the FAQ to a point where it would be unreasonable to post it to
     the group.
@@ -23,7 +23,7 @@
     Code examples in this FAQ use <URL LINKTEXT="JSDoc Toolkit"
     >https://code.google.com/p/jsdoc-toolkit/</URL> comments.
   </P>
-  
+
   <CONTENT TITLE="Why this FAQ?" ID="why" NUMID="2_0">
     <P>
       This document is work in progress, intended to replace
@@ -31,7 +31,7 @@
       since 2010-10-08 CE.
     </P>
   </CONTENT>
-  
+
   <CONTENT TITLE="Which newsgroups deal with javascript?" ID="newsgroups" NUMID="2_1">
     <P>
       The official Big 8 Usenet newsgroup dealing with javascript is
@@ -42,7 +42,7 @@
       c.l.js is an unmoderated newsgroup.
     </P>
   </CONTENT>
-  
+
   <CONTENT TITLE="What questions are on-topic for comp.lang.javascript?" ID="appropriateQuestions" NUMID="2_2">
     <P>
       The comp.lang.javascript newsgroup deals with ECMAScript
@@ -67,7 +67,7 @@
     </P>
     <!--
       <P>
-        Questions about the design of various javascript libraries are 
+        Questions about the design of various javascript libraries are
         appropriate; questions on how to <EM>use</EM> such libraries
         are not. Check <URL LINKTEXT="c.l.js FAQ Resources"
         >http://jibbering.comindex.html#libraryResources</URL> or search the web.
@@ -76,14 +76,14 @@
     <P>
       Questions that are specific to Microsoft's JScript may also
       be appropriately asked at:
-      <NEWSGROUP>microsoft.public.scripting.jscript</NEWSGROUP>      
+      <NEWSGROUP>microsoft.public.scripting.jscript</NEWSGROUP>
     </P>
     <P>
       The comp.lang.javascript newsgroup charter is included in
       <URL>faq_notes/cljs_charter.html</URL>.
     </P>
   </CONTENT>
- 
+
   <CONTENT TITLE="What should I do before posting to comp.lang.javascript?" ID="posting" NUMID="2_3">
     <P>
       Before posting to c.l.js, you should read this document.
@@ -108,12 +108,12 @@
 
     <LIST TYPE="UL" TITLE="Posting Code" ID="postCode">
       <LI>
-        Remove everything that does not contribute to the problem (images, 
+        Remove everything that does not contribute to the problem (images,
         markup, other scripts, etc).
       </LI>
       <LI>Validate the HTML and CSS <URL>http://validator.w3.org/</URL>,
           <URL>http://jigsaw.w3.org/css-validator/</URL>.</LI>
-      <LI>Make sure the code is executable as transmitted.</LI> 
+      <LI>Make sure the code is executable as transmitted.</LI>
       <LI>Format lines to 72 characters; indent with 2-4 spaces (not tabs).</LI>
       <LI>State what you expect the code to do.</LI>
       <LI>Mention the platforms, browsers, and versions.</LI>
@@ -134,7 +134,7 @@
       per major release, as a short link to the product's webpage.
     </P>
   </CONTENT>
-  
+
   <CONTENT TITLE="Why was my post not answered?" ID="noAnswer" NUMID="2_4">
     <P>This could be for several reasons:</P>
     <UL>

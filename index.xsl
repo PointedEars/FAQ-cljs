@@ -5,24 +5,24 @@
 ]>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="html"
-                doctype-public="-//W3C//DTD HTML 4.01//EN"
-                doctype-system="http://www.w3.org/TR/html4/strict.dtd"/>
+              doctype-public="-//W3C//DTD HTML 4.01//EN"
+              doctype-system="http://www.w3.org/TR/html4/strict.dtd"/>
 
   <xsl:variable name="checkURLs" select="false"/>
   <xsl:variable name="previous_url">http://jibbering.com/faq/</xsl:variable>
   <xsl:variable name="previous_maintainer">Garrett Smith</xsl:variable>
-  <xsl:variable name="previous_maintainer_website">http://personx.tumblr.com/</xsl:variable>  
-  
+  <xsl:variable name="previous_maintainer_website">http://personx.tumblr.com/</xsl:variable>
+
   <xsl:variable name="maintainer">Thomas 'PointedEars' Lahn</xsl:variable>
   <xsl:variable name="maintainer_email"><![CDATA[cl&#106;&#115;&#64;&#80;o&#105;n&#116;&#101;d&#69;a&#114;s.&#100;&#101;]]></xsl:variable>
   <xsl:variable name="maintainer_website">http://PointedEars.de/</xsl:variable>
-  
+
   <xsl:variable name="version" select="/FAQ/@VERSION"/>
   <xsl:template match="/FAQ">
     <xsl:variable name="revision_length" select="string-length('$Revision: ')"/>
     <xsl:variable name="revision" select="substring(@revision, $revision_length, string-length(@revision) - $revision_length - 1)"/>
     <xsl:variable name="updated" select="@DATE"/>
-        
+
     <html lang="en">
       <head>
         <meta http-equiv="Content-Type" content="text/html; UTF-8"/>
@@ -52,7 +52,7 @@
       </head>
       <body>
         <h1><xsl:value-of select="TITLE"/></h1>
-        
+
         <p><!-- Revision <xsl:value-of select="$revision"/>
             -->by <a href="{$maintainer_website}"><xsl:value-of select="$maintainer"/></a>
            and <a href="#contributors">contributors</a><br/>
@@ -86,37 +86,37 @@
             href="{$faq_uri}"
           ><xsl:value-of select="$faq_uri"/></a>
         </p>
-      
+
         <hr/>
-      
+
         <h2 id="toc">Table of contents</h2>
-      
+
         <div id="nav"><a href="notes/">FAQ Notes</a></div>
-                
+
         <xsl:apply-templates select="CONTENTS" mode="toc"/>
 
         <hr/>
-      
+
         <xsl:apply-templates select="CONTENTS"/>
       </body>
     </html>
   </xsl:template>
-  
+
   <xsl:template match="CONTENTS" mode="toc">
-    <ul id="faqList"> 
+    <ul id="faqList">
       <xsl:apply-templates select="CONTENT" mode="toc"/>
     </ul>
   </xsl:template>
-  
+
   <xsl:template match="CONTENTS">
     <xsl:apply-templates select="CONTENT"/>
   </xsl:template>
-  
+
   <xsl:template match="CONTENT" mode="toc">
     <li><xsl:value-of select="position()"/>
       <xsl:text> </xsl:text>
       <a href="#{@ID}"><xsl:value-of select="@TITLE"/></a>
-      
+
       <xsl:if test="CONTENT">
         <ul>
           <xsl:apply-templates select="CONTENT" mode="subtoc">
@@ -125,26 +125,26 @@
         </ul>
       </xsl:if></li>
   </xsl:template>
-  
+
   <xsl:template match="CONTENT" mode="subtoc">
     <xsl:param name="section"/>
-    
+
     <li><xsl:value-of select="$section"/>.<xsl:value-of select="position()"/>
       <xsl:text> </xsl:text><a href="#{@ID}"><xsl:value-of select="@TITLE"/></a></li>
   </xsl:template>
-  
+
   <xsl:template match="CONTENT">
     <div id="{@ID}" class="section">
       <xsl:element name="h2">
         <xsl:call-template name="getOldId">
           <xsl:with-param name="node" select="."/>
         </xsl:call-template>
-        
+
         <xsl:value-of select="position()"/>
         <xsl:text> </xsl:text>
         <xsl:value-of select="@TITLE"/>
       </xsl:element>
-      
+
       <!-- introduction; TODO: use separate element -->
       <xsl:for-each select="*">
         <xsl:if test="local-name(.) != 'CONTENT'">
@@ -160,17 +160,17 @@
       </xsl:for-each>
     </div>
   </xsl:template>
-  
+
   <xsl:template name="getOldId">
     <xsl:param name="node"/>
     <xsl:if test="$node/@NUMID">
       <xsl:attribute name="id">FAQ<xsl:value-of select="$node/@NUMID"/></xsl:attribute>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="CONTENT" mode="subsection">
     <xsl:param name="section"/>
-  
+
     <div id="{@ID}" class="section">
       <xsl:element name="h3">
         <xsl:call-template name="getOldId">
@@ -178,20 +178,20 @@
         </xsl:call-template>
         <xsl:value-of select="$section"/><xsl:text> </xsl:text>
         <xsl:value-of select="@TITLE"/>
-      </xsl:element>    
-      
+      </xsl:element>
+
       <xsl:apply-templates />
     </div>
   </xsl:template>
-  
+
   <xsl:template match="VER">
     <xsl:value-of select="$version"/>
   </xsl:template>
-  
+
   <xsl:template match="UPDATED">
     <xsl:value-of select="$updated"/>
   </xsl:template>
-  
+
   <xsl:template match="URL">
     <!-- TODO: Link check, see process.wsf -->
     <xsl:element name="a">
@@ -219,19 +219,19 @@
           </xsl:otherwise>
         </xsl:choose>
       </xsl:if>
-      
+
       <xsl:value-of select="@LINKTEXT|text()"/>
     </xsl:element>
   </xsl:template>
-  
+
   <xsl:template match="NEWSGROUP">
     <a href="news:{.}'"><xsl:value-of select="."/></a>
   </xsl:template>
-  
+
   <xsl:template match="MAILTO">
     <a href="mailto:{.}'"><xsl:value-of select="."/></a>
   </xsl:template>
-  
+
   <xsl:template match="MOREINFO">
     <ul class="linkList">
       <xsl:for-each select="*">
@@ -239,11 +239,11 @@
       </xsl:for-each>
     </ul>
   </xsl:template>
-  
+
   <xsl:template match="CODE">
     <pre><code><xsl:apply-templates/></code></pre>
   </xsl:template>
-  
+
   <xsl:template match="ICODE">
     <code><xsl:apply-templates /></code>
   </xsl:template>
@@ -257,14 +257,14 @@
         <xsl:value-of select="@TITLE"/>
       </xsl:element>
     </xsl:if>
- 
+
     <xsl:variable name="type">
       <xsl:choose>
         <xsl:when test="@TYPE"><xsl:value-of select="@TYPE"/></xsl:when>
         <xsl:otherwise>ul</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-        
+
     <xsl:element name="{$type}">
       <xsl:if test="not(@TITLE) and @ID">
         <xsl:attribute name="id"><xsl:value-of select="@ID"/></xsl:attribute>
@@ -275,7 +275,7 @@
       </xsl:for-each>
     </xsl:element>
   </xsl:template>
-  
+
   <xsl:template match="P">
     <xsl:copy>
       <!-- NOTE: do not copy invalid attributes -->
@@ -283,12 +283,12 @@
       <xsl:apply-templates/>
     </xsl:copy>
   </xsl:template>
-  
+
   <!-- standard copy template -->
   <xsl:template match="@*|node()">
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <xsl:apply-templates/>
     </xsl:copy>
-  </xsl:template> 
+  </xsl:template>
 </xsl:stylesheet>

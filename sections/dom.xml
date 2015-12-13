@@ -170,7 +170,7 @@ window.onload = function(){
     <LIST TYPE="UL" TITLE="Other problems can include:">
       <LI>invalid HTML</LI>
       <LI>two elements with the same <ICODE>name</ICODE> or <ICODE>id</ICODE></LI>
-      <LI><URL LINKTEXT="use of an unsafe name">names</URL></LI>.
+      <LI><URL LINKTEXT="use of an unsafe name">names/</URL></LI>.
     </LIST>
   </CONTENT>
   <CONTENT TITLE="How can I see in javascript if a web browser accepts cookies?" 

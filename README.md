@@ -1,6 +1,6 @@
 # FAQ for comp.lang.javascript
 
-1. In order to contribute to this FAQ, please create a pull request for the `dev` branch.
+1. In order to contribute to this FAQ, please [create a pull request](https://help.github.com/articles/creating-a-pull-request/) for the [`dev` branch](https://github.com/PointedEars/faq-cljs/tree/dev).
 - Your request will be reviewed in due course.
   - If your request is not immediately rejected, and not merely editorial in nature (such as fixing a borken link),
     it will be posted to the Usenet newsgroup [`comp.lang.javascript`](news:comp.lang.javascript) for public discussion.

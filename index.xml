@@ -16,7 +16,7 @@
   <!ENTITY donts       SYSTEM "sections/donts.xml">
   <!ENTITY suggestions SYSTEM "sections/suggestions.xml">
 ]>
-<FAQ VERSION="32.2" DATE="2010-10-08" revision="$Revision$" id="$Id$">
+<FAQ VERSION="32.2" DATE="2010-10-08">
   <TITLE>FAQ for comp.lang.javascript</TITLE>
   <CONTENTS>
     &meta;

@@ -61,24 +61,25 @@
            of <xsl:value-of select="$updated"/>,
            by <a href="{$previous_maintainer_website}"><xsl:value-of select="$previous_maintainer"/></a>
            and contributors.</p>
-        
+      <!--
         <ul style="list-style: none; margin-left: 0; padding-left: 0">
           <li><tt><xsl:value-of select="@id" /></tt></li>
-          <li><tt>$Id$</tt></li>
+          <li><tt>$Id: index.xsl 40 2013-12-03 22:52:07Z PointedEars $</tt></li>
         </ul>
-        
+      -->
         <div>
           <ul class="horizontal">
             <li><a
-              href="http://PointedEars.de/wsvn/FAQs/trunk/cljs/?op=log&amp;isdir=1&amp;showchanges=1"
-            >Changelog</a></li>
+              href="https://github.com/PointedEars/faq-cljs/commits/master"
+              title="View commit history on GitHub"
+              >Changelog</a></li>
             <li><a
-              href="http://PointedEars.de/wsvn/FAQs/trunk/cljs/"
-              title="Subversion repository browser"
-            >SVN</a></li>
+              href="https://github.com/PointedEars/faq-cljs"
+              title="Browse Git repository on GitHub"
+              >GitHub</a></li>
           </ul>
         </div>
-              
+
         <xsl:variable name="faq_uri">http://PointedEars.de/scripts/faq/cljs/</xsl:variable>
         <p style="clear: left; text-align: left">
           Available online at <a

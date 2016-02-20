@@ -25,6 +25,11 @@ To make a suggestion to this FAQ, use either the FAQENTRY method
 above, or send e-mail to Thomas 'PointedEars' Lahn
 &lt;&#99;l&#106;s&#64;P&#111;i&#110;&#116;&#101;&#100;Ea&#114;&#115;&#46;&#100;&#101;&gt;
 (editor).
+Alternatively, you can <a
+href="https://help.github.com/articles/creating-a-pull-request/">create a pull
+request</a> for the <a
+href="https://github.com/PointedEars/faq-cljs/tree/dev">dev branch</a> of the
+Github repository.
 All comments, suggestions, and especially corrections are welcome, and will be credited, where it is due, below.
     </P>
    </CONTENT>

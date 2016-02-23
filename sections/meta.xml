@@ -32,9 +32,9 @@
     </P>
   </CONTENT>
 
-  <CONTENT TITLE="Which newsgroups deal with javascript?" ID="newsgroups" NUMID="2_1">
+  <CONTENT TITLE="Which newsgroups deal with JavaScript?" ID="newsgroups" NUMID="2_1">
     <P>
-      The official Big 8 Usenet newsgroup dealing with javascript is
+      The official Big 8 Usenet newsgroup dealing with JavaScript is
       <NEWSGROUP>comp.lang.javascript</NEWSGROUP>.
       Some "language" hierarchies also have *.comp.lang.javascript groups.
     </P>
@@ -45,18 +45,18 @@
 
   <CONTENT TITLE="What questions are on-topic for comp.lang.javascript?" ID="appropriateQuestions" NUMID="2_2">
     <P>
-      The comp.lang.javascript newsgroup deals with ECMAScript
-      languages, so any questions about JavaScript or JScript are
-      welcome. However, the majority of questions sent to this group
-      relates to javascript in a web browser. If you are experiencing
-      issues with a particular browser, or the host is not a browser
-      at all, please make this information clear.
+      The comp.lang.javascript newsgroup deals with ECMAScript-based
+      programming languages, so any questions about JavaScript or JScript
+      are welcome. However, the majority of questions sent to this group
+      relates to ECMAScript implementations in a web browser. If you are
+      experiencing issues with a particular browser, or the host is not
+      a browser at all, please make this information clear.
     </P>
     <P>
-      Javascript and Java are two completely different languages.
+      JavaScript and Java are two completely different languages.
       Java questions should be asked in one of the comp.lang.java.*
       newsgroups; they are not appropriate for c.l.js (as Java and
-      javascript are distinct programming languages with only
+      JavaScript are distinct programming languages with only
       superficial similarities due to sharing a C-like syntax and
       some of the characters in their names).
     </P>
@@ -67,7 +67,7 @@
     </P>
     <!--
       <P>
-        Questions about the design of various javascript libraries are
+        Questions about the design of various libraries are
         appropriate; questions on how to <EM>use</EM> such libraries
         are not. Check <URL LINKTEXT="c.l.js FAQ Resources"
         >http://jibbering.comindex.html#libraryResources</URL> or search the web.

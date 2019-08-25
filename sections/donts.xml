@@ -133,12 +133,12 @@ The <ICODE>javascript:</ICODE> pseudo protocol was designed to replace the
 current document with the value that is returned from the expression. 
 For example:
     </P>
-      <CODE>
-  &lt;a href=&quot;javascript:'&lt;h1&gt;' + document.lastModified + '&lt;/h1&gt;'&quot;&gt;lastModified&lt;/a&gt;
-</CODE>
+    <CODE language="html"><![CDATA[
+<a href="javascript:'&lt;h1>' + document.lastModified + '&lt;/h1>'">lastModified</a>
+]]></CODE>
     <P>
 will result in replacing the current document with the value 
-returned from <ICODE>document.lastModified</ICODE>, wrapped in an <ICODE>&lt;h1&gt;</ICODE> 
+returned from <ICODE>document.lastModified</ICODE>, wrapped in an <ICODE><![CDATA[&lt;h1&gt;]]></ICODE> 
 tag. 
     </P>
     <P>

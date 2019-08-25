@@ -20,7 +20,7 @@ var control = frm.elements[&quot;elementname&quot;];
 var value = control.value;
 value = +control.value; //string to number.
     </CODE>
-    Some exceptions would be: 
+Some exceptions would be: 
     <P>
       First Exception: Where the control is a <ICODE>SELECT</ICODE> element, and 
       support for older browsers, such as NN4, is required:

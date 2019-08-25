@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', true);
+
 $encoding = 'UTF-8';
 header("Content-Type: text/html" . ($encoding ? "; charset=$encoding" : ""));
 
@@ -32,8 +35,35 @@ $doc = new DOMDocument();
 $doc->substituteEntities = true;
 $xsl = new XSLTProcessor();
 
-$doc->load('index.xsl');
+$format = isset($_GET['format'])
+        ? $_GET['format']
+        : (isset($argv[1]) ? $argv[1] : 'html');
+$doc->load("$format.xsl");
 $xsl->importStyleSheet($doc);
 
 $doc->load('index.xml');
-echo $xsl->transformToXML($doc);
+if ($format === 'markdown') {
+    /* Retrieve parsed document */
+    $xml = $doc->saveXML();
+    
+    /* Trim indentation */
+    $xml = preg_replace(
+        '#^\s+(</?(?:content|li(?:st)?|moreinfo|p))#im',
+        '$1',
+        $xml
+    );
+    
+    /* Trim leading/trailing whitespace after/before start/end tag */
+    $xml = preg_replace(
+        '#(<CODE>(?:<!\[CDATA\[)?)\s+|\s+((?:\]\]>)?</CODE>)#',
+        '$1$2',
+        $xml
+    );
+    file_put_contents('index-trimmed.xml', $xml);
+    
+    $xml = $doc->loadXML($xml);
+}
+
+$result = $xsl->transformToXML($doc);
+
+echo $result;

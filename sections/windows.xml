@@ -455,10 +455,10 @@ the status bar text. Some browsers don't have such a bar, or don't have it by de
       that name and your feature string in the onsubmit handler of the
       FORM.
     </P>
-    <CODE>
-&lt;form action=&quot;&quot; method="post"
-    target=&quot;wndname&quot; onsubmit=&quot;window.open('',this.target);return true;&quot;&gt;
-    </CODE>
+    <CODE language="html"><![CDATA[
+<form action="" method="post"
+      target="wndname" onsubmit="window.open('',this.target);return true;">
+    ]]></CODE>
     <MOREINFO>
       <URL>http://www.htmlhelp.com/reference/html40/forms/form.html</URL>
     </MOREINFO>

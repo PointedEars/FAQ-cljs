@@ -200,7 +200,7 @@ function getRandomNumber(n) {
   return Math.floor(n * Math.random());
 }
     </CODE>
-    - gives an evenly distributed random integer in the range from 
+gives an evenly distributed random integer in the range from 
     <ICODE>0</ICODE> to <ICODE>n - 1</ICODE> inclusive; use <ICODE>getRandomNumber(n)+1</ICODE> for <ICODE>1</ICODE> to <ICODE>n</ICODE>.
     <MOREINFO>
       <URL>http://msdn.microsoft.com/en-us/library/41336409%28VS.85%29.aspx</URL>

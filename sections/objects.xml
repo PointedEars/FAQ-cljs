@@ -22,7 +22,7 @@ var m = Math, // Built-in Math object.
     a = [],
     e = new Error("My Message.");
     </CODE>
-    See also:
+See also:
     <MOREINFO>
       <URL>http://dmitrysoshnikov.com/ecmascript/chapter-7-2-oop-ecmascript-implementation/</URL>
     </MOREINFO>

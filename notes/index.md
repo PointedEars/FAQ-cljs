@@ -2,7 +2,6 @@
 "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-<title>Notes on the comp.lang.javascript FAQ</title>
 <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
 <link href="../faq.css" rel="stylesheet" type="text/css">
 <link href="notes.css" rel="stylesheet" type="text/css">
@@ -12,7 +11,7 @@
 <h1>Notes on the comp.lang.javascript FAQ</h1>
 
 <div id="faqNav">
-  <a href="../">FAQ</a> &gt; FAQ Notes
+  <a href="../index.md">FAQ</a> &gt; FAQ Notes
 </div>
 
 <h2 id="toc">Table of Contents</h2>
@@ -20,13 +19,13 @@
     <li>Posting tips
         <ul>
             <li>
-                <a href="posting/">Questions and Replies</a>
+                <a href="posting.md">Questions and Replies</a>
             </li>
             <li>
-                <a href="code-guidelines/">Code Guidelines</a> 
+                <a href="code-guidelines/index.md">Code Guidelines</a> 
             </li>
             <li>
-                <a href="review/">Code Review Guidelines</a>
+                <a href="review.md">Code Review Guidelines</a>
             </li>
         </ul>
     </li>
@@ -40,7 +39,7 @@
     </li>
     <li>DOM and Forms
         <dl>
-            <!--dt>How can I see in javascript if a web browser accepts cookies?</dt>
+<!--dt>How can I see in javascript if a web browser accepts cookies?</dt>
             <dd>
                 <a href="cookies/">Privacy filters on proxies</a>
             </dd-->
@@ -48,19 +47,19 @@
                 How do I get the value of a form control?
             </dt>
             <dd>
-                <a href="form-access/">Referencing Forms and Form Controls</a>
+                <a href="form-access.md">Referencing Forms and Form Controls</a>
             </dd>
             <dd>
-                <a href="/faq/names/">Unsafe Names for Form Controls</a>
+                <a href="../names/">Unsafe Names for Form Controls</a>
             </dd>
             <dt>How do I detect Opera/Netscape/IE?</dt>
             <dd>
-                <a href="detect-browser/">Browser Detection (and What to Do Instead)</a>
+                <a href="detect-browser.md">Browser Detection (and What to Do Instead)</a>
             </dd>
-           <!--
+<!--
             <dt>My element is named myselect[], how do I access it?</dt>
             <dd>
-                <a href="square_brackets/">Javascript Square Bracket Notation - Illegal characters in Identifier-strings</a>
+                <a href="square_brackets.md">Javascript Square Bracket Notation - Illegal characters in Identifier-strings</a>
             </dd>
             <dt>How do I access the property of an object using a string?
             <dd><a href="square_brackets">Javascript Square Bracket Notation</a>
@@ -70,20 +69,20 @@
     </li>
     <li>Functions
         <ul>
-            <li><a href="closures/">Javascript Closures</a></li>
+            <li><a href="closures.md">Javascript Closures</a></li>
             <li><a href="http://kangax.github.io/nfe/">Named Function Expressions</a></li>
         </ul>
     </li>
     
-    <!--li>Miscellaneous
-        <ol>
-            <li><a href="charter/">The comp.lang.javascript Charter</a></li>
-            <li><a href="script_tags/">How to Include Scripts in 
-            <abbr class="initialism" title="HyperText Mark-up Language">HTML</abbr> Documents</a></li>
-            <li><a href="misc/">Tricks and Tips</a></li>
-        </ol>
-    </li-->
-    <!--li><a href="contributors/">Contributors</a></li-->
+<!--li>Miscellaneous
+    <ol>
+        <li><a href="charter/">The comp.lang.javascript Charter</a></li>
+        <li><a href="script_tags/">How to Include Scripts in 
+        <abbr class="initialism" title="HyperText Mark-up Language">HTML</abbr> Documents</a></li>
+        <li><a href="misc/">Tricks and Tips</a></li>
+    </ol>
+</li-->
+<!--li><a href="contributors/">Contributors</a></li-->
 </ul>
 
 </body>
